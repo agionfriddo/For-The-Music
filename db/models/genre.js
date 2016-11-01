@@ -4,7 +4,10 @@ const Sequelize = require('sequelize')
 const db = require('APP/db')
 
 const Genre = db.define('genres', {
-  name: Sequelize.STRING
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
 })
 
 module.exports = Genre;

@@ -4,14 +4,14 @@
 // so any other part of the application could call sequelize.model('User')
 // to get access to the User model.
 
-const Artist = require('./artist')
-const Event = require('./event')
-const Genre = require('./genre')
-const Order = require('./order')
-const Review = require('./review')
-const Ticket = require('./ticket')
-const User = require('./user')
-const Venue = require('./venue')
+const Artist = require('APP/db/models/artist')
+const Event = require('APP/db/models/event')
+const Genre = require('APP/db/models/genre')
+const Order = require('APP/db/models/order')
+const Review = require('APP/db/models/review')
+const Ticket = require('APP/db/models/ticket')
+const User = require('APP/db/models/user')
+const Venue = require('APP/db/models/venue')
 
 Artist.belongsToMany(Genre, {through: 'ArtistGenre'})
 Artist.belongsToMany(Event, {through: 'EventArtist'})
