@@ -63,7 +63,7 @@ describe('/api/artists', () => {
 
 // tests for guests
   describe('when not logged in', () => {
-    describe('sends all artists', () => {
+    describe('gets all artists', () => {
       it('is proper length', () =>
         request(app).get('/api/artists')
           .expect(200)
@@ -74,7 +74,7 @@ describe('/api/artists', () => {
     })
 
     describe('sends one artist', () => {
-      it('sends the correct artist', () =>
+      it('gets the correct artist', () =>
         request(app).get('/api/artists/1')
           .expect(200)
           .then(res => {
