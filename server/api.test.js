@@ -55,8 +55,8 @@ const jackson = {name: 'dj jackson', bio: 'im cool'}
 const hannah = {name: 'dj hannah', bio: 'im chill'}
 const andrew = {name: 'dj andrew', bio: 'im here to drop fire beats'}
 
-// an admin user
-const adminbob = { username: 'bob@secrets.org', password: '12345', isAdmin: true}
+// an admin user and a regular users
+const adminbob = { username: 'bob@secrets.org', password: '12345'}
 const steve = { username: 'steve@secrets.org', password: '12345'}
 
 describe('/api/artists', () => {
@@ -66,7 +66,17 @@ describe('/api/artists', () => {
         Artist.bulkCreate([jackson, hannah])
       )
       .then(() =>
-        User.bulkCreate([{email: adminbob.username,password: adminbob.password, isAdmin: true}, steve])
+        User.create(
+          {email: adminbob.username,
+          password: adminbob.password,
+          isAdmin: true
+        })
+      )
+      .then(() =>
+        User.create(
+          {email: steve.username,
+          password: steve.password
+        })
       )
   )
 
@@ -98,17 +108,16 @@ describe('/api/artists', () => {
 
 
   // tests for regular users
-  describe('when logged in as admin', () => {
+  describe('when logged in as user', () => {
     const agent = request.agent(app)
 
     before('log in', () => agent
       .post('/api/auth/local/login')
-      .send(adminbob))
+      .send(steve))
 
-    it('is able to delete an artist', () =>
+    it('cannot delete an artist', () =>
         agent.delete('/api/artists/1')
-        .expect(200)
-        .then(res => expect(res.body).to.eql({}))
+        .expect(401)
     )
 
   })

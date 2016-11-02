@@ -15,5 +15,5 @@ const artists = epilogue.resource({
   endpoints: ['/artists', '/artists/:id']
 })
 
-const {mustBeLoggedIn, selfOnly, forbidden} = epilogue.filters
-artists.delete.auth(mustBeLoggedIn)
+const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
+artists.delete.auth(mustBeAdmin)
