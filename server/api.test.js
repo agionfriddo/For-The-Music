@@ -3,6 +3,8 @@ const {expect} = require('chai')
 const db = require('APP/db')
 const User = require('APP/db/models/user')
 const Artist = require('APP/db/models/artist')
+const Genre = require('APP/db/models/genre')
+
 const app = require('./start')
 
 
@@ -78,6 +80,9 @@ describe('/api/artists', () => {
           password: steve.password
         })
       )
+      .then(() =>
+        Genre.create({name: 'Rap'})
+      )
   )
 
 // tests for guests
@@ -96,6 +101,12 @@ describe('/api/artists', () => {
         .then(res => {
           expect(res.body).to.contain(jackson)
         })
+    )
+
+    it('posts one artist', () =>
+      request(app).post('/api/artists')
+      .send({name: 'billy', genreId: [1]})
+        .expect(200)
     )
 
     it('is not authorized to delete an artist', () =>
