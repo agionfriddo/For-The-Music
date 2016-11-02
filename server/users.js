@@ -30,5 +30,5 @@ const tickets = epilogue.resource({
 const {mustBeLoggedIn, selfOnly, forbidden} = epilogue.filters
 users.delete.auth(mustBeLoggedIn)
 users.delete.auth(selfOnly)
-// users.list.auth(forbidden)
-// users.read.auth(mustBeLoggedIn)
+users.list.auth(forbidden)
+users.read.auth(mustBeLoggedIn)
