@@ -262,10 +262,6 @@ describe('/api/genres', () => {
     it('gets all genres', () =>
       request(app).get('/api/genres')
         .expect(200)
-        // .then((res) => {
-        //   console.log(res)
-        //   return res
-        // })
         .then(res => {
           expect(res.body).to.have.length.of(3)
         })
@@ -291,6 +287,37 @@ describe('/api/genres', () => {
         .delete('/api/genres/1')
         .expect(401)
     )
+  })
+
+  // tests for regular users
+  describe('when logged in as user', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(steve))
+
+    it('cannot delete an genres', () =>
+        agent.delete('/api/genres/1')
+        .expect(401)
+    )
+
+  })
+
+  // tests for admins
+  describe('when logged in as admin', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(adminbob))
+
+    it('is able to delete an genre', () =>
+        agent.delete('/api/genres/1')
+        .expect(200)
+        .then(res => expect(res.body).to.eql({}))
+    )
+
   })
 })
 
