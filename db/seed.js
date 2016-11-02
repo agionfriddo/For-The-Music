@@ -6,6 +6,8 @@ const Venue = require('APP/db/models/venue');
 const Event = require('APP/db/models/event');
 const User = require('APP/db/models/user');
 const Review = require('APP/db/models/review');
+const Order = require('APP/db/models/order');
+const Ticket = require('APP/db/models/ticket');
 
 
 let artists = [
@@ -155,7 +157,49 @@ let users = [
     isAdmin: false,
     email: 'bob@bob.gov',
     password_digest: '123',
-  }
+  },
+  {
+    name: 'Susan',
+    isAdmin: false,
+    email: 'susan@susan.edu',
+    password_digest: '123',
+  },
+  {
+    name: 'Billy',
+    isAdmin: false,
+    email: 'billy@billy.co',
+    password_digest: '123',
+  },
+  {
+    name: 'Brian',
+    isAdmin: false,
+    email: 'brian@brian.org',
+    password_digest: '123',
+  },
+  {
+    name: 'Barbara',
+    isAdmin: true,
+    email: 'barbara@justiceforbarb.com',
+    password_digest: '123',
+  },
+  {
+    name: 'Bernice',
+    isAdmin: false,
+    email: 'bernice@bob.gov',
+    password_digest: '123',
+  },
+  {
+    name: 'Betty',
+    isAdmin: false,
+    email: 'betty@bob.gov',
+    password_digest: '123',
+  },
+  {
+    name: 'Beatrice',
+    isAdmin: false,
+    email: 'beatrice@bob.gov',
+    password_digest: '123',
+  },
 ];
 
 let genres = [
@@ -270,17 +314,17 @@ const venues = [
 let events = [
   {
     date: Date.UTC(2016, 10, 5, 21),
-    initialTickets: 500,
+    initialTickets: 50,
     ticketPrice: 2510
   },
   {
     date: Date.UTC(2016, 10, 6, 21, 30),
-    initialTickets: 300,
+    initialTickets: 30,
     ticketPrice: 5065
   },
   {
     date: Date.UTC(2016, 11, 8, 21),
-    initialTickets: 200,
+    initialTickets: 20,
     ticketPrice: 3034
   },
   {
@@ -290,27 +334,27 @@ let events = [
   },
   {
     date: Date.UTC(2016, 11, 15, 21),
-    initialTickets: 550,
+    initialTickets: 55,
     ticketPrice: 7513
   },
   {
     date: Date.UTC(2016, 11, 17, 21, 30),
-    initialTickets: 750,
+    initialTickets: 75,
     ticketPrice: 8093
   },
   {
     date: Date.UTC(2016, 12, 20, 20, 30),
-    initialTickets: 400,
+    initialTickets: 40,
     ticketPrice: 1005
   },
   {
     date: Date.UTC(2016, 12, 25, 20),
-    initialTickets: 1000,
+    initialTickets: 100,
     ticketPrice: 30096
   },
   {
     date: Date.UTC(2017, 1, 8, 21, 30),
-    initialTickets: 200,
+    initialTickets: 20,
     ticketPrice: 6034
   },
   {
@@ -486,7 +530,7 @@ const orders = [
     status: 'purchased'
   },
   {
-    status: 'cancelled'
+    status: 'purchased'
   },
   {
     status: 'in-cart'
@@ -494,6 +538,7 @@ const orders = [
 ]
 
 const getRandom = (items) => items[Math.floor(Math.random() * items.length)];
+const oneThirdBoolean = () => Math.random() < 0.3333 ? true : false;
 const seedArtists = () => db.Promise.map(artists, artist => db.model('artists').create(artist))
 const seedGenres = () => db.Promise.map(genres, genre => db.model('genres').create(genre));
 const seedVenues = () => db.Promise.map(venues, venue => db.model('venues').create(venue));
@@ -547,6 +592,29 @@ const addVenueAndUserToReview = () => {
   .catch(error => console.error(error))
 }
 
+const addUserToOrder = () => {
+  const findingOrders = Order.findAll({});
+  const findingUsers = User.findAll({});
+  Promise.all([findingOrders, findingUsers])
+  .spread(function(foundOrders, foundUsers) {
+    foundOrders.forEach(order => order.setUser(getRandom(foundUsers)))
+  })
+  .catch(error => console.error(error))
+}
+
+const addOrdersToTickets = () => {
+  const findingOrders = Order.findAll({});
+  const findingTickets = Ticket.findAll({});
+  Promise.all([findingOrders, findingTickets])
+  .spread(function(foundOrders, foundTickets) {
+    foundTickets.forEach(ticket => {
+      if (oneThirdBoolean()) {
+        ticket.setOrder(getRandom(foundOrders))
+      }
+    })
+  })
+  .catch(error => console.error(error))
+}
 
 db.didSync
   .then(() => db.sync({force: true}))
@@ -572,5 +640,9 @@ db.didSync
   .then(() => console.log('Added users and venues to event'))
   .then(seedOrders)
   .then(orders => console.log(`Seeded ${orders.length} orders OK`))
+  .then(addUserToOrder)
+  .then(() => console.log('Added users to orders'))
+  .then(addOrdersToTickets)
+  .then(() => console.log('Added orders to tickets'))
   .catch(error => console.error(error))
   .finally(() => console.log('All done!'))
