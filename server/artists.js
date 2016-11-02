@@ -17,4 +17,3 @@ const artists = epilogue.resource({
 
 const {mustBeLoggedIn, selfOnly, forbidden} = epilogue.filters
 artists.delete.auth(mustBeLoggedIn)
-artists.delete.auth(selfOnly)
