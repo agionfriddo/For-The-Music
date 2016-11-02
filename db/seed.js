@@ -7,6 +7,7 @@ const Event = require('APP/db/models/event');
 const User = require('APP/db/models/user');
 const Review = require('APP/db/models/review');
 
+
 let artists = [
   {
     name: 'Drake',
