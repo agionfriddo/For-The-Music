@@ -4,6 +4,8 @@ const db = require('APP/db')
 const User = require('APP/db/models/user')
 const Artist = require('APP/db/models/artist')
 const Genre = require('APP/db/models/genre')
+const Venue = require('APP/db/models/venue')
+const Review = require('APP/db/models/review')
 
 const app = require('./start')
 
@@ -60,6 +62,14 @@ const andrew = {name: 'dj andrew', bio: 'im here to drop fire beats'}
 // an admin user and a regular users
 const adminbob = { username: 'bob@secrets.org', password: '12345'}
 const steve = { username: 'steve@secrets.org', password: '12345'}
+
+// two venues
+const theSpot = {name: 'The Spot', address: '123 Fake Street', description: 'so great spot'}
+const diveSpot = {name: 'Dive Spot', address: '456 Does Not Exist Place', description: 'so much dive'}
+
+// two reviews
+const review1 = {title: 'It Da Best', content: '10/10 would go back', rating: 5}
+const review2 = {title: 'Yo, it sucked', content: 'Super divey, super bad', rating: 1, venueId: 1, userId: 1}
 
 describe('/api/artists', () => {
   before('creates two artists and an admin user', () =>
@@ -150,6 +160,85 @@ describe('/api/artists', () => {
 
   })
 })
+
+// Review API Tests ------------------------------------------------------------
+describe('/api/reviews', () => {
+  before('creates two artists and an admin user', () =>
+    db.didSync
+      .then(() =>
+        Venue.bulkCreate([theSpot, diveSpot])
+      )
+      .then(() =>
+        Review.create(review1)
+      )
+  )
+
+// tests for guests
+  describe('when not logged in', () => {
+    it('gets all reviews', () =>
+      request(app).get('/api/reviews')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.have.length.of(1)
+        })
+    )
+
+    it('gets the one review', () =>
+      request(app).get('/api/reviews/1')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.contain(review1)
+        })
+    )
+
+    xit('posts one review', () =>
+      request(app).post('/api/reviews')
+      .send(review2)
+        .expect(401)
+    )
+
+    it('is not authorized to delete a review', () =>
+      request(app)
+        .delete('/api/reviews/1')
+        .expect(401)
+    )
+
+  })
+
+
+  // tests for regular users
+  describe('when logged in as user', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(steve))
+
+    it('cannot delete a review', () =>
+        agent.delete('/api/reviews/1')
+        .expect(401)
+    )
+
+  })
+
+
+// tests for admins
+  describe('when logged in as admin', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(adminbob))
+
+    it('is able to delete an artist', () =>
+        agent.delete('/api/reviews/1')
+        .expect(200)
+        .then(res => expect(res.body).to.eql({}))
+    )
+
+  })
+})
+
 
 
 // GENRE API TESTS ----------
