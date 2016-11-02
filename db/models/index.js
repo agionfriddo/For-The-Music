@@ -22,6 +22,7 @@ Event.belongsTo(Venue)
 
 Ticket.belongsTo(Event)
 Ticket.belongsTo(Order)
+Ticket.belongsTo(User)
 
 Venue.hasMany(Event)
 Venue.hasMany(Review)
@@ -34,6 +35,7 @@ Order.belongsTo(User)
 
 User.hasMany(Order)
 User.hasMany(Review)
+User.hasMany(Ticket)
 
 Genre.belongsToMany(Artist, {through: 'ArtistGenre'})
 
