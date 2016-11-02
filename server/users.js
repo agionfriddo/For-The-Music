@@ -12,7 +12,11 @@ module.exports = customUserRoutes
 // Epilogue will automatically create standard RESTful routes
 const users = epilogue.resource({
   model: db.model('users'),
-  endpoints: ['/users', '/users/:id']
+  endpoints: ['/users', '/users/:id'],
+  associations: true
+})
+const orders = epilogue.resource({
+  model: db.model('orders')
 })
 
 const {mustBeLoggedIn, selfOnly, forbidden} = epilogue.filters
