@@ -4,6 +4,8 @@ const db = require('APP/db')
 const User = require('APP/db/models/user')
 const Artist = require('APP/db/models/artist')
 const Genre = require('APP/db/models/genre')
+const Venue = require('APP/db/models/venue')
+const Review = require('APP/db/models/review')
 
 const app = require('./start')
 
@@ -67,7 +69,7 @@ const diveSpot = {name: 'Dive Spot', address: '456 Does Not Exist Place', descri
 
 // two reviews
 const review1 = {title: 'It Da Best', content: '10/10 would go back', rating: 5}
-const review2 = {title: 'Yo, it sucked', content: 'Super divey, super bad', rating: 1}
+const review2 = {title: 'Yo, it sucked', content: 'Super divey, super bad', rating: 1, venueId: 1, userId: 1}
 
 describe('/api/artists', () => {
   before('creates two artists and an admin user', () =>
@@ -159,24 +161,12 @@ describe('/api/artists', () => {
   })
 })
 
+// Review API Tests ------------------------------------------------------------
 describe('/api/reviews', () => {
   before('creates two artists and an admin user', () =>
     db.didSync
       .then(() =>
         Venue.bulkCreate([theSpot, diveSpot])
-      )
-      .then(() =>
-        User.create(
-          {email: adminbob.username,
-          password: adminbob.password,
-          isAdmin: true
-        })
-      )
-      .then(() =>
-        User.create(
-          {email: steve.username,
-          password: steve.password
-        })
       )
       .then(() =>
         Review.create(review1)
@@ -193,23 +183,23 @@ describe('/api/reviews', () => {
         })
     )
 
-    it('gets the one artist', () =>
-      request(app).get('/api/artists/1')
+    it('gets the one review', () =>
+      request(app).get('/api/reviews/1')
         .expect(200)
         .then(res => {
-          expect(res.body).to.contain(jackson)
+          expect(res.body).to.contain(review1)
         })
     )
 
-    it('posts one artist', () =>
-      request(app).post('/api/artists')
-      .send({name: 'billy', genreIds: [1]})
-        .expect(200)
+    xit('posts one review', () =>
+      request(app).post('/api/reviews')
+      .send(review2)
+        .expect(401)
     )
 
-    it('is not authorized to delete an artist', () =>
+    it('is not authorized to delete a review', () =>
       request(app)
-        .delete('/api/artists/1')
+        .delete('/api/reviews/1')
         .expect(401)
     )
 
@@ -224,8 +214,8 @@ describe('/api/reviews', () => {
       .post('/api/auth/local/login')
       .send(steve))
 
-    it('cannot delete an artist', () =>
-        agent.delete('/api/artists/1')
+    it('cannot delete a review', () =>
+        agent.delete('/api/reviews/1')
         .expect(401)
     )
 
@@ -241,7 +231,7 @@ describe('/api/reviews', () => {
       .send(adminbob))
 
     it('is able to delete an artist', () =>
-        agent.delete('/api/artists/1')
+        agent.delete('/api/reviews/1')
         .expect(200)
         .then(res => expect(res.body).to.eql({}))
     )
@@ -249,7 +239,6 @@ describe('/api/reviews', () => {
   })
 })
 
-})
 
 
 // API TESTS ----------
