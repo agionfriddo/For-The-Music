@@ -105,7 +105,7 @@ describe('/api/artists', () => {
 
     it('posts one artist', () =>
       request(app).post('/api/artists')
-      .send({name: 'billy', genreId: [1]})
+      .send({name: 'billy', genreIds: [1]})
         .expect(200)
     )
 

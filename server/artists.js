@@ -2,6 +2,8 @@
 
 const epilogue = require('./epilogue')
 const db = require('APP/db')
+const Artist = db.model('artists')
+const Genre = db.model('genres')
 
 const customArtistRoutes = require('express').Router()
 
@@ -12,14 +14,17 @@ const customArtistRoutes = require('express').Router()
       let createThisArtist = req.body
       let listOfGenres = createThisArtist.genreIds
       delete createThisArtist.genreIds
-      db.model.Artist.create(createThisArtist)
+
+      Artist.create(createThisArtist)
         .then(artistInstance => {
           //array of promises returned by findById
+          console.log('artist created')
           let findEachGenre = listOfGenres.map(genreId => {
-            return db.model.Genre.findById(genreId);
+            return Genre.findById(genreId);
           })
           Promise.all(findEachGenre)
           .then(arrOfGenres => {
+            console.log('genre arr created')
             let setGenreAssocations = arrOfGenres.map(genreInstance => {
               artistInstance.addGenre(genreInstance)
             })
@@ -53,7 +58,8 @@ module.exports = customArtistRoutes
 // Epilogue will automatically create standard RESTful routes
 const artists = epilogue.resource({
   model: db.model('artists'),
-  endpoints: ['/artists', '/artists/:id']
+  endpoints: ['/artists', '/artists/:id'],
+  actions: ['list', 'read', 'delete']
 })
 
 //Artist API simply instantiates a Router object, and exports it
