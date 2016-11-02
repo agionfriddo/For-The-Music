@@ -472,6 +472,26 @@ const reviews = [
     }
 ]
 
+const orders = [
+  {
+    status: 'in-cart'
+  },
+  {
+    date: Date.UTC(2016, 9, 3),
+    status: 'processing'
+  },
+  {
+    date: Date.UTC(2016, 10, 15),
+    status: 'purchased'
+  },
+  {
+    status: 'cancelled'
+  },
+  {
+    status: 'in-cart'
+  },
+]
+
 const getRandom = (items) => items[Math.floor(Math.random() * items.length)];
 const seedArtists = () => db.Promise.map(artists, artist => db.model('artists').create(artist))
 const seedGenres = () => db.Promise.map(genres, genre => db.model('genres').create(genre));
@@ -479,7 +499,7 @@ const seedVenues = () => db.Promise.map(venues, venue => db.model('venues').crea
 const seedEvents = () => db.Promise.map(events, event => db.model('events').create(event));
 const seedReviews = () => db.Promise.map(reviews, review => db.model('reviews').create(review));
 const seedUsers = () => db.Promise.map(users, user => db.model('users').create(user));
-
+const seedOrders = () => db.Promise.map(orders, order => db.model('orders').create(order));
 
 const associateArtistsAndGenres = () => {
   const findingArtists = Artist.findAll({});
@@ -520,6 +540,7 @@ const addVenueAndUserToReview = () => {
     foundReviews.forEach(review => {
       review.setUser(getRandom(foundUsers))
       .then(reviewWithUser => reviewWithUser.setVenue(getRandom(foundVenues)))
+      .catch(error => console.error(error))
     })
   })
   .catch(error => console.error(error))
@@ -548,5 +569,7 @@ db.didSync
   .then(users => console.log(`Seeded ${users.length} users OK`))
   .then(addVenueAndUserToReview)
   .then(() => console.log('Added users and venues to event'))
+  .then(seedOrders)
+  .then(orders => console.log(`Seeded ${orders.length} orders OK`))
   .catch(error => console.error(error))
   .finally(() => console.log('All done!'))
