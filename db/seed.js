@@ -1,4 +1,11 @@
 const db = require('APP/db');
+const Promise = require('bluebird');
+const Genre = require('APP/db/models/genre');
+const Artist = require('APP/db/models/artist');
+const Venue = require('APP/db/models/venue');
+const Event = require('APP/db/models/event');
+const User = require('APP/db/models/user');
+const Review = require('APP/db/models/review');
 
 let artists = [
   {
@@ -151,21 +158,22 @@ let users = [
 ];
 
 let genres = [
-  'Classical',
-  'Electronic',
-  'Folk',
-  'Blues',
-  'Country',
-  'Hip-hop',
-  'Jazz',
-  'Pop',
-  'R&b',
-  'Reggae',
-  'Rock',
-  'Psychedelic'
+
+  { name: 'Classical' },
+  { name: 'Electronic' },
+  { name: 'Folk' },
+  { name: 'Blues' },
+  { name: 'Country' },
+  { name: 'Hip-hop' },
+  { name: 'Jazz' },
+  { name: 'Pop' },
+  { name: 'R&b' },
+  { name: 'Reggae' },
+  { name: 'Rock' },
+  { name: 'Psychedelic' }
 ];
 
-venue: [
+const venues = [
     {
       name: 'Rockwood Music Hall',
       address: '196 Allen St, New York, NY 10002',
@@ -311,7 +319,7 @@ let events = [
   }
 ]
 
-reviews: [
+const reviews = [
     {
       title: 'SO GROSS',
       rating: '1',
@@ -464,15 +472,81 @@ reviews: [
     }
 ]
 
-// function randomItem(items) {
-//   return items[Math.floor(Math.random() * items.length)];
-// }
-
+const getRandom = (items) => items[Math.floor(Math.random() * items.length)];
 const seedArtists = () => db.Promise.map(artists, artist => db.model('artists').create(artist))
+const seedGenres = () => db.Promise.map(genres, genre => db.model('genres').create(genre));
+const seedVenues = () => db.Promise.map(venues, venue => db.model('venues').create(venue));
+const seedEvents = () => db.Promise.map(events, event => db.model('events').create(event));
+const seedReviews = () => db.Promise.map(reviews, review => db.model('reviews').create(review));
+const seedUsers = () => db.Promise.map(users, user => db.model('users').create(user));
+
+
+const associateArtistsAndGenres = () => {
+  const findingArtists = Artist.findAll({});
+  const findingGenres = Genre.findAll({});
+  Promise.all([findingArtists, findingGenres])
+  .spread(function(foundArtists, foundGenres) {
+    foundArtists.forEach(artist => artist.addGenres([getRandom(foundGenres), getRandom(foundGenres)]))
+  })
+  .catch(error => console.error(error))
+}
+
+const associateArtistsandEvents = () => {
+  const findingArtists = Artist.findAll({});
+  const findingEvents = Event.findAll({});
+  Promise.all([findingArtists, findingEvents])
+  .spread(function(foundArtists, foundEvents) {
+    foundEvents.forEach(event => event.addArtists([getRandom(foundArtists), getRandom(foundArtists)]))
+  })
+  .catch(error => console.error(error))
+}
+
+const addVenueToEvent = () => {
+  const findingVenues = Venue.findAll({});
+  const findingEvents = Event.findAll({});
+  Promise.all([findingVenues, findingEvents])
+  .spread(function(foundVenues, foundEvents) {
+    foundEvents.forEach(event => event.setVenue(getRandom(foundVenues)))
+  })
+  .catch(error => console.error(error))
+}
+
+const addVenueAndUserToReview = () => {
+  const findingVenues = Venue.findAll({});
+  const findingUsers = User.findAll({});
+  const findingReviews = Review.findAll({});
+  Promise.all([findingVenues, findingUsers, findingReviews])
+  .spread(function(foundVenues, foundUsers, foundReviews) {
+    foundReviews.forEach(review => {
+      review.setUser(getRandom(foundUsers))
+      .then(reviewWithUser => reviewWithUser.setVenue(getRandom(foundVenues)))
+    })
+  })
+  .catch(error => console.error(error))
+}
+
 
 db.didSync
   .then(() => db.sync({force: true}))
   .then(seedArtists)
   .then(artists => console.log(`Seeded ${artists.length} artists OK`))
+  .then(seedGenres)
+  .then(genres => console.log(`Seeded ${genres.length} genres OK`))
+  .then(associateArtistsAndGenres)
+  .then(() => console.log('Associated the artists and genres'))
+  .then(seedVenues)
+  .then(venues => console.log(`Seeded ${venues.length} venues OK`))
+  .then(seedEvents)
+  .then(events => console.log(`Seeded ${events.length} events OK`))
+  .then(associateArtistsandEvents)
+  .then(() => console.log('Associated the events and artists'))
+  .then(addVenueToEvent)
+  .then(() => console.log('Added venue to event'))
+  .then(seedReviews)
+  .then(reviews => console.log(`Seeded ${reviews.length} reviews OK`))
+  .then(seedUsers)
+  .then(users => console.log(`Seeded ${users.length} users OK`))
+  .then(addVenueAndUserToReview)
+  .then(() => console.log('Added users and venues to event'))
   .catch(error => console.error(error))
-  .finally(() => db.close())
+  .finally(() => console.log('All done!'))
