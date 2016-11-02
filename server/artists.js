@@ -59,7 +59,11 @@ module.exports = customArtistRoutes
 const artists = epilogue.resource({
   model: db.model('artists'),
   endpoints: ['/artists', '/artists/:id'],
-  actions: ['list', 'read', 'delete']
+  actions: ['list', 'read', 'delete'],
+  assocations: true,
+  include: [{
+    model: db.model('genres')
+  }]
 })
 
 //Artist API simply instantiates a Router object, and exports it
