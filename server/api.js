@@ -11,6 +11,7 @@ api
   .use('/reviews', require('./reviews'))
   .use('/genres', require('./genres'))
   .use('/venues', require('./venues'))
+  .use('/tickets', require('./tickets'))
 
 // Send along any errors
 api.use((err, req, res, next) => {
