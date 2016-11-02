@@ -8,6 +8,7 @@ api
   .use('/auth', require('./auth'))
   .use('/users', require('./users'))
   .use('/artists', require('./artists'))
+  .use('/genres', require('./genres'))
 
 // Send along any errors
 api.use((err, req, res, next) => {
