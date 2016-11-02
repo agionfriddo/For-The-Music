@@ -6,6 +6,7 @@ const Artist = require('APP/db/models/artist')
 const Genre = require('APP/db/models/genre')
 const Venue = require('APP/db/models/venue')
 const Review = require('APP/db/models/review')
+const Ticket = require('APP/db/models/ticket')
 
 const app = require('./start')
 
@@ -331,7 +332,7 @@ describe('/api/genres', () => {
       )
   )
 
-//tests for guests 
+//tests for guests
   describe('when not loggined in', () => {
     it('gets all genres', () =>
       request(app).get('/api/genres')
@@ -339,7 +340,7 @@ describe('/api/genres', () => {
         .then(res => {
           expect(res.body).to.have.length.of(3)
         })
-        
+
     )
 
     it('gets the one genre', () =>
@@ -395,3 +396,78 @@ describe('/api/genres', () => {
   })
 })
 
+
+//creating tickets
+const ticket1 = {isValid: true}
+const ticket2 = {isValid: true}
+const ticket3 = {isValid: true}
+
+
+// Ticket API Tests -------------------------------------------------------------
+describe('/api/tickets', () => {
+  before('creates three tickets', () =>
+    db.didSync
+      .then(() =>
+        Ticket.bulkCreate([ticket1, ticket2, ticket3])
+      )
+  )
+
+// tests for guests
+  describe('when not logged in', () => {
+    it('gets all tickets', () =>
+      request(app).get('/api/tickets')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.have.length.of(3)
+        })
+    )
+
+    it('gets the one ticket', () =>
+      request(app).get('/api/tickets/1')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.contain(ticket1)
+        })
+    )
+
+    it('is not authorized to delete a ticket', () =>
+      request(app)
+        .delete('/api/tickets/3')
+        .expect(401)
+    )
+
+  })
+
+
+  // tests for regular users
+  describe('when logged in as user', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(steve))
+
+    it('cannot delete a ticket', () =>
+        agent.delete('/api/tickets/3')
+        .expect(401)
+    )
+
+  })
+
+
+// tests for admins
+  describe('when logged in as admin', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(adminbob))
+
+    it('is able to delete a ticket', () =>
+        agent.delete('/api/tickets/3')
+        .expect(200)
+        .then(res => expect(res.body).to.eql({}))
+    )
+
+  })
+})
