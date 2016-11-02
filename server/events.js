@@ -3,36 +3,36 @@
 const epilogue = require('./epilogue')
 const db = require('APP/db')
 const Artist = db.model('artists')
-const Genre = db.model('genres')
+const Event = db.model('events')
 
 const customEventRoutes = require('express').Router()
 
 // Custom routes go here.
 
-   customArtistRoutes.post('/', (req,res,next)=>{
+   customEventRoutes.post('/', (req,res,next)=>{
       console.log('you hit the custom route!!!! ------- YAY')
-      let createThisArtist = req.body
-      let listOfGenres = createThisArtist.genreIds
-      delete createThisArtist.genreIds
-
-      Artist.create(createThisArtist)
-        .then(artistInstance => {
+      let createThisEvent = req.body;
+      let listOfArtists = createThisEvent.artistIds
+      delete createThisEvent.artistIds
+      Event.create(createThisEvent)
+        .then(eventInstance => {
           //array of promises returned by findById
-          console.log('artist created')
-          let findEachGenre = listOfGenres.map(genreId => {
-            return Genre.findById(genreId);
+          console.log('event created')
+          let findEachArtist = listOfArtists.map(artistId => {
+            return Artist.findById(artistId);
           })
-          Promise.all(findEachGenre)
-          .then(arrOfGenres => {
-            console.log('genre arr created')
-            let setGenreAssocations = arrOfGenres.map(genreInstance => {
-              artistInstance.addGenre(genreInstance)
+          Promise.all(findEachArtist)
+          .then(arrOfArtists => {
+            console.log('artist arr created')
+            let setArtistsAssocations = arrOfArtists.map(artistInstance => {
+              return artistInstance.addEvent(eventInstance)
             })
-            return Promise.all(setGenreAssocations)
+            return Promise.all(setArtistsAssocations)
           })
           .then(()=>{
             res.status(200).send();
           })
+          .catch(err => console.error(err))
 
         })
         //when Promise.all resolves, the then will be handed off an array of genre instances
@@ -49,10 +49,10 @@ const events = epilogue.resource({
   actions: ['list', 'read', 'delete'],
   assocations: true,
   include: [{
-    model: db.model('genres')
+    model: db.model('venues')
   },
   {
-
+    model: db.model('artists')
   }]
 })
 
@@ -61,4 +61,4 @@ const events = epilogue.resource({
 //destructure filters object back into functions which either CONTINUE or STOP, and in STOP cases respond with 403, etc.
 const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
 //epilogue filters are tests that have to pass (CONTINUE) in order for the api route to succeed
-artists.delete.auth(mustBeAdmin)
+events.delete.auth(mustBeAdmin)
