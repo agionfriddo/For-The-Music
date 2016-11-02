@@ -10,6 +10,7 @@ api
   .use('/artists', require('./artists'))
   .use('/reviews', require('./reviews'))
   .use('/genres', require('./genres'))
+  .use('/tickets', require('./tickets'))
 
 // Send along any errors
 api.use((err, req, res, next) => {
