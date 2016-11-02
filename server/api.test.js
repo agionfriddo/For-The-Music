@@ -61,6 +61,14 @@ const andrew = {name: 'dj andrew', bio: 'im here to drop fire beats'}
 const adminbob = { username: 'bob@secrets.org', password: '12345'}
 const steve = { username: 'steve@secrets.org', password: '12345'}
 
+// two venues
+const theSpot = {name: 'The Spot', address: '123 Fake Street', description: 'so great spot'}
+const diveSpot = {name: 'Dive Spot', address: '456 Does Not Exist Place', description: 'so much dive'}
+
+// two reviews
+const review1 = {title: 'It Da Best', content: '10/10 would go back', rating: 5}
+const review2 = {title: 'Yo, it sucked', content: 'Super divey, super bad', rating: 1}
+
 describe('/api/artists', () => {
   before('creates two artists and an admin user', () =>
     db.didSync
@@ -149,6 +157,98 @@ describe('/api/artists', () => {
     )
 
   })
+})
+
+describe('/api/reviews', () => {
+  before('creates two artists and an admin user', () =>
+    db.didSync
+      .then(() =>
+        Venue.bulkCreate([theSpot, diveSpot])
+      )
+      .then(() =>
+        User.create(
+          {email: adminbob.username,
+          password: adminbob.password,
+          isAdmin: true
+        })
+      )
+      .then(() =>
+        User.create(
+          {email: steve.username,
+          password: steve.password
+        })
+      )
+      .then(() =>
+        Review.create(review1)
+      )
+  )
+
+// tests for guests
+  describe('when not logged in', () => {
+    it('gets all reviews', () =>
+      request(app).get('/api/reviews')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.have.length.of(1)
+        })
+    )
+
+    it('gets the one artist', () =>
+      request(app).get('/api/artists/1')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.contain(jackson)
+        })
+    )
+
+    it('posts one artist', () =>
+      request(app).post('/api/artists')
+      .send({name: 'billy', genreIds: [1]})
+        .expect(200)
+    )
+
+    it('is not authorized to delete an artist', () =>
+      request(app)
+        .delete('/api/artists/1')
+        .expect(401)
+    )
+
+  })
+
+
+  // tests for regular users
+  describe('when logged in as user', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(steve))
+
+    it('cannot delete an artist', () =>
+        agent.delete('/api/artists/1')
+        .expect(401)
+    )
+
+  })
+
+
+// tests for admins
+  describe('when logged in as admin', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(adminbob))
+
+    it('is able to delete an artist', () =>
+        agent.delete('/api/artists/1')
+        .expect(200)
+        .then(res => expect(res.body).to.eql({}))
+    )
+
+  })
+})
+
 })
 
 
