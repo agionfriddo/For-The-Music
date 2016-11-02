@@ -9,6 +9,44 @@ const customArtistRoutes = require('express').Router()
 
 module.exports = customArtistRoutes
 
+/* a description of a CREATE ARTIST post
+   test isAdmin
+   req body will contain{name,bio,imageUrl,youtube,genreId}
+   we'll destructure genreId and then delete it from the creatioObj
+   Artist.create(creationObj) returns the instance 
+   We have to associate it with a genre instance
+   let thisOne = Genre.findById(genreId)
+   Artist.setGenre(thisOne)
+
+   */
+   customArtistRoutes.post('/api/artists', (req,res,next)=>{
+      let createThisArtist = req.body
+      let listOfGenres = createThisArtist.genreIds
+      delete createThisArtist.genreIds
+      db.model.Artist.create(createThisArtist)
+        .then(artistInstance => {
+          //array of promises returned by findById
+          let findEachGenre = listOfGenres.map(genreId => {
+            return db.model.Genre.findById(genreId);
+          })
+          Promise.all(findEachGenre)
+          .then(arrOfGenres => {
+            let setGenreAssocations = arrOfGenres.map(genreInstance => {
+              artistInstance.addGenre(genreInstance)
+            })
+            return Promise.all(setGenreAssocations)
+          })
+          .then(()=>{
+            res.status(200).send();
+          })
+
+        })
+        //when Promise.all resolves, the then will be handed off an array of genre instances
+
+   }).catch(next)
+
+
+
 // Epilogue will automatically create standard RESTful routes
 const artists = epilogue.resource({
   model: db.model('artists'),
