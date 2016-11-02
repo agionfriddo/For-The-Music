@@ -152,4 +152,56 @@ describe('/api/artists', () => {
 })
 
 
-// API TESTS ----------
+// GENRE API TESTS ----------
+
+//three genres
+const rock = {name: 'Rock'}
+const folk = {name: 'Folk'}
+const jazz = {name: "Jazz"}
+
+
+describe('/api/genres', () => {
+  before('creates two genres and an admin user', () =>
+    db.didSync
+      .then(() =>
+        Genre.bulkCreate([rock, folk])
+      )
+  )
+
+//tests for guests 
+  describe('when not loggined in', () => {
+    it('gets all genres', () =>
+      request(app).get('/api/genres')
+        .expect(200)
+        // .then((res) => {
+        //   console.log(res)
+        //   return res
+        // })
+        .then(res => {
+          expect(res.body).to.have.length.of(3)
+        })
+        
+    )
+
+    it('gets the one genre', () =>
+      request(app).get('/api/genres/2')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.contain(rock)
+        })
+    )
+
+    it('it is not authorized to post one genre', () =>
+      request(app).post('/api/genres')
+      .send({name: 'Acid'})
+        .expect(401)
+    )
+
+    it('is not authorized to delete an genre', () =>
+      request(app)
+        .delete('/api/genres/1')
+        .expect(401)
+    )
+  })
+})
+
