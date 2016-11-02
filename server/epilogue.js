@@ -14,7 +14,7 @@ const mustBeLoggedIn = (req, res, context) => {
   return context.continue
 }
 
-
+//mustBeAdmin is a function that we export so we can require epilogue.js
 const mustBeAdmin = (req, res, context) => {
   if (!req.user) {
     res.status(401).send('You must be logged in')
@@ -41,6 +41,6 @@ const forbidden = message => (req, res, context) => {
   res.status(403).send(message)
   return context.stop
 }
-
+//filter functions are properties on an object which is set to the filter property of EPILOQUE, which we then export
 epilogue.filters = {mustBeLoggedIn, selfOnly, forbidden,mustBeAdmin}
 module.exports = epilogue
