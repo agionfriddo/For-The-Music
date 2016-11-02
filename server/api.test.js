@@ -66,6 +66,7 @@ const steve = { username: 'steve@secrets.org', password: '12345'}
 // two venues
 const theSpot = {name: 'The Spot', address: '123 Fake Street', description: 'so great spot'}
 const diveSpot = {name: 'Dive Spot', address: '456 Does Not Exist Place', description: 'so much dive'}
+const greatPlace = {name: 'The Great Place', address: '789 Best Blvd', description: 'It\'s just the best, bruh'}
 
 // two reviews
 const review1 = {title: 'It Da Best', content: '10/10 would go back', rating: 5}
@@ -239,7 +240,80 @@ describe('/api/reviews', () => {
   })
 })
 
+// Venue API Tests -------------------------------------------------------------
+describe('/api/venues', () => {
 
+// tests for guests
+  describe('when not logged in', () => {
+    it('gets all venues', () =>
+      request(app).get('/api/venues')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.have.length.of(2)
+        })
+    )
+
+    it('gets the one venue', () =>
+      request(app).get('/api/venues/1')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.contain(theSpot)
+        })
+    )
+
+    it('is not authorized to post a venue', () =>
+      request(app).post('/api/venues')
+      .send(greatPlace)
+        .expect(401)
+    )
+
+    it('is not authorized to delete a venue', () =>
+      request(app)
+        .delete('/api/venues/3')
+        .expect(401)
+    )
+
+  })
+
+
+  // tests for regular users
+  describe('when logged in as user', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(steve))
+
+    it('cannot delete a venue', () =>
+        agent.delete('/api/venues/3')
+        .expect(401)
+    )
+
+  })
+
+
+// tests for admins
+  describe('when logged in as admin', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(adminbob))
+
+    it('is able to post a venue', () =>
+      agent.post('/api/venues/')
+      .send(greatPlace)
+      .expect(201)
+    )
+
+    it('is able to delete a venue', () =>
+        agent.delete('/api/venues/3')
+        .expect(200)
+        .then(res => expect(res.body).to.eql({}))
+    )
+
+  })
+})
 
 // GENRE API TESTS ----------
 
