@@ -12,6 +12,7 @@ api
   .use('/genres', require('./genres'))
   .use('/venues', require('./venues'))
   .use('/tickets', require('./tickets'))
+  .use('/events', require('./events'))
 
 // Send along any errors
 api.use((err, req, res, next) => {

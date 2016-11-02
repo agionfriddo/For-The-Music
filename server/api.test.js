@@ -6,6 +6,7 @@ const Artist = require('APP/db/models/artist')
 const Genre = require('APP/db/models/genre')
 const Venue = require('APP/db/models/venue')
 const Review = require('APP/db/models/review')
+const Event = require('APP/db/models/event')
 
 const app = require('./start')
 
@@ -71,6 +72,12 @@ const greatPlace = {name: 'The Great Place', address: '789 Best Blvd', descripti
 // two reviews
 const review1 = {title: 'It Da Best', content: '10/10 would go back', rating: 5}
 const review2 = {title: 'Yo, it sucked', content: 'Super divey, super bad', rating: 1, venueId: 1, userId: 1}
+
+// two events
+const d1 = Date.UTC(2016, 9, 12, 21)
+const d2 = Date.UTC(2016, 8, 21, 20)
+const event1 = {date: d1, initialTickets: 10, ticketPrice: 1000, venue_id: 1}
+const event2 = {date: d2, initialTickets: 20, ticketPrice: 2000, venue_id: 2}
 
 describe('/api/artists', () => {
   before('creates two artists and an admin user', () =>
@@ -331,7 +338,7 @@ describe('/api/genres', () => {
       )
   )
 
-//tests for guests 
+//tests for guests
   describe('when not loggined in', () => {
     it('gets all genres', () =>
       request(app).get('/api/genres')
@@ -339,7 +346,7 @@ describe('/api/genres', () => {
         .then(res => {
           expect(res.body).to.have.length.of(3)
         })
-        
+
     )
 
     it('gets the one genre', () =>
@@ -395,3 +402,77 @@ describe('/api/genres', () => {
   })
 })
 
+
+describe('/api/events', () => {
+  before('creates two events', () =>
+    db.didSync
+      .then(() =>
+        Event.bulkCreate([event1, event2])
+      )
+  )
+// tests for guests
+  describe('when not logged in', () => {
+    it('gets all events', () =>
+      request(app).get('/api/events')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.have.length.of(2)
+        })
+    )
+
+    it('gets the one event', () =>
+      request(app).get('/api/events/1')
+        .expect(200)
+        .then(res => {
+          res.body.date = Date.parse(res.body.date)
+          expect(res.body).to.contain(event1)
+        })
+    )
+
+    it('posts one event', () =>
+      request(app).post('/api/events')
+      .send({date: d1, initialTickets: 10, ticketPrice: 1000, venue_id: 1, artistIds: [2, 3]})
+        .expect(200)
+    )
+
+    it('is not authorized to delete an event', () =>
+      request(app)
+        .delete('/api/events/3')
+        .expect(401)
+    )
+
+  })
+
+
+  // tests for regular users
+  describe('when logged in as user', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(steve))
+
+    it('cannot delete an event', () =>
+        agent.delete('/api/events/2')
+        .expect(401)
+    )
+
+  })
+
+
+// tests for admins
+  describe('when logged in as admin', () => {
+    const agent = request.agent(app)
+
+    before('log in', () => agent
+      .post('/api/auth/local/login')
+      .send(adminbob))
+
+    it('is able to delete an event', () =>
+        agent.delete('/api/events/1')
+        .expect(200)
+        .then(res => expect(res.body).to.eql({}))
+    )
+
+  })
+})
