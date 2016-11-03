@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
 
 export default class BonesJokes extends Component {
-  constructor() {
-    super()
-    this.nextJoke = this.nextJoke.bind(this)
-    this.answer = this.answer.bind(this)
-  }
-
   componentDidMount() {
     this.nextJoke()
   }
 
-  nextJoke() {
+  nextJoke = () =>
     this.setState({
       joke: randomJoke(),
       answered: false,
     })
-  }
 
-  answer() {
+  answer = () =>
     this.setState({answered: true})
-  }
 
   render() {
     if (!this.state) { return null }
 
     const {joke, answered} = this.state    
     return (
-      <div>
-        <h1 onClick={answered ? this.nextJoke : this.answer}>{joke.q}</h1>
+      <div onClick={answered ? this.nextJoke : this.answer}>
+        <h1>{joke.q}</h1>
         {answered && <h2>{joke.a}</h2>}
         <cite>~xoxo, bones</cite>
       </div>

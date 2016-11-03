@@ -16,19 +16,11 @@ const users = epilogue.resource({
   associations: true
 })
 const orders = epilogue.resource({
-  model: db.model('orders'),
-  include:[{model: db.model('users'),
-            include: [{model: db.model('tickets')}]
-          }],
-  associations: true
-})
-
-const tickets = epilogue.resource({
-  model: db.model('tickets')
+  model: db.model('orders')
 })
 
 const {mustBeLoggedIn, selfOnly, forbidden} = epilogue.filters
 users.delete.auth(mustBeLoggedIn)
-users.delete.auth(selfOnly)
-users.list.auth(forbidden)
+users.delete.auth(selfOnly('delete'))
+users.list.auth(forbidden('cannot list users'))
 users.read.auth(mustBeLoggedIn)
