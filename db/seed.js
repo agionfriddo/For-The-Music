@@ -315,52 +315,52 @@ let events = [
   {
     date: Date.UTC(2016, 10, 5, 21),
     initialTickets: 50,
-    ticketPrice: 2510
+    ticketPrice: 25.10
   },
   {
     date: Date.UTC(2016, 10, 6, 21, 30),
     initialTickets: 30,
-    ticketPrice: 5065
+    ticketPrice: 50.65
   },
   {
     date: Date.UTC(2016, 11, 8, 21),
     initialTickets: 20,
-    ticketPrice: 3034
+    ticketPrice: 30.34
   },
   {
     date: Date.UTC(2016, 11, 11, 20, 30),
     initialTickets: 50,
-    ticketPrice: 15081
+    ticketPrice: 150.81
   },
   {
     date: Date.UTC(2016, 11, 15, 21),
     initialTickets: 55,
-    ticketPrice: 7513
+    ticketPrice: 75.13
   },
   {
     date: Date.UTC(2016, 11, 17, 21, 30),
     initialTickets: 75,
-    ticketPrice: 8093
+    ticketPrice: 80.93
   },
   {
     date: Date.UTC(2016, 12, 20, 20, 30),
     initialTickets: 40,
-    ticketPrice: 1005
+    ticketPrice: 10.05
   },
   {
     date: Date.UTC(2016, 12, 25, 20),
     initialTickets: 100,
-    ticketPrice: 30096
+    ticketPrice: 300.96
   },
   {
     date: Date.UTC(2017, 1, 8, 21, 30),
     initialTickets: 20,
-    ticketPrice: 6034
+    ticketPrice: 60.34
   },
   {
     date: Date.UTC(2017, 1, 20, 20, 30),
     initialTickets: 150,
-    ticketPrice: 4012
+    ticketPrice: 40.12
   }
 ]
 
