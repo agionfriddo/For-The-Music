@@ -10,13 +10,21 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
 import AppContainer from './components/App'
+import EventList from './components/event-list'
+import { fetchAllEvents } from './reducers/events'
+
+// on enter hook for /eventlist
+const onEventEnter = function() {
+  store.dispatch(fetchAllEvents)
+}
 
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={AppContainer}>
-        <IndexRedirect to="/jokes" />
+        <IndexRedirect to="/eventlist" />
         <Route path="/jokes" component={Jokes} />
+        <Route path="/eventlist" component={EventList} onEnter={onEventEnter} />
       </Route>
     </Router>
   </Provider>,
