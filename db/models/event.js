@@ -19,11 +19,11 @@ const Event = db.define('events', {
     }
   },
   ticketPrice: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
     validate: {
-      max: 1000000,
-      min: 100
+      max: 9999999999.99,
+      min: 1
     }
   }
 },{
