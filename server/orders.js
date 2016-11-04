@@ -8,6 +8,7 @@ const Ticket = db.model('tickets')
 const Event = db.model('events')
 const Artist = db.model('artists')
 const Venue = db.model('venues')
+const User = db.model('users')
 
 
 const customOrderRoutes = require('express').Router()
@@ -27,8 +28,9 @@ module.exports = customOrderRoutes
 
   })
 
-  customOrderRoutes.get('/0/sessioncheck', (req,res,next)=>{
+  customOrderRoutes.get('/0/ordercheck/:id', (req,res,next)=>{
     let sessionOrderID = req.session.orderID
+    let userID = Number(req.params.id)
 
     console.log(sessionOrderID)
 
@@ -37,16 +39,30 @@ module.exports = customOrderRoutes
         .then(order => res.send(order))
     }
     else {
-      res.sendStatus(204)
+      if(userID) {
+        Order.findOne({where: {user_id: userID}})
+          .then(order =>{
+            if(order) {
+              res.send(order)
+            }
+            else {
+              res.sendStatus(404)
+            }
+          })
+      } else {
+        res.sendStatus(404)
+      }
     }
-
   })
 
 
    customOrderRoutes.post('/', (req,res,next)=>{
-      let { userID, eventID } = req.body;
+      let bodyUserID = req.body.userID
       let bodyOrderID = req.body.orderID
+      let eventID = req.body.eventID
+
       let sessionOrderID = req.session.orderID
+      let userID = bodyUserID.id
 
       let orderID = bodyOrderID || sessionOrderID
 
@@ -59,17 +75,37 @@ module.exports = customOrderRoutes
         let findingOrder = Order.findById(orderID)
         let findingTicket = Ticket.findOne({where: {order_id: null, event_id: eventID}})
 
-        Promise.all([findingOrder, findingTicket])
-          .spread((order, ticket) => {
-            console.log('order inside .spread', order, typeof order)
-            console.log('ticket id: ', ticket.id)
-            order.addTicket(ticket)
-              .then(order => res.send(order))
-          })
+        if(userID) {
+          console.log('horrible error')
+          let findingUser = User.findOne({where:{id:userID}})
+          console.log('we have and order ID and a user ID')
+
+          Promise.all([findingOrder, findingTicket, findingUser])
+            .spread((order, ticket, user) => {
+              console.log('order inside .spread', order, typeof order)
+              console.log('ticket id: ', ticket.id)
+
+
+              order.update({user_id: userID})
+                .then(order =>{
+                  return order.addTicket(ticket)
+                })
+                .then(order => res.send(order))
+            })
+        } else {
+          console.log('we have an order ID but no user ID')
+          Promise.all([findingOrder, findingTicket])
+            .spread((order, ticket) => {
+              console.log('order inside .spread', order, typeof order)
+              console.log('ticket id: ', ticket.id)
+              order.addTicket(ticket)
+                .then(order => res.send(order))
+            })
+        }
       }
       else {
         if (userID) {
-          console.log('we have a userID')
+          console.log('we have a userID, but no orderID')
 
           let findingOrder = Order.findOrCreate({where: {user_id: userID, status: 'in-cart'}})
           let findingTicket = Ticket.findOne({where: {order_id: null, event_id: eventID}})
