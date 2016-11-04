@@ -49,6 +49,7 @@
     "epilogue": "^0.7.0",
     "eslint-config-fullstack": "^1.8.0",
     "express": "^4.14.0",
+    "moment": "^2.15.2",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
