@@ -15,9 +15,6 @@ const users = epilogue.resource({
   endpoints: ['/users', '/users/:id'],
   associations: true
 })
-const orders = epilogue.resource({
-  model: db.model('orders')
-})
 
 const {mustBeLoggedIn, selfOnly, forbidden} = epilogue.filters
 users.delete.auth(mustBeLoggedIn)
