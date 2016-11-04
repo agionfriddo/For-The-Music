@@ -12,7 +12,11 @@ const customOrderRoutes = require('express').Router()
 module.exports = customOrderRoutes
 
    customOrderRoutes.post('/', (req,res,next)=>{
-      let { orderID, userID, eventID } = req.body;
+      let { userID, eventID } = req.body;
+      let bodyOrderID = req.body.orderID
+      let sessionOrderID = req.session.orderID
+
+      let orderID = bodyOrderID || sessionOrderID
 
       console.log('orderID: ', orderID)
       console.log('userID: ', userID)
