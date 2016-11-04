@@ -12,8 +12,9 @@ const customTicketRoutes = require('express').Router()
 module.exports = customTicketRoutes
 
 
-  customTicketRoutes.delete('/', (req,res,next)=>{
+  customTicketRoutes.put('/', (req,res,next)=>{
       let { ticketID } = req.body;
+      console.log('body', req.body)
 
       if (ticketID) {
         console.log('we have a ticket ID', ticketID)
@@ -23,7 +24,7 @@ module.exports = customTicketRoutes
             if(ticket) {
               console.log('ticket id to disassociate: ', ticket.id)
               ticket.update({order_id: null})
-                .then(() => res.sendStatus(204))
+                .then(() => res.send({id: ticketID}))
             }
             else {
               res.sendStatus(404)
