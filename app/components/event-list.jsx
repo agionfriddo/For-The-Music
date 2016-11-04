@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import EventItemComponent from './event-item';
 import { connect } from 'react-redux';
+import SearchBar from './SearchBar'
 
 class EventList extends Component {
 
@@ -8,8 +9,14 @@ class EventList extends Component {
     const { eventsList } = this.props
 
     return (
-      <div>
-      <h3>Events</h3>
+      <div className="container">
+        <h3>Events</h3>
+        <div className="row">
+          <div className="col-md-12">
+            <SearchBar />
+          </div>
+        </div>
+        <div></div>
         <div className="list-group">
           {
             eventsList && eventsList.map(event => (
