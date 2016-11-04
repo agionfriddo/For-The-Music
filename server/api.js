@@ -14,6 +14,7 @@ api
   .use('/tickets', require('./tickets'))
   .use('/events', require('./events'))
   .use('/orders', require('./orders'))
+  .use('/query', require('./query'))
 
 // Send along any errors
 api.use((err, req, res, next) => {
