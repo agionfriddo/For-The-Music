@@ -47,6 +47,7 @@ module.exports = customOrderRoutes
               console.log('ticket id: ', ticket.id, "is now associated with:")
               console.log('order id: ', order[0].id)
               console.log('orderCreated?', order[1])
+							req.session.orderID = order.id	
               order[0].addTicket(ticket)
                 .then(order => res.send(order))
             })
@@ -61,6 +62,7 @@ module.exports = customOrderRoutes
             .spread((order, ticket) => {
               console.log('ticket id: ', ticket.id, "is now associated with:")
               console.log('order id: ', order.id)
+							req.session.orderID = order.id	
               order.addTicket(ticket)
                 .then(order => res.send(order))
             })
