@@ -17,7 +17,6 @@ class EventItem extends Component {
 
 
     render() {
-      console.log('PROPS', this.props.event.artists[0].name)
       return (
         <div className="row">
           <div className="col-md-4">
