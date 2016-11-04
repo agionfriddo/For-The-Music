@@ -1,0 +1,7 @@
+.navbar-form input {
+	margin-right: 5px;
+}
+
+#navbar.in > form > input {
+	margin-top: 5px;
+}

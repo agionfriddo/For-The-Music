@@ -19,11 +19,8 @@ const navbar = ({user}) => (
       <Link to="/" className="navbar-brand">For The Music</Link>
     </div>
     <div id="navbar" className="collapse navbar-collapse">
-      <ul className="nav navbar-nav">
-        <li>
+					<button className="btn btn-default navbar-btn navbar-right"><span className="glyphicon glyphicon-shopping-cart"></span></button>
           {user ? <WhoAmI/> : <Login/>}
-        </li>
-      </ul>
     </div>
   </div>
 </nav>
