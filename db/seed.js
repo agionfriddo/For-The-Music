@@ -645,4 +645,7 @@ db.didSync
   .then(addOrdersToTickets)
   .then(() => console.log('Added orders to tickets'))
   .catch(error => console.error(error))
-  .finally(() => console.log('All done!'))
+  .finally(() => {
+		console.log('All done!')
+		process.exit();
+	})
