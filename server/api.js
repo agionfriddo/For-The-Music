@@ -13,6 +13,7 @@ api
   .use('/venues', require('./venues'))
   .use('/tickets', require('./tickets'))
   .use('/events', require('./events'))
+  .use('/orders', require('./orders'))
 
 // Send along any errors
 api.use((err, req, res, next) => {
