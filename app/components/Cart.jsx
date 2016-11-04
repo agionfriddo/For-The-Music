@@ -8,6 +8,8 @@ class CartComponent extends Component {
   componentDidMount() {
     console.log('cart mounted')
 
+		//depending on when 'setCurrentOrder' was dispatched, currentOrder maybe by an object or an empty string
+		//
     let orderId = this.props.currentOrder.id
 
     if(orderId) {
@@ -24,7 +26,7 @@ class CartComponent extends Component {
   componentDidUpdate(prevProps, prevState) {
     let orderId = this.props.currentOrder.id
 
-    if(prevProps.currentOrder.id !== orderId ){
+    if((prevProps.currentOrder.id !== orderId ) && orderId){
       this.props.fetchCurrentTickets(orderId)
     }
   }
@@ -38,8 +40,13 @@ class CartComponent extends Component {
     let price = 0;
 
     currentTickets.forEach(ticket => {
-      price += Math.floor(Number(ticket.event.ticketPrice))
+      price += Number(Number(ticket.event.ticketPrice).toFixed(2));
     })
+		
+		price = '$' + String(price).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+
+
+    
 
     console.log("CURRENT TICKETS", currentTickets.length)
     console.log("CURRENT ORDER", currentOrder)

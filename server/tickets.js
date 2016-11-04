@@ -5,10 +5,35 @@ const epilogue = require('./epilogue')
 const db = require('APP/db')
 const Event = db.model('events')
 const Order = db.model('orders')
+const Ticket = db.model('tickets')
 
 const customTicketRoutes = require('express').Router()
 
 module.exports = customTicketRoutes
+
+
+  customTicketRoutes.put('/', (req,res,next)=>{
+      let { ticketID } = req.body;
+      console.log('body', req.body)
+
+      if (ticketID) {
+        console.log('we have a ticket ID', ticketID)
+        let findingTicket = Ticket.findOne({where: {id: ticketID}})
+        findingTicket
+          .then(ticket => {
+            if(ticket) {
+              console.log('ticket id to disassociate: ', ticket.id)
+              ticket.update({order_id: null})
+                .then(() => res.send({id: ticketID}))
+            }
+            else {
+              res.sendStatus(404)
+            }
+          })
+      } else {
+        res.sendStatus(404)
+      }
+  })
 
 
 
@@ -16,7 +41,7 @@ module.exports = customTicketRoutes
 const tickets = epilogue.resource({
   model: db.model('tickets'),
   endpoints: ['/tickets', '/tickets/:id'],
-  actions: ['list', 'read', 'delete'],
+  actions: ['list', 'read'],
   include: [{
     model: db.model('events'),
     include: [{
@@ -34,10 +59,6 @@ const tickets = epilogue.resource({
   }]
 })
 
-//Artist API simply instantiates a Router object, and exports it
-//but it also imports epilogue, have it create default routes
-//destructure filters object back into functions which either CONTINUE or STOP, and in STOP cases respond with 403, etc.
 const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
-//epilogue filters are tests that have to pass (CONTINUE) in order for the api route to succeed
 
-tickets.delete.auth(mustBeAdmin)
+

@@ -14,6 +14,8 @@ import EventList from './components/event-list'
 import CartComponent from './components/Cart'
 import { fetchAllEvents } from './reducers/events'
 import { fetchCurrentTickets } from './reducers/currentTickets'
+import ArtistList from './components/artist-list'
+import { fetchAllArtists } from './reducers/artists'
 
 // on enter hook for /eventlist
 const onEventEnter = function() {
@@ -21,6 +23,9 @@ const onEventEnter = function() {
 }
 const onCartEnter = function() {
   store.dispatch(fetchCurrentTickets)
+}
+const onArtistEnter = function() {
+  store.dispatch(fetchAllArtists)
 }
 
 render (
@@ -30,6 +35,7 @@ render (
         <IndexRedirect to="/eventlist" />
         <Route path="/jokes" component={Jokes} />
         <Route path="/eventlist" component={EventList} onEnter={onEventEnter} />
+        <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistEnter }/>
         <Route path="/cart" component={CartComponent} />
       </Route>
     </Router>
