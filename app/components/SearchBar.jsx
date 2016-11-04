@@ -7,9 +7,9 @@ class SearchBar extends Component {
 
   render() {
     return (
-        <div className="control-group" style={{marginBottom: 20}}>
-          <div className="form=group">
-            <label for="search">Search:</label>
+        <div className="control-group" >
+          <div className="form-group">
+            <label>Search:</label>
             <input type="text" className="form-control" />
           </div>
         </div>
