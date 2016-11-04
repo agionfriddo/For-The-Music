@@ -7,7 +7,8 @@ var moment = require('moment');
 class CartItem extends Component {
 
 	constructor(){
-		this.printDate = this.transformedDate(ticket.event.date)
+		super();
+		this.transformedData = this.transformedDate.bind(this);
 	}
 
 	transformedDate(UTCDateString){
@@ -32,7 +33,7 @@ class CartItem extends Component {
             <h6>{ticket.event.artists[0].name} & {ticket.event.artists[1].name} @ {ticket.event.venue.name}</h6>
             <p>Price: ${ticket.event.ticketPrice}</p>
             <p>Address: {ticket.event.venue.address}</p>
-						<p>{this.printDate}</p>
+						<p>{this.transformedData(ticket.event.date)}</p>
           </div>
           <div className="col-md-2">
             <p>Delete Ticket</p>

@@ -43,7 +43,7 @@ class CartComponent extends Component {
     let price = 0;
 
     currentTickets.forEach(ticket => {
-      price += Number(Number(ticket.event.ticketPrice).toFixed(2))
+      price += Number(Number(ticket.event.ticketPrice))
     })
 
 		price = '$' + String(price.toFixed(2)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
