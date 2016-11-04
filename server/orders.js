@@ -62,6 +62,7 @@ module.exports = customOrderRoutes
 
         Promise.all([findingOrder, findingTicket])
           .spread((order, ticket) => {
+            console.log('order inside .spread', order, typeof order)
             console.log('ticket id: ', ticket.id)
             order.addTicket(ticket)
               .then(order => res.send(order))
