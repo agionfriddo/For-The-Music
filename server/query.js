@@ -35,11 +35,23 @@ queryRouter.get('/', (req, res, next) => {
       }
     })
 
-    let findingEventsByArtists = foundArtist && foundArtist.getEvents();
+    let findingEventsByArtists = foundArtist && foundArtist.getEvents()
+    .then(arrayOfEvents => {
+      arrayOfEvents.map(event => {
+        return Event.findOne({
+          include: [Venue, Artist],
+          where:{
+            id: event.id
+          }
+        })
+      })
+    });
+
 
 
     Promise.all([findingEventsByVenue, findingEventsByArtists])
     .spread((foundEventsByVenue, foundEventsbyArtists) => {
+      console.log(foundEventsbyArtists)
       let foundEvents = foundEventsbyArtists ? foundEventsByVenue.concat(foundEventsbyArtists) : foundEventsByVenue
       console.log(foundEvents)
       res.json(foundEvents)
