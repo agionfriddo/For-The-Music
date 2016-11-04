@@ -2,11 +2,11 @@ import axios from 'axios'
 
 
 // -------------- CONSTANTS
-const UPDATE_OR_CREATE_ORDER = 'UPDATE_OR_CREATE_ORDER'
+const SET_CURRENT_ORDER = 'SET_CURRENT_ORDER'
 
 
 // -------------- SYNC ACTION CREATORS
-export const updateOrCreateOrder = currentOrder => ({type: UPDATE_OR_CREATE_ORDER, currentOrder})
+export const setCurrentOrder = currentOrder => ({type: SET_CURRENT_ORDER, currentOrder})
 
 
 // -------------- ASYNC ACTION CREATORS
@@ -14,7 +14,12 @@ export const postCurrentOrder = (userID, orderID, eventID) => (dispatch) => {
   axios.post('/api/orders', {
       userID, orderID, eventID
   })
-    .then(res => dispatch(updateOrCreateOrder(res.data)))
+    .then(res => dispatch(setCurrentOrder(res.data)))
+}
+
+export const checkCurrentOrder = () => (dispatch) => {
+  axios.get('/api/orders/0/sessioncheck')
+    .then(res => dispatch(setCurrentOrder(res.data)))
 }
 
 
@@ -29,7 +34,7 @@ const initialOrder = {
 
 const reducer = (state = initialOrder, action) => {
   switch(action.type) {
-    case UPDATE_OR_CREATE_ORDER:
+    case SET_CURRENT_ORDER:
       return action.currentOrder
     default: return state
   }

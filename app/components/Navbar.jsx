@@ -19,7 +19,7 @@ const navbar = ({user}) => (
       <Link to="/" className="navbar-brand">For The Music</Link>
     </div>
     <div id="navbar" className="collapse navbar-collapse">
-					<button className="btn btn-default navbar-btn navbar-right"><span className="glyphicon glyphicon-shopping-cart"></span></button>
+					<Link to="/cart"><button className="btn btn-default navbar-btn navbar-right"><span className="glyphicon glyphicon-shopping-cart"></span></button></Link>
           {user ? <WhoAmI/> : <Login/>}
     </div>
   </div>
