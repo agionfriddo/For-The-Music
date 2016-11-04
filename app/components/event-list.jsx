@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import EventItem from './event-item'
-import { connect } from'react-redux';
+import EventItemComponent from './event-item';
+import { connect } from 'react-redux';
 
 class EventList extends Component {
 
@@ -14,7 +14,7 @@ class EventList extends Component {
           {
             eventsList && eventsList.map(event => (
               <div key={event.id} className="list-group-item">
-                <EventItem  event={event}/>
+                <EventItemComponent  event={event}/>
               </div>
             )
           )}
