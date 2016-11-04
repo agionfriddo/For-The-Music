@@ -16,7 +16,13 @@ class CartComponent extends Component {
       this.props.fetchCurrentTickets(orderId)
     }
     else {
-      this.props.checkCurrentOrder()
+      if(this.props.auth.id){
+        this.props.checkCurrentOrder(this.props.auth.id)
+      }
+      else {
+        this.props.checkCurrentOrder(0)
+      }
+
     }
 
     // if not current order, check if there is associated order
@@ -42,11 +48,11 @@ class CartComponent extends Component {
     currentTickets.forEach(ticket => {
       price += Number(Number(ticket.event.ticketPrice).toFixed(2));
     })
-		
+
 		price = '$' + String(price).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
 
-    
+
 
     console.log("CURRENT TICKETS", currentTickets.length)
     console.log("CURRENT ORDER", currentOrder)
@@ -83,9 +89,10 @@ class CartComponent extends Component {
 }
 
 
-const mapStateToProps = ({currentTickets, currentOrder}) => ({
+const mapStateToProps = ({currentTickets, currentOrder, auth}) => ({
   currentTickets,
-  currentOrder
+  currentOrder,
+  auth
 })
 
 const mapDispatchToProps = { fetchCurrentTickets, checkCurrentOrder }

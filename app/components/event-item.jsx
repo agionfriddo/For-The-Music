@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { postCurrentOrder } from '../reducers/currentOrder.jsx';
 import { connect } from 'react-redux'
+var moment = require('moment');
 
 class EventItem extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+		this.transformedDate = this.transformedDate.bind(this);
   }
   transformedDate() {
-    const eventdate = Date.parse(this.props.event.date)
-    let utcSeconds = eventdate;
-    let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-    d.setUTCSeconds(utcSeconds);
-    return d.toString();
+		if(this.props.event.date === ""){ return "" };
+		console.log(moment)
+		let thisMoment = moment(this.props.event.date, moment.ISO_8601);	
+   	return thisMoment.format('LLLL');
   }
 
 
@@ -24,7 +25,7 @@ class EventItem extends Component {
           </div>
           <div className="col-md-6">
             <h4>{this.props.event.artists[0].name} & {this.props.event.artists[1].name} @ {this.props.event.venue.name}</h4>
-            <p>Date: {this.transformedDate()}</p>
+            <p>{this.transformedDate()}</p>
             <p>Price: ${this.props.event.ticketPrice}</p>
           </div>
           <div className="col-md-2">

@@ -17,8 +17,8 @@ export const postCurrentOrder = (userID, orderID, eventID) => (dispatch) => {
     .then(res => dispatch(setCurrentOrder(res.data)))
 }
 
-export const checkCurrentOrder = () => (dispatch) => {
-  axios.get('/api/orders/0/sessioncheck')
+export const checkCurrentOrder = (userId) => (dispatch) => {
+  axios.get(`/api/orders/0/ordercheck/${userId}`)
     .then(res => dispatch(setCurrentOrder(res.data)))
 }
 
