@@ -11,11 +11,16 @@ import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
 import AppContainer from './components/App'
 import EventList from './components/event-list'
+import CartComponent from './components/Cart'
 import { fetchAllEvents } from './reducers/events'
+import { fetchCurrentTickets } from './reducers/currentTickets'
 
 // on enter hook for /eventlist
 const onEventEnter = function() {
   store.dispatch(fetchAllEvents)
+}
+const onCartEnter = function() {
+  store.dispatch(fetchCurrentTickets)
 }
 
 render (
@@ -25,6 +30,7 @@ render (
         <IndexRedirect to="/eventlist" />
         <Route path="/jokes" component={Jokes} />
         <Route path="/eventlist" component={EventList} onEnter={onEventEnter} />
+        <Route path="/cart" component={CartComponent}  onEnter={onCartEnter}/>
       </Route>
     </Router>
   </Provider>,

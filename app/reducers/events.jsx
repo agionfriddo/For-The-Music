@@ -28,11 +28,10 @@ const eventListInitialState = [initialEvent]
 
 const reducer = (state = eventListInitialState, action) => {
   switch(action.type) {
-  case SET_EVENTS:
-    return action.eventsList
+    case SET_EVENTS:
+      return action.eventsList
+  default: return state
   }
-  return state
 }
 
 export default reducer
-
