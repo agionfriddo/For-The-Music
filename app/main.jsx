@@ -30,7 +30,7 @@ render (
         <IndexRedirect to="/eventlist" />
         <Route path="/jokes" component={Jokes} />
         <Route path="/eventlist" component={EventList} onEnter={onEventEnter} />
-        <Route path="/cart" component={CartComponent}  onEnter={onCartEnter}/>
+        <Route path="/cart" component={CartComponent} />
       </Route>
     </Router>
   </Provider>,

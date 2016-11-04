@@ -5,11 +5,44 @@ const db = require('APP/db')
 const Promise = require('bluebird')
 const Order = db.model('orders')
 const Ticket = db.model('tickets')
+const Event = db.model('events')
+const Artist = db.model('artists')
+const Venue = db.model('venues')
 
 
 const customOrderRoutes = require('express').Router()
 
 module.exports = customOrderRoutes
+  customOrderRoutes.get('/:id/tickets', (req,res,next)=>{
+    let orderId = req.params.id
+    console.log(orderId)
+
+    Ticket.findAll({
+      where:{order_id: orderId},
+      include:[{model: Event,
+                include: [{model: Artist}, {model: Venue}]
+      }]
+    })
+      .then(ticketArr => res.send(ticketArr))
+
+  })
+
+  customOrderRoutes.get('/0/sessioncheck', (req,res,next)=>{
+    let sessionOrderID = req.session.orderID
+
+    console.log(sessionOrderID)
+
+    if (sessionOrderID) {
+      Order.findById(sessionOrderID)
+        .then(order => res.send(order))
+    }
+    else {
+      res.sendStatus(204)
+    }
+
+  })
+
+
 
    customOrderRoutes.post('/', (req,res,next)=>{
       let { userID, eventID } = req.body;
@@ -47,7 +80,7 @@ module.exports = customOrderRoutes
               console.log('ticket id: ', ticket.id, "is now associated with:")
               console.log('order id: ', order[0].id)
               console.log('orderCreated?', order[1])
-							req.session.orderID = order.id	
+							req.session.orderID = order.id
               order[0].addTicket(ticket)
                 .then(order => res.send(order))
             })
@@ -62,7 +95,7 @@ module.exports = customOrderRoutes
             .spread((order, ticket) => {
               console.log('ticket id: ', ticket.id, "is now associated with:")
               console.log('order id: ', order.id)
-							req.session.orderID = order.id	
+							req.session.orderID = order.id
               order.addTicket(ticket)
                 .then(order => res.send(order))
             })

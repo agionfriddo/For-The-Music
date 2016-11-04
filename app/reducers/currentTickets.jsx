@@ -1,19 +1,20 @@
 import axios from 'axios'
 
 // -------------- CONSTANTS
-const GET_CURRENT_TICKETS = 'GET_CURRENT_TICKETS'
+const SET_CURRENT_TICKETS = 'SET_CURRENT_TICKETS'
 
 
 // -------------- SYNC ACTION CREATORS
-export const getcurrentTickets = currentTickets => ({type: GET_CURRENT_TICKETS, currentTickets})
+export const setCurrentTickets = currentTickets => ({type: SET_CURRENT_TICKETS, currentTickets})
 
 
 // -------------- ASYNC ACTION CREATORS
-export const fetchCurrentTickets = (dispatch, getState) => {
-  axios.get('/api/tickets')
-    .then(tickets => {
-      let filteredTickets = tickets.data.filter(ticket => ticket.order_id === getState().currentOrder.id)
-      dispatch(setCurrentTickets(tickets))
+export const fetchCurrentTickets = id => (dispatch, getState) => {
+  const { currentOrder } = getState()
+  console.log('SWAG', currentOrder)
+  axios.get(`/api/orders/${id}/tickets`)
+    .then(res => {
+      dispatch(setCurrentTickets(res.data))
     })
 }
 
@@ -25,10 +26,11 @@ const initialTickets = []
 
 const reducer = (state = initialTickets, action) => {
   switch(action.type) {
-  case GET_CURRENT_TICKETS:
-    return action.currentTickets
-  }
-  return state
+    case SET_CURRENT_TICKETS:
+      return action.currentTickets
+
+    default: return state
+    }
 }
 
 export default reducer

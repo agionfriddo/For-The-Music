@@ -24,8 +24,7 @@ class EventItem extends Component {
             <img height="100" width="250" src={this.props.event.venue.imageurl} />
           </div>
           <div className="col-md-6">
-            <h4>{this.props.event.artists[0].name} @
-               {this.props.event.venue.name}</h4>
+            <h4>{this.props.event.artists[0].name} & {this.props.event.artists[1].name} @ {this.props.event.venue.name}</h4>
             <p>Date: {this.transformedDate()}</p>
             <p>Price: ${this.props.event.ticketPrice}</p>
           </div>

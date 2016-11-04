@@ -20,7 +20,7 @@ const initialEvent = {
   id: 0,
   date: '',
   ticketPrice: '',
-  artists:[{name: ''}],
+  artists:[{name: ''}, {name: ''}],
   venue: {name: ''}
 }
 
