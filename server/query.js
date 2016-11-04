@@ -9,7 +9,7 @@ const Venue = db.model('venues')
 const queryRouter = require('express').Router();
 
 queryRouter.get('/', (req, res, next) => {
-  console.log(req.query.name)
+  console.log("IN ROUTE")
   let findingVenue = Venue.findOne({
     where: {
       name: { $like: `%${req.query.name}%` }
@@ -26,10 +26,10 @@ queryRouter.get('/', (req, res, next) => {
   })
   Promise.all([findingVenue, findingArtist])
   .spread((foundVenue, foundArtist) => {
-
-    console.log("FOUNDARTIST", foundArtist)
+    console.log("FOUND ARTISTS FOUND EVENTS")
 
     let findingEventsByVenue = Event.findAll({
+      include: [Venue, Artist],
       where: {
         venue_id: foundVenue ?  foundVenue.id : null
       }
@@ -37,9 +37,11 @@ queryRouter.get('/', (req, res, next) => {
 
     let findingEventsByArtists = foundArtist && foundArtist.getEvents();
 
+
     Promise.all([findingEventsByVenue, findingEventsByArtists])
     .spread((foundEventsByVenue, foundEventsbyArtists) => {
-      let foundEvents = foundEventsByVenue.concat(foundEventsbyArtists)
+      let foundEvents = foundEventsbyArtists ? foundEventsByVenue.concat(foundEventsbyArtists) : foundEventsByVenue
+      console.log(foundEvents)
       res.json(foundEvents)
 
     })
