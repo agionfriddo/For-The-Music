@@ -14,127 +14,127 @@ let artists = [
   {
     name: 'Drake',
     bio: 'Aubrey Drake Graham, known simply as Drake, is a Canadian rapper, singer, songwriter, record producer, and actor. Drake initially gained recognition as an actor on the teen drama television series Degrassi: The Next Generation in the early 2000s.',
-    picture: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Drake_Bluesfest.jpg',
+    imageurl: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Drake_Bluesfest.jpg',
     youtube: 'https://www.youtube.com/watch?v=uxpDa-c-4Mc'
   },
   {
     name: 'Kanye West',
     bio: 'Kanye Omari West is an American hip hop recording artist, songwriter, record producer, fashion designer, and entrepreneur.',
-    picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg/220px-Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg',
+    imageurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg/220px-Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg',
     youtube: 'https://www.youtube.com/watch?v=IxGvm6btP1A'
   },
   {
     name: 'Jay-Z',
     bio: 'Shawn Corey Carter, known professionally as Jay Z, is an American rapper, businessman and investor. He is one of the most financially successful hip hop artists in America. In 2014, Forbes estimated Jay Z\'s net worth at nearly $520 million.',
-    picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Jay-Z_%40_Shawn_%27Jay-Z%27_Carter_Foundation_Carnival_%28crop_2%29.jpg/220px-Jay-Z_%40_Shawn_%27Jay-Z%27_Carter_Foundation_Carnival_%28crop_2%29.jpg',
+    imageurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Jay-Z_%40_Shawn_%27Jay-Z%27_Carter_Foundation_Carnival_%28crop_2%29.jpg/220px-Jay-Z_%40_Shawn_%27Jay-Z%27_Carter_Foundation_Carnival_%28crop_2%29.jpg',
     youtube: 'https://www.youtube.com/watch?v=Oz_-VaTHpc8'
   },
   {
     name: 'Beyonce',
     bio: 'Beyoncé Giselle Knowles-Carter is an American singer, songwriter, record producer and actress. Born and raised in Houston, Texas, she performed in various singing and dancing competitions as a child and rose to fame in the late 1990s as lead singer of R&B girl-group Destiny\'s Child.',
-    picture: 'http://factmag-images.s3.amazonaws.com/wp-content/uploads/2013/12/beyonce-121313.jpg',
+    imageurl: 'http://factmag-images.s3.amazonaws.com/wp-content/uploads/2013/12/beyonce-121313.jpg',
     youtube: 'https://www.youtube.com/watch?v=QxsmWxxouIM'
   },
   {
     name: 'Bruno Mars',
     bio: 'Peter Gene Hernandez, known professionally as Bruno Mars, is an American singer-songwriter, multi-instrumentalist, record producer, and choreographer.',
-    picture: 'http://b-i.forbesimg.com/zackomalleygreenburg/files/2014/01/0102_30-under-30-bruno-mars_650x455.jpg',
+    imageurl: 'http://b-i.forbesimg.com/zackomalleygreenburg/files/2014/01/0102_30-under-30-bruno-mars_650x455.jpg',
     youtube: 'https://www.youtube.com/watch?v=OPf0YbXqDm0'
   },
   {
     name: 'Adele',
     bio: 'Adele Laurie Blue Adkins MBE is an English singer-songwriter. Graduating from the BRIT School for Performing Arts and Technology in 2006, Adele was given a recording contract by XL Recordings after a friend posted her demo on Myspace the same year. ',
-    picture: 'https://pbs.twimg.com/profile_images/657199367556866048/EBEIl2ol.jpg',
+    imageurl: 'https://pbs.twimg.com/profile_images/657199367556866048/EBEIl2ol.jpg',
     youtube: 'https://www.youtube.com/watch?v=YQHsXMglC9A'
   },
   {
     name: 'Coldplay',
     bio: 'Coldplay are a British rock band formed in 1996 by lead vocalist and pianist Chris Martin and lead guitarist Jonny Buckland at University College London.',
-    picture: 'https://www.coldplaying.com/wp-content/uploads/2015/11/dgsdfsg.jpg',
+    imageurl: 'https://www.coldplaying.com/wp-content/uploads/2015/11/dgsdfsg.jpg',
     youtube: 'https://www.youtube.com/watch?v=vGZMvV9KBp8'
   },
   {
     name: 'Tim McGraw',
     bio: 'Samuel Timothy "Tim" McGraw is an American country music singer, songwriter and actor. He has been married to fellow country music singer Faith Hill since 1996, and is the son of the late baseball player Tug McGraw.',
-    picture: 'https://www.picsofcelebrities.com/celebrity/tim-mcgraw/pictures/large/tim-mcgraw-pictures.jpg',
+    imageurl: 'https://www.picsofcelebrities.com/celebrity/tim-mcgraw/pictures/large/tim-mcgraw-pictures.jpg',
     youtube: 'https://www.youtube.com/watch?v=awzNHuGqoMc'
   },
   {
     name: 'The Black Keys',
     bio: 'The Black Keys are an American rock band formed in Akron, Ohio, in 2001. The group consists of Dan Auerbach and Patrick Carney.',
-    picture: 'http://www.mtv.com/crop-images/2013/09/11/the_black_keys_1378933759570.jpg',
+    imageurl: 'http://www.mtv.com/crop-images/2013/09/11/the_black_keys_1378933759570.jpg',
     youtube: 'https://www.youtube.com/watch?v=trk7P-9QDyc'
   },
   {
     name: 'New York Philharmonic',
     bio: 'The New York Philharmonic is a symphony orchestra based in New York City in the United States. It is one of the leading American orchestras popularly referred to as the "Big Five".',
-    picture: 'http://ttwmagazine.net/wp-content/uploads/2014/10/philharmonic_2.png',
+    imageurl: 'http://ttwmagazine.net/wp-content/uploads/2014/10/philharmonic_2.png',
     youtube: 'https://www.youtube.com/watch?v=48IlBzG81l8'
   },
   {
     name: 'The Lumineers',
     bio: 'The Lumineers are a folk rock band, based in Denver, Colorado. The two founding members and songwriters of the Lumineers are Wesley Schultz and Jeremiah Fraites.',
-    picture: 'https://media.npr.org/assets/img/2016/02/02/20151116_the_lumineers_shot_02_059_wide-de56fa91ebd422be6ddb197c109e2b6df79923ad.jpg?s=1400',
+    imageurl: 'https://media.npr.org/assets/img/2016/02/02/20151116_the_lumineers_shot_02_059_wide-de56fa91ebd422be6ddb197c109e2b6df79923ad.jpg?s=1400',
     youtube: 'https://www.youtube.com/watch?v=pTOC_q0NLTk'
   },
   {
     name: 'Stevie Wonder',
     bio: 'Stevland Hardaway Morris, known by his stage name Stevie Wonder, is an American musician, singer, songwriter, record producer, and multi-instrumentalist.',
-    picture: 'https://upload.wikimedia.org/wikipedia/commons/5/54/Stevie_Wonder_1973.JPG',
+    imageurl: 'https://upload.wikimedia.org/wikipedia/commons/5/54/Stevie_Wonder_1973.JPG',
     youtube: 'https://www.youtube.com/watch?v=0CFuCYNx-1g'
   },
   {
     name: 'Gary Clark Jr.',
     bio: 'Gary Lee Clark Jr. is an American musician based in Austin, Texas. Clark has shared the stage with various legends of rock and roll, and has stated that he is "influenced by blues, jazz, soul [and] country, as well as hip hop".',
-    picture: 'https://s3.amazonaws.com/bit-photos/large/6128408.jpeg',
+    imageurl: 'https://s3.amazonaws.com/bit-photos/large/6128408.jpeg',
     youtube: 'https://www.youtube.com/watch?v=kvMd9KJrpg8'
   },
   {
     name: 'David Gilmore',
     bio: 'David Gilmore (born 5 February 1964 in Cambridge, Massachusetts) is an American session jazz guitarist.',
-    picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/David_Gilmore2011.JPG/440px-David_Gilmore2011.JPG',
+    imageurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/David_Gilmore2011.JPG/440px-David_Gilmore2011.JPG',
     youtube: 'https://www.youtube.com/watch?v=1f7BJ8nhX9E'
   },
   {
     name: 'Sharon Isbin',
     bio: 'Sharon Isbin is an American Grammy Award-winning classical guitarist and the founding director of the Guitar Department at The Juilliard School.',
-    picture: 'http://www.guitartv.com/wp-content/uploads/2012/04/isbin_sony_soho_11.jpg',
+    imageurl: 'http://www.guitartv.com/wp-content/uploads/2012/04/isbin_sony_soho_11.jpg',
     youtube: 'https://www.youtube.com/watch?v=yIjfkYKKW54'
   },
   {
     name: 'Swedish House Mafia',
     bio: 'Swedish House Mafia was a Swedish electronic music supergroup consisting of Axwell, Steve Angello and Sebastian Ingrosso. The group officially formed in late 2008.',
-    picture: 'http://www.billgrahamcivicauditorium.com/wp-content/uploads/2012/10/Swedish-house-_mafia-Bill-Graham-Civic-Auditorium.jpg',
+    imageurl: 'http://www.billgrahamcivicauditorium.com/wp-content/uploads/2012/10/Swedish-house-_mafia-Bill-Graham-Civic-Auditorium.jpg',
     youtube: 'https://www.youtube.com/watch?v=1y6smkh6c-0'
   },
   {
     name: 'Taylor Swift',
     bio: 'Taylor Alison Swift is an American singer-songwriter. One of the most popular contemporary female recording artists, she is known for narrative songs about her personal life, which has received much media attention.',
-    picture: 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/01/29/11/Taylor-Swift-revenge-nerds.jpg',
+    imageurl: 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/01/29/11/Taylor-Swift-revenge-nerds.jpg',
     youtube: 'https://www.youtube.com/watch?v=nfWlot6h_JM'
   },
   {
     name: 'Lee Scratch Perry',
     bio: 'Lee "Scratch" Perry is a Jamaican music producer/Inventor noted for his innovative studio techniques and production values. Perry was one of the pioneers in the development of dub music with his early adoption of effects and remixing to create new instrumental or vocal versions of existing reggae tracks.',
-    picture: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Lee_Scratch_Perry_%40_Band_On_The_Wall%2C_Manchester_19-2-2013_%288493373312%29.jpg/1024px-Lee_Scratch_Perry_%40_Band_On_The_Wall%2C_Manchester_19-2-2013_%288493373312%29.jpg',
+    imageurl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Lee_Scratch_Perry_%40_Band_On_The_Wall%2C_Manchester_19-2-2013_%288493373312%29.jpg/1024px-Lee_Scratch_Perry_%40_Band_On_The_Wall%2C_Manchester_19-2-2013_%288493373312%29.jpg',
     youtube: 'https://www.youtube.com/watch?v=F8cXSqB5j0M'
   },
   {
     name: 'Kenny Chesney',
     bio: 'Kenneth Arnold "Kenny" Chesney is an American country music singer, songwriter and record producer. He has recorded 20 albums, 14 of which have been certified Gold or higher by the RIAA.',
-    picture: 'https://up-1.cdn-fullscreendirect.com/production/photos/5351/large/20141228_175127_5351_684930.jpeg',
+    imageurl: 'https://up-1.cdn-fullscreendirect.com/production/photos/5351/large/20141228_175127_5351_684930.jpeg',
     youtube: 'https://www.youtube.com/watch?v=mDBxlVLTaQA'
   },
   {
     name: 'Allan Holdsworth',
     bio: 'Allan Holdsworth is a British guitarist and composer. He has released twelve studio albums as a solo artist and played a variety of musical styles spanning a period of more than four decades, but is best known for his work in jazz fusion.',
-    picture: 'http://www.innerviews.org/inner/holdsworth2/holdsworthheader2.jpg',
+    imageurl: 'http://www.innerviews.org/inner/holdsworth2/holdsworthheader2.jpg',
     youtube: 'https://www.youtube.com/watch?v=zMi2mCe7CKg'
   },
   {
     name: 'Of Monsters and Men',
     bio: 'Of Monsters and Men is a five-member, English-language, indie folk-pop band from Reykjavík, Iceland, formed in 2010.',
-    picture: 'https://a2-images.myspacecdn.com/images03/2/6a0c671d151d4ccfb795b849d0546e9e/300x300.jpg',
+    imageurl: 'https://a2-images.myspacecdn.com/images03/2/6a0c671d151d4ccfb795b849d0546e9e/300x300.jpg',
     youtube: 'https://www.youtube.com/watch?v=ghb6eDopW8I'
   }
 ];

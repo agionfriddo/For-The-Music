@@ -21,7 +21,7 @@ class EventItem extends Component {
       return (
         <div className="row">
           <div className="col-md-4">
-            <img height="100" width="250" src={this.props.event.venue.imageurl} />
+            <img width="250" src={this.props.event.venue.imageurl} />
           </div>
           <div className="col-md-6">
             <h4>{this.props.event.artists[0].name} & {this.props.event.artists[1].name} @ {this.props.event.venue.name}</h4>
