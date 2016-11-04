@@ -51,6 +51,6 @@ const reviews = epilogue.resource({
   }]
 })
 
-// AUTH DISABLED
-// const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
-// reviews.delete.auth(mustBeAdmin)
+// AUTH
+const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
+reviews.delete.auth(mustBeAdmin)

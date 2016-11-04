@@ -50,10 +50,9 @@ const artists = epilogue.resource({
   }]
 })
 
-// NO FILTERS YET
-
-// const { mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
-// artists.delete.auth(mustBeAdmin)
+// AUTH
+const { mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
+artists.delete.auth(mustBeAdmin)
 
 
 //Artist API simply instantiates a Router object, and exports it
