@@ -145,6 +145,9 @@ module.exports = customOrderRoutes
         }
    })
 
+   // EDGE CASE: User has order already in DB, then creates an order on another session as a guest, then logs in
+   // the user will have two IN-CART orders in the db, and will only show one
+
 const orders = epilogue.resource({
   model: db.model('orders'),
   endpoints: ['/orders', '/orders/:id'],
