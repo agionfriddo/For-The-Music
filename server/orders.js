@@ -1,8 +1,8 @@
 'use strict'
-
-const epilogue = require('./epilogue')
-const db = require('APP/db')
 const Promise = require('bluebird')
+const epilogue = require('./epilogue')
+
+const db = require('APP/db')
 const Order = db.model('orders')
 const Ticket = db.model('tickets')
 const Event = db.model('events')
@@ -12,51 +12,59 @@ const User = db.model('users')
 
 
 const customOrderRoutes = require('express').Router()
-
 module.exports = customOrderRoutes
-  customOrderRoutes.get('/:id/tickets', (req,res,next)=>{
-    let orderId = req.params.id
-    console.log(orderId)
 
-    Ticket.findAll({
-      where:{order_id: orderId},
-      include:[{model: Event,
-                include: [{model: Artist}, {model: Venue}]
-      }]
-    })
+  /* CUSTOM GET ROUTE THAT FINDS TICKETS WITH BY ORDER ID */
+
+  customOrderRoutes.get('/:id/tickets', (req, res, next) => {
+    let orderId = req.params.id
+
+    let findingTickets = Ticket.findAll({
+      where: {order_id: orderId},
+      include: [{model: Event, include: [{model: Artist}, {model: Venue}] }]
+      })
+
+    findingTickets
       .then(ticketArr => res.send(ticketArr))
+      .catch(next)
 
   })
 
-  customOrderRoutes.get('/0/ordercheck/:id', (req,res,next)=>{
+  /* CUSTOM GET ROUTE THAT CHECKS FOR AN ORDER */
+
+  customOrderRoutes.get('/0/ordercheck/:id', (req, res, next) => {
     let sessionOrderID = req.session.orderID
     let userID = Number(req.params.id)
 
-    console.log(sessionOrderID)
-
+    // session ID exists on the request, send order associated with session ID
     if (sessionOrderID) {
       Order.findById(sessionOrderID)
         .then(order => res.send(order))
     }
     else {
-      if(userID) {
+      // if session ID does not exist on request, but the user ID does
+      // find one order associated with the user and send it back
+      if (userID) {
         Order.findOne({where: {user_id: userID}})
-          .then(order =>{
-            if(order) {
+          .then(order => {
+            if (order) {
               res.send(order)
             }
             else {
+              // if user has no associated order, send 404
               res.sendStatus(404)
             }
           })
       } else {
+        // if both user and request have no associated order, send 404
         res.sendStatus(404)
       }
     }
   })
 
+  /* CUSTOM GET ROUTE THAT CHECKS FOR AN ORDER */
 
-   customOrderRoutes.post('/', (req,res,next)=>{
+   customOrderRoutes.post('/', (req, res, next) => {
       let bodyUserID = req.body.userID
       let bodyOrderID = req.body.orderID
       let eventID = req.body.eventID
@@ -64,88 +72,79 @@ module.exports = customOrderRoutes
       let sessionOrderID = req.session.orderID
       let userID = bodyUserID.id
 
+      // if no orderID included on body, use session orderID (prioritize bodyOrderID)
       let orderID = bodyOrderID || sessionOrderID
 
-      console.log('orderID: ', orderID)
-      console.log('userID: ', userID)
-      console.log('eventID: ', eventID)
+      // TEST CONSOLE LOGS
+      // console.log('orderID: ', orderID)
+      // console.log('userID: ', userID)
+      // console.log('eventID: ', eventID)
 
+      // if any orderID exists, find that order
       if (orderID) {
-        console.log('we have an order ID')
         let findingOrder = Order.findById(orderID)
         let findingTicket = Ticket.findOne({where: {order_id: null, event_id: eventID}})
 
-        if(userID) {
-          console.log('horrible error')
-          let findingUser = User.findOne({where:{id:userID}})
-          console.log('we have and order ID and a user ID')
+        // if orderID exists and user is logged in, associate user with order and order with ticket
+        if (userID) {
+          let findingUser = User.findOne({where:{id: userID}})
 
           Promise.all([findingOrder, findingTicket, findingUser])
             .spread((order, ticket, user) => {
-              console.log('order inside .spread', order, typeof order)
-              console.log('ticket id: ', ticket.id)
-
-
-              order.update({user_id: userID})
-                .then(order =>{
-                  return order.addTicket(ticket)
+              order.update({user_id: user.id})
+                .then(orderWithUser => {
+                  return orderWithUser.addTicket(ticket)
                 })
-                .then(order => res.send(order))
+                .then(orderWithTicket => res.send(orderWithTicket))
+                .catch(next)
             })
-        } else {
-          console.log('we have an order ID but no user ID')
+        }
+        else {
+          // if orderID exists, but user is NOT logged in
           Promise.all([findingOrder, findingTicket])
             .spread((order, ticket) => {
-              console.log('order inside .spread', order, typeof order)
-              console.log('ticket id: ', ticket.id)
               order.addTicket(ticket)
-                .then(order => res.send(order))
+                .then(orderWithTicketButNoUser => res.send(orderWithTicketButNoUser))
+                .catch(next)
             })
         }
       }
-      else {
-        if (userID) {
-          console.log('we have a userID, but no orderID')
-
+      else if (userID) {
+          // if there is no associated orderID, but a user is logged in, find an old order for
+          // the user and associate the ticket with it
+          // OR
+          // if an old order does not exist create a new order for the user and associate the ticket
+          // and user with the new order THEN send the order back to the user (whether it is created or returned)
           let findingOrder = Order.findOrCreate({where: {user_id: userID, status: 'in-cart'}})
           let findingTicket = Ticket.findOne({where: {order_id: null, event_id: eventID}})
 
-
           Promise.all([findingOrder, findingTicket])
             .spread((order, ticket) => {
-              console.log('ticket id: ', ticket.id, "is now associated with:")
-              console.log('order id: ', order[0].id)
-              console.log('orderCreated?', order[1])
+              // update session with user's old order or newlycreated order
 							req.session.orderID = order.id
+
               order[0].addTicket(ticket)
-                .then(order => res.send(order))
+                .then(orderWithTicket => res.send(orderWithTicket))
             })
-
-        } else {
-          console.log('we have no userID and no orderID')
-
+        }
+        else {
+          // if we have no order info, and a user is not logged in, assoicate the order with a cookie
           let creatingOrder = Order.create({status: 'in-cart'})
           let findingTicket = Ticket.findOne({where: {order_id: null, event_id: eventID}})
 
           Promise.all([creatingOrder, findingTicket])
             .spread((order, ticket) => {
-              console.log('ticket id: ', ticket.id, "is now associated with:")
-              console.log('order id: ', order.id)
+              // associated created order with the session
 							req.session.orderID = order.id
+
+              // add ticket to the order
               order.addTicket(ticket)
-                .then(order => res.send(order))
+                .then(sessionOrder => res.send(sessionOrder))
             })
             .catch(error => console.error(error))
         }
-      }
-
-
-
-
-
    })
 
-// Epilogue will automatically create standard RESTful routes
 const orders = epilogue.resource({
   model: db.model('orders'),
   endpoints: ['/orders', '/orders/:id'],
@@ -153,15 +152,5 @@ const orders = epilogue.resource({
   assocations: true
 })
 
-
-
-
-
-
-const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
-
-
-
-  // include: [{
-  //   model: db.model('genres')
-  // }]
+// AUTH
+// const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters

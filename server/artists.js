@@ -9,7 +9,7 @@ const customArtistRoutes = require('express').Router()
 
   /* CUSTOM POST ROUTE THAT ALLOWS ARTISTS TO BE ASSOCIATED WITH GENRE */
 
-   customArtistRoutes.post('/', (req,res,next)=>{
+   customArtistRoutes.post('/', (req, res, next) => {
       let createThisArtist = req.body
       let listOfGenres = createThisArtist.genreIds
 
