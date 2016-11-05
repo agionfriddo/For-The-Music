@@ -17,10 +17,9 @@ export const fetchAllEvents = dispatch => {
 }
 
 export const fetchEventsByQuery = query => dispatch => {
-  console.log("HERE")
   axios.get(`api/query?name=${query}`)
   .then(res => {
-    console.log(res.data)
+    console.log("DATA", res.data)
     dispatch(setEventsByQuery(res.data))
   })
 }

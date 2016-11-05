@@ -39,3 +39,15 @@
 	font-family: 'autoBarcode';
 }
 
+
+#searchBar {
+	padding: 150px 10vw 150px 10vw;
+	background-image: url("http://az616578.vo.msecnd.net/files/2016/08/25/6360774233678669081662542485_concert.jpg");
+	background-size: fixed;
+}
+
+
+
+.navbar {
+	margin-bottom: 0px;
+}

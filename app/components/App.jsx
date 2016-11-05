@@ -6,7 +6,7 @@ const AppComponent = function({user, children}) {
   return (
     <div>
         <Navbar user={user}/>
-        <div className="container">
+        <div>
           {children}
         </div>
     </div>
