@@ -13,19 +13,19 @@ class CartItem extends Component {
 
 	transformedDate(UTCDateString){
 		if(UTCDateString === ""){ return "" };
-		console.log(moment)
-		let thisMoment = moment(UTCDateString, moment.ISO_8601);	
-   	return thisMoment;
+		let thisMoment = moment(UTCDateString, moment.ISO_8601);
+
+    return thisMoment;
 	}
-	
+
 
 
     render() {
       const { ticket } = this.props
       console.log('ticket', this)
-      
+
       var appendedArtists = `${ticket.event.artists[0].name} & ${ticket.event.artists[1].name}`
-      console.log(appendedArtists)
+
       appendedArtists.trim();
 
       let thisDate = this.transformedDate(ticket.event.date)
@@ -35,8 +35,8 @@ class CartItem extends Component {
       let dayOfMonth = thisDate.format('DD');
       let year = thisDate.format('YYYY');
 
-    
-      /*Available data in the renderfunction: 
+
+      /*Available data in the renderfunction:
         ticket.event.venue.imageurl
         ticket.event.artists[0,1].name
         ticket.event.venue.name

@@ -10,7 +10,6 @@ class EventItem extends Component {
   }
   transformedDate() {
 		if(this.props.event.date === ""){ return "" };
-		console.log(moment)
 		let thisMoment = moment(this.props.event.date, moment.ISO_8601);
    	return thisMoment.format('LLLL');
   }
