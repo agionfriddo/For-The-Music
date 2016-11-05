@@ -47,6 +47,10 @@ class CartItem extends Component {
         delete'butt'on: onClick={() => this.props.deleteDBTicket(ticket.id)}
       */
       return (
+				<div className="ticketContainer">
+				<div className="btn btn-danger ticketDelete" onClick={()=>this.props.deleteDBTicket(ticket.id)}>
+					<span className="glyphicon glyphicon-remove"></span>
+				</div>
         <svg
          xmlnsDc="http://purl.org/dc/elements/1.1/"
          xmlnsCc="http://creativecommons.org/ns#"
@@ -284,6 +288,7 @@ class CartItem extends Component {
                 style={{fontStyle:'normal',fontVariant:'normal',fontWeight:'normal',fontStretch:'normal',fontSize:'178.30426025px',lineHeight:'125%',fontFamily:'Free 3 of 9 Extended',textAlign:'start',writingMode:'lr-tb',textAnchor:'start'}}>{ticket.id}</tspan></text>
           </g>
         </svg>
+	</div>
 
 
 
