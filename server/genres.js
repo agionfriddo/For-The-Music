@@ -16,7 +16,7 @@ const genres = epilogue.resource({
   }]
 })
 
-// AUTH DISABLED
-// const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
-// genres.delete.auth(mustBeAdmin);
-// genres.create.auth(mustBeAdmin);
+// AUTH
+const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
+genres.delete.auth(mustBeAdmin);
+genres.create.auth(mustBeAdmin);

@@ -11,7 +11,7 @@ const customReviewRoutes = require('express').Router()
 
 /* CUSTOM POST ROUTE THAT ALLOWS USERS TO POST REVIEWS FOR VENUES */
 
-customReviewRoutes.post('/', (req,res,next)=>{
+customReviewRoutes.post('/', (req, res, next) => {
    let createThisReview = req.body
    let userId = createThisReview.userId
    let venueId = createThisReview.venueId
@@ -51,6 +51,6 @@ const reviews = epilogue.resource({
   }]
 })
 
-// AUTH DISABLED
-// const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
-// reviews.delete.auth(mustBeAdmin)
+// AUTH
+const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
+reviews.delete.auth(mustBeAdmin)

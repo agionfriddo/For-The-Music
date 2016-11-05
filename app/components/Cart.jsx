@@ -8,26 +8,22 @@ class CartComponent extends Component {
   componentDidMount() {
     console.log('cart mounted')
 
-		//depending on when 'setCurrentOrder' was dispatched, currentOrder maybe by an object or an empty string
-		//
     let orderId = this.props.currentOrder.id
 
     if(orderId) {
       this.props.fetchCurrentTickets(orderId)
     }
-    else {
-      if(this.props.auth.id){
-        this.props.checkCurrentOrder(this.props.auth.id)
-      }
-      else {
-        this.props.checkCurrentOrder(0)
-      }
-
+    else if(this.props.auth.id){
+    	this.props.checkCurrentOrder(this.props.auth.id)
     }
+    else {
+    	this.props.checkCurrentOrder(0)
+    }
+
+	}
 
     // if not current order, check if there is associated order
     // if current order, get tickets
-  }
 
   componentDidUpdate(prevProps, prevState) {
     let orderId = this.props.currentOrder.id
@@ -35,6 +31,7 @@ class CartComponent extends Component {
     if((prevProps.currentOrder.id !== orderId ) && orderId){
       this.props.fetchCurrentTickets(orderId)
     }
+
   }
 
 
@@ -46,10 +43,10 @@ class CartComponent extends Component {
     let price = 0;
 
     currentTickets.forEach(ticket => {
-      price += Number(Number(ticket.event.ticketPrice).toFixed(2));
+      price += Number(Number(ticket.event.ticketPrice))
     })
 
-		price = '$' + String(price).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+		price = '$' + String(price.toFixed(2)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 
 
 
