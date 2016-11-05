@@ -61,8 +61,8 @@ class CartItem extends Component {
           version="1.1"
           id="svg2"
           viewBox="0 0 1321.0176 648.82592"
-          height="183.1131mm"
-          width="372.82053mm">
+          height="100%"
+          width="100%">
           <defs
             id="defs4">
             <linearGradient
