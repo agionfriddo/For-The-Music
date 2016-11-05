@@ -8,12 +8,21 @@ class CartComponent extends Component {
   componentDidMount() {
     console.log('cart mounted')
 
-    let orderId = this.props.currentOrder.id
+    let orderId = 0;
+    let authId = 0
+
+    if(this.props.currentOrder) {
+      orderId = this.props.currentOrder.id
+    }
+
+    if (this.props.auth) {
+      authId = this.props.auth.id
+    }
 
     if(orderId) {
       this.props.fetchCurrentTickets(orderId)
     }
-    else if(this.props.auth.id){
+    else if(authId){
     	this.props.checkCurrentOrder(this.props.auth.id)
     }
     else {
