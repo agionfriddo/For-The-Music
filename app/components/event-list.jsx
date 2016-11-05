@@ -9,22 +9,19 @@ class EventList extends Component {
     const { eventsList } = this.props
 
     return (
-      <div className="container">
-        <h3>Events</h3>
-        <div className="row">
-          <div className="col-md-12">
-            <SearchBar />
-          </div>
-        </div>
-        <div></div>
-        <div className="list-group">
-          {
-            eventsList && eventsList.map(event => (
-              <div key={event.id} className="list-group-item">
-                <EventItemComponent  event={event}/>
-              </div>
-            )
-          )}
+      <div>
+          <SearchBar />
+          <div className="container">
+            <h3>Events</h3>
+            <div className="list-group">
+            {
+              eventsList && eventsList.map(event => (
+                <div key={event.id} className="list-group-item">
+                  <EventItemComponent  event={event}/>
+                </div>
+              )
+            )}
+            </div>
         </div>
       </div>
     )

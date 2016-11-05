@@ -16,17 +16,23 @@ class SearchBarComponent extends Component {
 
   render() {
     return (
+      <div id="searchBar">
         <form className="form-group" onSubmit={this.onSearchSubmit}>
-          <label>Search:</label>
           <div className="input-group" >
-            <input name="search" type="text" className="form-control" />
+            <input
+              name="search"
+              type="text"
+              className="form-control"
+              placeholder="Search by Venue or Artist"
+              />
             <span className="input-group-btn">
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn btn-default">
                 Go!
               </button>
             </span>
           </div>
         </form>
+      </div>
     )
   }
 
