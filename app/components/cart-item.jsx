@@ -15,7 +15,7 @@ class CartItem extends Component {
 		if(UTCDateString === ""){ return "" };
 		console.log(moment)
 		let thisMoment = moment(UTCDateString, moment.ISO_8601);	
-   	return thisMoment.format('LLLL');
+   	return thisMoment;
 	}
 	
 
@@ -27,6 +27,15 @@ class CartItem extends Component {
       var appendedArtists = `${ticket.event.artists[0].name} & ${ticket.event.artists[1].name}`
       console.log(appendedArtists)
       appendedArtists.trim();
+
+      let thisDate = this.transformedDate(ticket.event.date)
+      let dayOfWeek = thisDate.format('dddd');
+      let time = thisDate.format('LT');
+      let month = thisDate.format('MMM');
+      let dayOfMonth = thisDate.format('DD');
+      let year = thisDate.format('YYYY');
+
+    
       /*Available data in the renderfunction: 
         ticket.event.venue.imageurl
         ticket.event.artists[0,1].name
@@ -194,7 +203,7 @@ class CartItem extends Component {
                 id="text4210"><tspan
                   id="tspan4212"
                   x="637.42072"
-                  y="664.04364">{ticket.event.ticketPrice}</tspan></text>
+                  y="664.04364">${ticket.event.ticketPrice}</tspan></text>
               <text
                xmlSpace="preserve"
                 style={{fontStyle:'normal',fontWeight:'normal',fontSize:'37.91160583px',lineHeight:'125%',fontFamily:'sans-serif',letterSpacing:'0px',wordSpacing:'0px',fill:'#000000',fillOpacity:'1',stroke:'none',strokeWidth:'1px',strokeLinecap:'butt',strokeLinejoin:'miter',strokeOpacity:'1'}}
@@ -212,7 +221,7 @@ class CartItem extends Component {
                 id="text4272"><tspan
                   id="tspan4274"
                   x="637.48877"
-                  y="435.39597">FRIDAY</tspan></text>
+                  y="435.39597">{dayOfWeek}</tspan></text>
               <text
                xmlSpace="preserve"
                 style={{fontStyle:'normal',fontWeight:'normal',fontSize:'60.27750778px',lineHeight:'125%',fontFamily:'sans-serif',letterSpacing:'0px',wordSpacing:'0px',fill:'#000000',fillOpacity:'1',stroke:'none',strokeWidth:'1px',strokeLinecap:'butt',strokeLinejoin:'miter',strokeOpacity:'1'}}
@@ -221,7 +230,7 @@ class CartItem extends Component {
                 id="text4276"><tspan
                   id="tspan4278"
                   x="639.31354"
-                  y="499.01602">8:30 PM</tspan></text>
+                  y="499.01602">{time}</tspan></text>
               <path
                 id="path4280"
                 d="m 621.89219,381.74548 0,307.84071"
@@ -242,7 +251,7 @@ class CartItem extends Component {
                 id="text4284"><tspan
                   id="tspan4286"
                   x="245.85197"
-                  y="480.62564">NOV</tspan></text>
+                  y="480.62564">{month}</tspan></text>
               <text
                xmlSpace="preserve"
                 style={{fontStyle:'normal',fontWeight:'normal',fontSize:'127.8298111px',lineHeight:'125%',fontFamily:'sans-serif',letterSpacing:'0px',wordSpacing:'0px',fill:'#000000',fillOpacity:'1',stroke:'none',strokeWidth:'1px',strokeLinecap:'butt',strokeLinejoin:'miter',strokeOpacity:'1'}}
@@ -251,7 +260,7 @@ class CartItem extends Component {
                 id="text4288"><tspan
                   id="tspan4290"
                   x="230.02422"
-                  y="588.2879">11</tspan></text>
+                  y="588.2879">{dayOfMonth}</tspan></text>
               <text
                xmlSpace="preserve"
                 style={{fontStyle:'normal',fontWeight:'normal',fontSize:'57.60102844px',lineHeight:'125%',fontFamily:'sans-serif',letterSpacing:'0px',wordSpacing:'0px',fill:'#000000',fillOpacity:'1',stroke:'none',strokeWidth:'1px',strokeLinecap:'butt',strokeLinejoin:'miter',strokeOpacity:'1'}}
@@ -260,7 +269,7 @@ class CartItem extends Component {
                 id="text4292"><tspan
                   id="tspan4294"
                   x="235.57732"
-                  y="647.89392">2016</tspan></text>
+                  y="647.89392">{year}</tspan></text>
             </g>
             <text
               transform="matrix(0,1,-1,0,0,0)"
@@ -272,7 +281,7 @@ class CartItem extends Component {
                 id="tspan3418"
                 x="364.30975"
                 y="-464.08301"
-                style={{fontStyle:'normal',fontVariant:'normal',fontWeight:'normal',fontStretch:'normal',fontSize:'178.30426025px',lineHeight:'125%',fontFamily:'Free 3 of 9 Extended',textAlign:'start',writingMode:'lr-tb',textAnchor:'start'}}>FF001</tspan></text>
+                style={{fontStyle:'normal',fontVariant:'normal',fontWeight:'normal',fontStretch:'normal',fontSize:'178.30426025px',lineHeight:'125%',fontFamily:'Free 3 of 9 Extended',textAlign:'start',writingMode:'lr-tb',textAnchor:'start'}}>{ticket.id}</tspan></text>
           </g>
         </svg>
 
