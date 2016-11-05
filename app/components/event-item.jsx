@@ -17,7 +17,7 @@ class EventItem extends Component {
 
     render() {
       return (
-        <div className="row">
+        <div className="row" id="EventItemComponent">
           <div className="col-md-4">
             <img width="250" src={this.props.event.venue.imageurl} />
           </div>
@@ -27,7 +27,7 @@ class EventItem extends Component {
             <p>Price: ${this.props.event.ticketPrice}</p>
           </div>
           <div className="col-md-2">
-            <div className="btn btn-success" onClick={() => this.props.postCurrentOrder(
+            <div className="btn btn-primary" onClick={() => this.props.postCurrentOrder(
                 this.props.auth,
                 this.props.currentOrder.id,
                 this.props.event.id)}>BUY NOW</div>

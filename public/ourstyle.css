@@ -39,11 +39,28 @@
 	font-family: 'autoBarcode';
 }
 
-
 #searchBar {
-	padding: 150px 10vw 150px 10vw;
 	background-image: url("http://az616578.vo.msecnd.net/files/2016/08/25/6360774233678669081662542485_concert.jpg");
 	background-size: fixed;
+}
+
+#searchBar .container {
+	padding: 10px 10vw 150px 10vw;
+}
+
+#searchBar .input-group {
+	padding: 150px 10vw 0 10vw;
+}
+
+#searchBar .col-md-4 {
+	text-align: center;
+	border-bottom: 5px solid;
+	border-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 30%, black 30%, black 60%, rgba(0, 0, 0, 0) 60%) 10;
+}
+
+#searchBar .col-md-4 a {
+	color: black;
+	font-weight: 800;
 }
 
 
