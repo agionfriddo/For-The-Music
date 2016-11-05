@@ -23,6 +23,10 @@ class CartItem extends Component {
     render() {
       const { ticket } = this.props
       console.log('ticket', this)
+      
+      var appendedArtists = `${ticket.event.artists[0].name} & ${ticket.event.artists[1].name}`
+      console.log(appendedArtists)
+      appendedArtists.trim();
       /*Available data in the renderfunction: 
         ticket.event.venue.imageurl
         ticket.event.artists[0,1].name
@@ -97,7 +101,7 @@ class CartItem extends Component {
               width="958.64008"
               height="631.5152"
               preserveAspectRatio="none"
-              src=""
+              src={ticket.event.venue.imageurl}
               id="image4146"
               x="-234.53607"
               y="311.14636" />
@@ -118,7 +122,7 @@ class CartItem extends Component {
                 id="text4218"><tspan
                   id="tspan4220"
                   x="129.80888"
-                  y="220.44914">Beyonce &amp; Allan Holdsworth</tspan></text>
+                  y="220.44914">{appendedArtists}</tspan></text>
               <text
                xmlSpace="preserve"
                 style={{fontStyle:'normal',fontWeight:'normal',fontSize:'41.60047531px',lineHeight:'125%',fontFamily:'sans-serif',letterSpacing:'0px',wordSpacing:'0px',fill:'#000000',fillOpacity:'1',stroke:'none',strokeWidth:'1px',strokeLinecap:'butt',strokeLinejoin:'miter',strokeOpacity:'1'}}
@@ -127,7 +131,7 @@ class CartItem extends Component {
                 id="text4222"><tspan
                   id="tspan4224"
                   x="133.06386"
-                  y="282.552">Rockwood Music Hall</tspan></text>
+                  y="282.552">{ticket.event.venue.name}</tspan></text>
               <text
                 id="text4230"
                 y="337.92746"
@@ -136,7 +140,7 @@ class CartItem extends Component {
                xmlSpace="preserve"><tspan
                   y="337.92746"
                   x="132.75218"
-                  id="tspan4232">196 Allen St, New York, New York</tspan></text>
+                  id="tspan4232">{ticket.event.venue.address}</tspan></text>
             </g>
             <path
               id="path4250"
@@ -154,7 +158,7 @@ class CartItem extends Component {
                 transform="matrix(0,-1,1,0,0,0)"><tspan
                   y="-8.4792576"
                   x="-684.19049"
-                  id="tspan4244">Beyonce &amp; Allan Holdsworth</tspan></text>
+                  id="tspan4244">{appendedArtists}</tspan></text>
               <g
                 id="g3479"
                 transform="translate(0,-6.3858748)">
@@ -167,7 +171,7 @@ class CartItem extends Component {
                   id="text4246"><tspan
                     id="tspan4248"
                     x="-657.68896"
-                    y="31.745901">Rockwood Music Hall</tspan></text>
+                    y="31.745901">{ticket.event.venue.name}</tspan></text>
                 <text
                   id="text4268"
                   y="31.745901"
@@ -177,7 +181,7 @@ class CartItem extends Component {
                   transform="matrix(0,-1,1,0,0,0)"><tspan
                     y="31.745901"
                     x="-375.68893"
-                    id="tspan4270">----- New York City</tspan></text>
+                    id="tspan4270">New York City</tspan></text>
               </g>
             </g>
             <g
@@ -190,7 +194,7 @@ class CartItem extends Component {
                 id="text4210"><tspan
                   id="tspan4212"
                   x="637.42072"
-                  y="664.04364">$25.10</tspan></text>
+                  y="664.04364">{ticket.event.ticketPrice}</tspan></text>
               <text
                xmlSpace="preserve"
                 style={{fontStyle:'normal',fontWeight:'normal',fontSize:'37.91160583px',lineHeight:'125%',fontFamily:'sans-serif',letterSpacing:'0px',wordSpacing:'0px',fill:'#000000',fillOpacity:'1',stroke:'none',strokeWidth:'1px',strokeLinecap:'butt',strokeLinejoin:'miter',strokeOpacity:'1'}}
