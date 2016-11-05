@@ -11,7 +11,7 @@ const customReviewRoutes = require('express').Router()
 
 /* CUSTOM POST ROUTE THAT ALLOWS USERS TO POST REVIEWS FOR VENUES */
 
-customReviewRoutes.post('/', (req,res,next)=>{
+customReviewRoutes.post('/', (req, res, next) => {
    let createThisReview = req.body
    let userId = createThisReview.userId
    let venueId = createThisReview.venueId

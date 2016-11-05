@@ -9,7 +9,7 @@ const customEventRoutes = require('express').Router()
 
   /* CUSTOM POST ROUTE THAT ALLOWS EVENTS TO BE ASSOCIATED WITH ARTISTS AND A SINGLE VENUE */
 
-   customEventRoutes.post('/', (req,res,next)=>{
+   customEventRoutes.post('/', (req, res, next) => {
       let createThisEvent = req.body;
       let listOfArtists = createThisEvent.artistIds
 

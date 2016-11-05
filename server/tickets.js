@@ -13,7 +13,7 @@ module.exports = customTicketRoutes
 
   /* CUSTOM POST ROUTE THAT ALLOWS USERS TO REMOVE TICKETS FROM CART */
 
-  customTicketRoutes.put('/', (req,res,next)=>{
+  customTicketRoutes.put('/', (req, res, next) => {
       let { ticketID } = req.body;
 
       if (ticketID) {
