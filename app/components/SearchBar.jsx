@@ -10,9 +10,7 @@ class SearchBarComponent extends Component {
 
   onSearchSubmit(event) {
     event.preventDefault();
-    console.log("YO")
     const { fetchEventsByQuery } = this.props;
-    console.log(event.target.search.value)
     fetchEventsByQuery(event.target.search.value)
   }
 
