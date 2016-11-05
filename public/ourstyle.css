@@ -13,6 +13,19 @@
 }
 .ticketContainer .ticketDelete {
 	position: absolute;
-	bottom:50px;
-	right:50px;
+	bottom:20px;
+	right:20px;
+}
+/*Basically overwriting default bootstrap buttons so it doesnt look like default until you hover*/
+.btn-danger{
+	color: #000;
+	background: none;
+}
+.btn-danger:hover {
+	color: #fff;
+	background: #d43f3a;
+}
+/*Really nitpicky. the x looked off center.*/
+.btn-danger .glyph-icon {
+	top: 3px;
 }
