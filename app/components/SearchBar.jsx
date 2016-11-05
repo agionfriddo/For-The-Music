@@ -31,6 +31,19 @@ class SearchBarComponent extends Component {
               </button>
             </span>
           </div>
+          <div className='container'>
+            <div className='row'>
+              <div className='col-md-4'>
+                <a className="searchShortcut">Artists</a>
+              </div>
+              <div className='col-md-4'>
+                <a className="searchShortcut">Venues</a>
+              </div>
+              <div className='col-md-4'>
+                <a className="searchShortcut">Events</a>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     )
