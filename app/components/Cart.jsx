@@ -43,7 +43,7 @@ class CartComponent extends Component {
     let price = 0;
 
     currentTickets.forEach(ticket => {
-      price += Number(Number(ticket.event.ticketPrice))
+      price += (Number(ticket.event.ticketPrice))
     })
 
 		price = '$' + String(price.toFixed(2)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
@@ -55,6 +55,7 @@ class CartComponent extends Component {
     console.log("CURRENT ORDER", currentOrder)
 
     return (
+		<div className='container'>
       <div className='row'>
         <div className='col-md-6'>
           <div className='row'>
@@ -80,6 +81,7 @@ class CartComponent extends Component {
           </div>
         </div>
       </div>
+		</div>
 
     )
   }
