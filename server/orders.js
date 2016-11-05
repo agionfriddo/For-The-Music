@@ -36,6 +36,14 @@ module.exports = customOrderRoutes
     let sessionOrderID = req.session.orderID
     let userID = Number(req.params.id)
 
+    let emptyOrder = {
+              id: null,
+              date: '',
+              ticketPrice: '',
+              artists:[{name: ''}],
+              venue: {name: ''}
+            }
+
     // session ID exists on the request, send order associated with session ID
     if (sessionOrderID) {
       Order.findById(sessionOrderID)
@@ -45,24 +53,43 @@ module.exports = customOrderRoutes
       // if session ID does not exist on request, but the user ID does
       // find one order associated with the user and send it back
       if (userID) {
-        Order.findOne({where: {user_id: userID}})
+        Order.findOne({where: {user_id: userID, status: 'in-cart'}})
           .then(order => {
             if (order) {
               res.send(order)
             }
             else {
               // if user has no associated order, send 404
-              res.sendStatus(404)
+              res.send(emptyOrder)
             }
           })
       } else {
         // if both user and request have no associated order, send 404
-        res.sendStatus(404)
+        res.send(emptyOrder)
       }
     }
   })
 
-  /* CUSTOM GET ROUTE THAT CHECKS FOR AN ORDER */
+  /* CUSTOM PUT ROUTE UPDATES AN ORDER FROM IN-CART TO COMPLETED */
+
+  customOrderRoutes.put('/:id/complete', (req, res, next) => {
+    let orderID = req.params.id;
+    let userID = req.body.userID
+
+    Order.findOne({where:{id: orderID}})
+      .then(order => {
+        return order.update({status: 'purchased', user_id: userID})
+      })
+      .then(updatedOrder => {
+        // clear order from cart by reassigning cookie
+        req.session.orderID = null
+        res.send(updatedOrder)
+      })
+      .catch(next)
+
+  })
+
+  /* CUSTOM POST ROUTE THAT POSTS AN ORDER WITH NEW TICKETS OR UPDATES A PRIOR ORDER */
 
    customOrderRoutes.post('/', (req, res, next) => {
       let bodyUserID = req.body.userID
@@ -77,7 +104,7 @@ module.exports = customOrderRoutes
 
       // TEST CONSOLE LOGS
       // console.log('orderID: ', orderID)
-      // console.log('userID: ', userID)
+      // console.log('userID: ',  userID)
       // console.log('eventID: ', eventID)
 
       // if any orderID exists, find that order
@@ -147,6 +174,9 @@ module.exports = customOrderRoutes
 
    // EDGE CASE: User has order already in DB, then creates an order on another session as a guest, then logs in
    // the user will have two IN-CART orders in the db, and will only show one
+
+   // EDGE CASE: If no tickets left, the order does not get associated with
+   // any tickets, but the user is not notified
 
 const orders = epilogue.resource({
   model: db.model('orders'),

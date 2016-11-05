@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { fetchCurrentTickets } from '../reducers/currentTickets'
-import { checkCurrentOrder } from '../reducers/currentOrder'
+import { checkCurrentOrder, completeCurrentOrder } from '../reducers/currentOrder'
 import CartItem from './cart-item'
 
 class CartComponent extends Component {
@@ -38,7 +38,7 @@ class CartComponent extends Component {
 
   render() {
 
-    const { currentTickets, currentOrder } = this.props
+    const { currentTickets, currentOrder, auth } = this.props
 
     let price = 0;
 
@@ -47,12 +47,6 @@ class CartComponent extends Component {
     })
 
 		price = '$' + String(price.toFixed(2)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-
-
-
-
-    console.log("CURRENT TICKETS", currentTickets.length)
-    console.log("CURRENT ORDER", currentOrder)
 
     return (
       <div className='row'>
@@ -64,7 +58,7 @@ class CartComponent extends Component {
               <p>Tickets Included Below:</p>
 
               <h1>Total Price: {price}</h1>
-              <div className="btn btn-success">COMPLETE PURCHASE</div>
+              {this.props.auth ? <div className="btn btn-success" onClick={() => this.props.completeCurrentOrder(currentOrder.id, auth.id)}>COMPLETE PURCHASE</div> : <div></div>}
             </div>
           </div>
         </div>
@@ -92,7 +86,7 @@ const mapStateToProps = ({currentTickets, currentOrder, auth}) => ({
   auth
 })
 
-const mapDispatchToProps = { fetchCurrentTickets, checkCurrentOrder }
+const mapDispatchToProps = { fetchCurrentTickets, checkCurrentOrder, completeCurrentOrder }
 
 let CartContainer = connect(mapStateToProps, mapDispatchToProps)(CartComponent);
 

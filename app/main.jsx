@@ -17,6 +17,7 @@ import { fetchCurrentTickets } from './reducers/currentTickets'
 import ArtistList from './components/artist-list'
 import { fetchAllArtists } from './reducers/artists'
 import SignUp from './components/sign-up'
+import MyAccount from './components/my-account'
 
 // on enter hook for /eventlist
 const onEventEnter = function() {
@@ -39,6 +40,7 @@ render (
         <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistEnter }/>
         <Route path="/cart" component={CartComponent} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/myaccount" component={MyAccount} />
       </Route>
     </Router>
   </Provider>,

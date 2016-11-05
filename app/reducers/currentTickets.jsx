@@ -3,6 +3,7 @@ import axios from 'axios'
 // -------------- CONSTANTS
 const SET_CURRENT_TICKETS = 'SET_CURRENT_TICKETS'
 const DELETE_TICKET = 'DELETE_TICKET'
+const CLEAR_CURRENT_ORDER = 'CLEAR_CURRENT_ORDER'
 
 
 // -------------- SYNC ACTION CREATORS
@@ -40,6 +41,9 @@ const reducer = (state = initialTickets, action) => {
   switch(action.type) {
     case SET_CURRENT_TICKETS:
       return action.currentTickets
+
+    case CLEAR_CURRENT_ORDER:
+      return []
 
     case DELETE_TICKET:
       return state
