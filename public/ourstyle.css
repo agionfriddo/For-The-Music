@@ -26,6 +26,16 @@
 	background: #d43f3a;
 }
 /*Really nitpicky. the x looked off center.*/
-.btn-danger .glyph-icon {
+.btn-danger .glyphicon {
 	top: 3px;
 }
+
+@font-face {
+	font-family: 'autoBarcode';
+	src: url("fre3of9x.ttf");
+
+}
+#text3416 {
+	font-family: 'autoBarcode';
+}
+

@@ -285,7 +285,7 @@ class CartItem extends Component {
                 id="tspan3418"
                 x="364.30975"
                 y="-464.08301"
-                style={{fontStyle:'normal',fontVariant:'normal',fontWeight:'normal',fontStretch:'normal',fontSize:'178.30426025px',lineHeight:'125%',fontFamily:'Free 3 of 9 Extended',textAlign:'start',writingMode:'lr-tb',textAnchor:'start'}}>{ticket.id}</tspan></text>
+                style={{fontStyle:'normal',fontVariant:'normal',fontWeight:'normal',fontStretch:'normal',fontSize:'178.30426025px',lineHeight:'125%',textAlign:'start',writingMode:'lr-tb',textAnchor:'start'}}>{ticket.id}</tspan></text>
           </g>
         </svg>
 	</div>
