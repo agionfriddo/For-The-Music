@@ -32,11 +32,13 @@
 
 @font-face {
 	font-family: 'autoBarcode';
-	src: url("fre3of9x.ttf");
-
+	src: url("/fonts/Code39Azalea.otf");
+	src: url("/fonts/Code39Azalea.svg");
+	src: url("/fonts/Code39Azalea.ttf");
+	src: url("/fonts/Code39Azalea.woff");
 }
 #text3416 {
-	font-family: 'autoBarcode';
+	font-family: 'autoBarcode' !important;
 }
 
 

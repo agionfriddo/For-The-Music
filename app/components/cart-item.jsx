@@ -34,6 +34,7 @@ class CartItem extends Component {
       let month = thisDate.format('MMM');
       let dayOfMonth = thisDate.format('DD');
       let year = thisDate.format('YYYY');
+			let barcodeId = ("0000" + ticket.id).slice(0,5);
 
 
       /*Available data in the renderfunction:
@@ -283,9 +284,9 @@ class CartItem extends Component {
               y="-464.08301"
               id="text3416"><tspan
                 id="tspan3418"
-                x="364.30975"
-                y="-464.08301"
-                style={{fontStyle:'normal',fontVariant:'normal',fontWeight:'normal',fontStretch:'normal',fontSize:'178.30426025px',lineHeight:'125%',textAlign:'start',writingMode:'lr-tb',textAnchor:'start'}}>{ticket.id}</tspan></text>
+                x="385"
+                y="-420"
+                style={{fontStyle:'normal',fontVariant:'normal',fontWeight:'normal',fontStretch:'normal',fontSize:'178.30426025px',lineHeight:'125%',textAlign:'start',writingMode:'lr-tb',textAnchor:'start'}}>{barcodeId}</tspan></text>
           </g>
         </svg>
 	</div>
