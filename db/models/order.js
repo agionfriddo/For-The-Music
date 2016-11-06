@@ -12,10 +12,6 @@ const Order = db.define('orders', {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
   }
-}, {
-  tickets: {
-    include: [{model: Ticket}]
-  }
 })
 
 module.exports = Order;

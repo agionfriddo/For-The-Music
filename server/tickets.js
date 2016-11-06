@@ -29,13 +29,13 @@ module.exports = customTicketRoutes
             }
             else {
               // send that we didnt find the ticket
-              res.sendStatus(404)
+              res.sendStatus(204)
             }
           })
           .catch(next)
       }
       else {
-        res.sendStatus(404)
+        res.sendStatus(204)
       }
   })
 

@@ -14,7 +14,18 @@ const User = db.model('users')
 const customOrderRoutes = require('express').Router()
 module.exports = customOrderRoutes
 
-  /* CUSTOM GET ROUTE THAT FINDS TICKETS WITH BY ORDER ID */
+  /* CUSTOM GET ROUTE THAT FINDS AN ORDER AND INCLUDES ALL RELEVANT INFO */
+
+  customOrderRoutes.get('/:id', (req, res, next) => {
+    let orderId = req.params.id
+
+    Order.findOne({where:{id: orderId}})
+      .then(order => res.send(order))
+      .catch(next)
+
+  })
+
+  /* CUSTOM GET ROUTE THAT FINDS TICKETS ASSOCIATED WITH AN ORDER ID */
 
   customOrderRoutes.get('/:id/tickets', (req, res, next) => {
     let orderId = req.params.id
@@ -36,14 +47,6 @@ module.exports = customOrderRoutes
     let sessionOrderID = req.session.orderID
     let userID = Number(req.params.id)
 
-    let emptyOrder = {
-              id: null,
-              date: '',
-              ticketPrice: '',
-              artists:[{name: ''}],
-              venue: {name: ''}
-            }
-
     // session ID exists on the request, send order associated with session ID
     if (sessionOrderID) {
       Order.findById(sessionOrderID)
@@ -59,13 +62,13 @@ module.exports = customOrderRoutes
               res.send(order)
             }
             else {
-              // if user has no associated order, send 404
-              res.send(emptyOrder)
+              // if user has no associated order, send empty order
+              res.send({})
             }
           })
       } else {
-        // if both user and request have no associated order, send 404
-        res.send(emptyOrder)
+        // if both user and request have no associated order, send empty order
+        res.send({})
       }
     }
   })

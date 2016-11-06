@@ -1,57 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { fetchCurrentTickets } from '../reducers/currentTickets'
 import { checkCurrentOrder, completeCurrentOrder } from '../reducers/currentOrder'
 import CartItemContainer from './cart-item'
 
 class CartComponent extends Component {
   componentDidMount() {
-    console.log('cart mounted')
+    let orderId = this.props.currentOrder ? this.props.currentOrder.id : 0;
+    let authId = this.props.auth ? this.props.auth.id : 0;
 
-    let orderId = 0;
-    let authId = 0
-
-    if(this.props.currentOrder) {
-      orderId = this.props.currentOrder.id
-    }
-
-    if (this.props.auth) {
-      authId = this.props.auth.id
-    }
-
-    if(orderId) {
-      this.props.fetchCurrentTickets(orderId)
-    }
-    else if(authId){
+    // if user logged in, check for an order for that user
+    if (authId) {
     	this.props.checkCurrentOrder(this.props.auth.id)
     }
     else {
+      // check for an order on the cookie
     	this.props.checkCurrentOrder(0)
     }
-
 	}
 
-    // if not current order, check if there is associated order
-    // if current order, get tickets
-
   componentDidUpdate(prevProps, prevState) {
-    let orderId = this.props.currentOrder.id
-
-    if((prevProps.currentOrder.id !== orderId ) && orderId){
-      this.props.fetchCurrentTickets(orderId)
+    // forces a re-render so tickets will be shown
+    if(prevProps.auth !== this.props.auth) {
+      this.props.checkCurrentOrder(this.props.auth.id)
     }
-
   }
-
-
 
   render() {
 
-    const { currentTickets, currentOrder, auth } = this.props
+    const { currentOrder, auth } = this.props
 
     let price = 0;
 
-    currentTickets.forEach(ticket => {
+    currentOrder.tickets && currentOrder.tickets.forEach(ticket => {
       price += (Number(ticket.event.ticketPrice))
     })
 
@@ -75,7 +55,7 @@ class CartComponent extends Component {
         <div className='col-md-6'>
           <div className="list-group row">
             {
-              currentTickets && currentTickets.map(ticket => (
+              currentOrder.tickets && currentOrder.tickets.map(ticket => (
                 <div key={ticket.id} className="list-group-item col-md-12">
                   <CartItemContainer ticket={ticket} />
                 </div>
@@ -91,13 +71,12 @@ class CartComponent extends Component {
 }
 
 
-const mapStateToProps = ({currentTickets, currentOrder, auth}) => ({
-  currentTickets,
+const mapStateToProps = ({currentOrder, auth}) => ({
   currentOrder,
   auth
 })
 
-const mapDispatchToProps = { fetchCurrentTickets, checkCurrentOrder, completeCurrentOrder }
+const mapDispatchToProps = { checkCurrentOrder, completeCurrentOrder }
 
 let CartContainer = connect(mapStateToProps, mapDispatchToProps)(CartComponent);
 
