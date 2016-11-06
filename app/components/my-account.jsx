@@ -22,7 +22,7 @@ class MyAccount extends Component {
           </div>
           <div className='row'>
             <div className="col-md-12">
-              <h3>See Your Previous Orders</h3>
+              <h3>See Previous Orders</h3>
               <div className="btn btn-success" onClick={() => {console.log('nerd alert')}}>FETCH</div>
             </div>
           </div>
