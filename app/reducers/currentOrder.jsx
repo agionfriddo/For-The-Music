@@ -27,7 +27,7 @@ export const postCurrentOrder = (userID, orderID, eventID) => (dispatch) => {
 }
 
 export const checkCurrentOrder = (userId) => (dispatch) => {
-  axios.get(`/api/orders/0/ordercheck/${userId}`)
+  axios.get(`/api/order/ordercheck/${userId}`)
     .then(res => dispatch(setCurrentOrder(res.data)))
 }
 

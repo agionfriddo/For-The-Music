@@ -32,7 +32,7 @@ module.exports = customOrderRoutes
 
   /* CUSTOM GET ROUTE THAT CHECKS FOR AN ORDER */
 
-  customOrderRoutes.get('/0/ordercheck/:id', (req, res, next) => {
+  customOrderRoutes.get('/ordercheck/:id', (req, res, next) => {
     let sessionOrderID = req.session.orderID
     let userID = Number(req.params.id)
 
@@ -180,7 +180,7 @@ module.exports = customOrderRoutes
 
 const orders = epilogue.resource({
   model: db.model('orders'),
-  endpoints: ['/orders', '/orders/:id'],
+  endpoints: ['/orders'],
   actions: ['list', 'read', 'delete'],
   assocations: true
 })
