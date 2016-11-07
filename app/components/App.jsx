@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Navbar from './Navbar'
+import {logout} from 'APP/app/reducers/auth'
 
-const AppComponent = function({user, children}) {
+const AppComponent = function({user, children, logout}) {
   return (
     <div>
-        <Navbar user={user}/>
+        <Navbar user={user} logout={logout} />
         <div>
           {children}
         </div>
@@ -14,10 +15,12 @@ const AppComponent = function({user, children}) {
 }
 
 const AppContainer = connect(
-  ({ auth }) => ({ user: auth })
+  ({ auth }) => ({ user: auth }),
+  {logout}
+
 ) (
-  ({ user, children }) =>
-    <AppComponent children={children} user={user}/>
+  ({ user, children, logout}) =>
+    <AppComponent children={children} user={user} logout={logout}/>
 )
 
 export default AppContainer;
