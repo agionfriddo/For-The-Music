@@ -7,7 +7,7 @@ export default class VenueItem extends Component {
   }
 
   render() {
-    const venueObj = this.props.venues
+    const venueObj = this.props.venue
     return (
       <div className="row">
         <div className="col-md-4">
