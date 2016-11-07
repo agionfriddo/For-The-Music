@@ -8,6 +8,20 @@ class ArtistMoreInfo extends Component {
 	}
 
 	render(){
+		let showVideo = function(){
+			let availHeight = document.documentElement.clientHeight;
+			let availWidth = document.documentElement.clientWidth;
+			let videoContainer = document.getElementById("videoContainer");
+			let theVideo = document.getElementById("thevideo");
+			theVideo.style.width = availWidth / 2 + 'px';
+			theVideo.style.height = (parseInt(theVideo.style.width) / 16 * 9) + 'px';
+			theVideo.style.marginTop = (availHeight - parseInt(theVideo.style.height))/2 + 'px';
+			console.log(theVideo);
+			videoContainer.style.visibility = 'visible';
+			videoContainer.addEventListener('click', function(){this.style.visibility = 'hidden'})
+		}
+			
+				
 		//like maybe this is a little hacky but we have an artist array on the state,
 		//and instead of firing an action creator we can just grab active artist from pathname
 		const thisArtistId = location.pathname.split('/')[2];
@@ -24,14 +38,14 @@ class ArtistMoreInfo extends Component {
 						
 				<h2>{thisArtist.name}</h2>
 				<p>{thisArtist.bio}</p>
-				<a href={thisArtist.youtube}><button>YOUTUBE</button></a>
-					<div className='videoContainer'>
-						<iframe width="560" height="315" src={thisArtist.youtube} frameborder="0" allowfullscreen></iframe>		
+				<button onClick={showVideo}>YOUTUBE</button>
+					<div id='videoContainer'>
+						<iframe id="thevideo" src={thisArtist.youtube} frameBorder="0" allowFullScreen></iframe>		
 					</div>
 				</div>
 			</div>
 			</div>
-		)	
+		)
 	}
 }
 
