@@ -1,13 +1,13 @@
-.navbar-form input {
-	margin-right: 5px;
+#navbar div, #navbar input{
+	margin: 2.5px;
 }
-.navbar-form input:first-child {
+/*.navbar-form input:first-child {
 	margin-left: 5px;
 }
 
 #navbar.in > form > input {
 	margin-top: 5px;
-}
+}*/
 .ticketContainer {
 	position: relative;
 }
