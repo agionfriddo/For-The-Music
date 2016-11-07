@@ -13,12 +13,13 @@ class EventList extends Component {
             <h3>Events</h3>
             <div className="list-group">
             {
-              eventsList && eventsList.map(event => (
-                <div key={event.id} className="list-group-item">
-                  <EventItemComponent  event={event}/>
-                </div>
-              )
-            )}
+              eventsList.length > 0 
+							? eventsList.map(event => (
+               		<div key={event.id} className="list-group-item">
+                 		<EventItemComponent  event={event}/>
+                	</div>))
+              : <div> No events are available for this artist </div>	
+            }
             </div>
         </div>
       </div>

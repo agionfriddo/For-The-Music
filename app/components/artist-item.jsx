@@ -15,7 +15,7 @@ export default class ArtistItem extends Component {
             <img width="250" src={artistObj.imageurl} />
           </div>
           <div className="col-md-5">
-            <h4>{ artistObj.name }</h4>
+            <Link to={`/artists/${artistObj.id}`}><h4>{ artistObj.name }</h4></Link>
             <p>
             {
               artistObj.genres && artistObj.genres.map(genre => {
@@ -28,7 +28,7 @@ export default class ArtistItem extends Component {
             </p>
           </div>
           <div className="col-md-3">
-            <button className="btn btn-success">SEE ARTIST PAGE</button>
+            <Link to={`/artists/${artistObj.id}`}><button className="btn btn-success">SEE ARTIST PAGE</button></Link>
           </div>
         </div>
     )
