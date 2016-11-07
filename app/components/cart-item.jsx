@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { deleteDBTicket } from '../reducers/currentTickets.jsx';
+import { deleteDBTicket } from '../reducers/currentOrder.jsx';
 import { connect } from 'react-redux'
 var moment = require('moment');
 
@@ -22,7 +22,6 @@ class CartItem extends Component {
 
     render() {
       const { ticket } = this.props
-      console.log('ticket', this)
 
       var appendedArtists = `${ticket.event.artists[0].name} & ${ticket.event.artists[1].name}`
 

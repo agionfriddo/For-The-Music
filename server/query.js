@@ -9,7 +9,6 @@ const Venue = db.model('venues')
 const queryRouter = require('express').Router();
 
 queryRouter.get('/', (req, res, next) => {
-  console.log("IN ROUTE")
   let findingVenue = Venue.findOne({
     where: {
       name: { $iLike: `%${req.query.name}%` }
@@ -18,45 +17,36 @@ queryRouter.get('/', (req, res, next) => {
 
   let findingArtist = Artist.findOne({
     where: {
-      name: {
-        $iLike: `%${req.query.name}%`
-      }
+      name: { $iLike: `%${req.query.name}%` }
     }
   })
 
   Promise.all([findingVenue, findingArtist])
   .spread((foundVenue, foundArtist) => {
-    console.log("FOUND ARTISTS FOUND EVENTS")
-    console.log("FOUNDVENUE", foundVenue)
-    console.log("FOUND ARTISTS", foundArtist)
 
     let findingEventsByVenue = Event.findAll({
-      include: [Venue, Artist],
       where: {
         venue_id: foundVenue ?  foundVenue.id : null
       }
     })
-    if(foundArtist) {
-      let findingEventsByArtists = foundArtist.getEvents()
+
+    if (foundArtist) {
+      foundArtist.getEvents()
       .then(arrayOfEvents => {
-        const arrayEventPromise = arrayOfEvents.map(event => {
-          return Event.findOne({
-            include: [Venue, Artist],
-            where: { id : event.id }
-          })
-        })
-        Promise.all([...arrayEventPromise, findingEventsByVenue])
+        Promise.all([...arrayOfEvents, findingEventsByVenue])
         .then(events => {
-          console.log(events)
           let returnedEvents = [];
-          events.forEach(event => event ? returnedEvents = returnedEvents.concat(event) : null)
+          events.forEach(event => event ?
+            returnedEvents = returnedEvents.concat(event) :
+            null)
           res.send(returnedEvents)
         });
       });
-    }
-    else {
-      Promise.all([findingEventsByVenue])
-      .spread(foundEvents => {res.send(foundEvents)})
+    } else {
+      findingEventsByVenue
+      .then(foundEvents => {
+        res.send(foundEvents)
+      })
     }
   })
 })
