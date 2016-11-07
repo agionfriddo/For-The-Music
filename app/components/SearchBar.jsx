@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchEventsByQuery } from '../reducers/events'
 
@@ -34,7 +35,7 @@ class SearchBarComponent extends Component {
           <div className='container'>
             <div className='row'>
               <div className='col-md-4'>
-                <a className="searchShortcut">Artists</a>
+                <Link to="/artistlist"> <a className="searchShortcut">Artists</a> </Link>
               </div>
               <div className='col-md-4'>
                 <a className="searchShortcut">Venues</a>

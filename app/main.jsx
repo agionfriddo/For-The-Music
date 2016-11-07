@@ -34,13 +34,14 @@ const onCartEnter = function() {
 const onArtistListEnter = function() {
   store.dispatch(fetchAllArtists)
 }
+const onArtistEnter = function(artist) {
+  store.dispatch(fetchAllArtists)
+	store.dispatch(fetchEventsByArtist({id: artist.params.artistId}));
+}
 const onVenueEnter = function() {
   store.dispatch(fetchAllVenues)
 }
 
-const onArtistEnter = (artist) => {
-  store.dispatch(fetchEventsByArtist({id: artist.params.artistId}))
-}
 
 render (
   <Provider store={store}>
