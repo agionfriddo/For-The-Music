@@ -9,6 +9,12 @@ const customUserRoutes = require('express').Router()
 
 // Custom routes go here.
 
+customUserRoutes.get('/:id/orders', (req, res, next) => {
+  Order.findAll({where: {user_id: req.params.id}})
+  .then(orderArr => res.send(orderArr))
+  .catch(next)
+})
+
 module.exports = customUserRoutes
 
 // Epilogue will automatically create standard RESTful routes
