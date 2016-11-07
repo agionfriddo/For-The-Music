@@ -23,7 +23,3 @@ class ReviewList extends Component {
     )
   }
 }
-
-const mapStateToProps = state => ({reviewsList: state.reviewsList})
-
-export default connect(mapStateToProps)(ReviewList)
