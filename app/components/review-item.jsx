@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'ract-redux';
+import { connect } from 'react-redux';
 
 export default class ReviewItem extends Component {
   constructor() {

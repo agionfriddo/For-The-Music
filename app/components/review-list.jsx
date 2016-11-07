@@ -23,3 +23,5 @@ class ReviewList extends Component {
     )
   }
 }
+
+export default ReviewList;

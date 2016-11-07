@@ -2,12 +2,10 @@ import axios from 'axios'
 
 // ------------- CONSTANTS
 const SET_ARTISTS = 'SET_ARTISTS'
-const SET_CURRENT_ARTIST = 'SET_CURRENT_ARTIST'
 
 
 // ------------- SYNC ACTION CREATORS
 export const setArtists = artistsList => ({type: SET_ARTISTS, artistsList})
-export const setCurrentArtist = artist => ({type: SET_CURRENT_ARTIST, artist})
 
 
 // ------------- ASYNC ACTION CREATORS

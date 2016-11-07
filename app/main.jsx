@@ -18,11 +18,12 @@ import { fetchAllArtists } from './reducers/artists'
 import SignUp from './components/sign-up'
 import MyAccount from './components/my-account'
 import Artist from './components/Artist'
+import Venue from './components/Venue'
 
 // on enter hook for /eventlist
 
 import VenueList from './components/venue-list'
-import { fetchAllVenues } from './reducers/venues'
+import { fetchAllVenues, fetchOneVenue } from './reducers/venues'
 
 // on enter hook for /eventlist, /cart, /artistlist, and /venuelist
 const onEventListEnter = function() {
@@ -38,8 +39,11 @@ const onArtistEnter = function(artist) {
   store.dispatch(fetchAllArtists)
 	store.dispatch(fetchEventsByArtist({id: artist.params.artistId}));
 }
-const onVenueEnter = function() {
+const onVenueListEnter = function() {
   store.dispatch(fetchAllVenues)
+}
+const onVenueEnter = function(venue) {
+  store.dispatch(fetchOneVenue({id: venue.params.venueId}))
 }
 
 
@@ -53,7 +57,8 @@ render (
         <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistListEnter }/>
         <Route path="/artists/:artistId" component={Artist} onEnter={ onArtistEnter } />
         <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistListEnter }/>
-        <Route path="/venuelist" component= { VenueList } onEnter={ onVenueEnter }/>
+        <Route path="/venuelist" component= { VenueList } onEnter={ onVenueListEnter }/>
+        <Route path="/venues/:venueId" component={ Venue } onEnter={ onVenueEnter } />
         <Route path="/cart" component={CartComponent} />
         <Route path="/signup" component={SignUp} />
         <Route path="/myaccount" component={MyAccount} />
