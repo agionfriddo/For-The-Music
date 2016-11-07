@@ -2,6 +2,8 @@
 
 const epilogue = require('./epilogue')
 const db = require('APP/db')
+const Order = db.model('orders')
+
 
 const customUserRoutes = require('express').Router()
 
@@ -12,8 +14,7 @@ module.exports = customUserRoutes
 // Epilogue will automatically create standard RESTful routes
 const users = epilogue.resource({
   model: db.model('users'),
-  endpoints: ['/users', '/users/:id'],
-  associations: true
+  endpoints: ['/users', '/users/:id']
 })
 
 const {mustBeLoggedIn, selfOnly, forbidden} = epilogue.filters
