@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import EventItemComponent from './event-item';
 import { connect } from 'react-redux';
-import SearchBar from './SearchBar'
 
 class EventList extends Component {
 
@@ -10,7 +9,6 @@ class EventList extends Component {
 
     return (
       <div>
-          <SearchBar />
           <div className="container">
             <h3>Events</h3>
             <div className="list-group">

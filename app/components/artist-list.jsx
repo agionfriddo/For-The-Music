@@ -8,7 +8,7 @@ class ArtistList extends Component {
     const { artistsList } = this.props
 
     return (
-      <div>
+      <div className="container">
       <h3>Artists</h3>
         <div className="list-group">
           {

@@ -10,7 +10,7 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
 import AppContainer from './components/App'
-import EventList from './components/event-list'
+import Events from './components/Events'
 import CartComponent from './components/Cart'
 import { fetchAllEvents, fetchEventsByArtist } from './reducers/events'
 import ArtistList from './components/artist-list'
@@ -48,7 +48,7 @@ render (
       <Route path="/" component={AppContainer}>
         <IndexRedirect to="/eventlist" />
         <Route path="/jokes" component={Jokes} />
-        <Route path="/eventlist" component={EventList} onEnter={onEventListEnter} />
+        <Route path="/eventlist" component={Events} onEnter={onEventListEnter} />
         <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistListEnter }/>
         <Route path="/artists/:artistId" component={Artist} onEnter={ onArtistEnter } />
         <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistListEnter }/>
