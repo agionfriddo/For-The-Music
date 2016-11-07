@@ -46,4 +46,10 @@ Order.addScope('defaultScope',
                 }]
               }, {override: true})
 
+Event.addScope('defaultScope', {
+  include: [{model: Venue}, {model: Artist}]
+}, {
+  override: true
+})
+
 module.exports = {Artist, Event, Genre, Order, Review, Ticket, User, Venue}
