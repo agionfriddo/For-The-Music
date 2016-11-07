@@ -22,7 +22,6 @@ const navbar = ({logout, user}) => (
 			<div className="navbar-right">
 				<Link to="/cart"><button className="btn btn-default navbar-btn "><span className="glyphicon glyphicon-shopping-cart"></span></button></Link>
 			</div>
-      {user ? <WhoAmI/> : <Login/>}
 				{user 
 				? <div className="navbar-right">
   				  <Link to="/myaccount">
@@ -30,8 +29,11 @@ const navbar = ({logout, user}) => (
 						</Link> 
     				<button className="btn btn-default navbar-btn logout" onClick={logout}>Logout</button>
 					</div>
-				: <Link to="/signup"><button className="btn btn-default navbar-btn "> Sign Up </button></Link>
+				: <div className="navbar-right">
+            <Link to="/signup"><button className="btn btn-default navbar-btn "> Sign Up </button></Link>
+          </div>
 				}
+      {user ? <WhoAmI/> : <Login/>}
 			</div>
     </div>
 </nav>
