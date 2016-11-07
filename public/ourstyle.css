@@ -1,6 +1,10 @@
 #navbar div, #navbar input{
 	margin: 2.5px;
 }
+#navbar .navbar-right button {
+	margin-left: 5px;
+	/*bootstrap margin fix because I am ignorant of the right way to do it*/
+}
 /*.navbar-form input:first-child {
 	margin-left: 5px;
 }
