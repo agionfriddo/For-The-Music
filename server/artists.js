@@ -37,6 +37,18 @@ const customArtistRoutes = require('express').Router()
         .catch(next)
    })
 
+   customArtistRoutes.get('/:artistId/events', (req, res, next) => {
+     console.log("INROUTE")
+     Artist.findById(req.params.artistId)
+     .then(artist => {
+       artist.getEvents()
+       .then(events => {
+         console.log(events)
+         res.json(events)
+       })
+     })
+   })
+
 module.exports = customArtistRoutes
 
 // Epilogue will automatically create standard RESTful routes
@@ -72,4 +84,3 @@ artists.delete.auth(mustBeAdmin)
    Artist.setGenre(thisOne)
 
    */
-
