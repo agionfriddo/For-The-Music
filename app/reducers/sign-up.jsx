@@ -12,7 +12,10 @@ export const signup = credentials => dispatch => {
   axios.post('/api/users', credentials)
        .then(res => {console.log('account created!')})
 			 .then(() => dispatch(login(credentials.email, credentials.password)))
-       .catch(err => console.error('Signup unsuccesful', err));
+       .catch(err => {
+					console.error('Signup unsuccesful', err);
+					alert("Account was not created. Perhaps the email was already used.");
+				})
 }
 
 
