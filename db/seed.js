@@ -632,12 +632,12 @@ db.didSync
   .then(() => console.log('Associated the events and artists'))
   .then(addVenueToEvent)
   .then(() => console.log('Added venue to event'))
-  .then(seedReviews)
-  .then(reviews => console.log(`Seeded ${reviews.length} reviews OK`))
   .then(seedUsers)
   .then(users => console.log(`Seeded ${users.length} users OK`))
+  .then(seedReviews)
+  .then(reviews => console.log(`Seeded ${reviews.length} reviews OK`))
   .then(addVenueAndUserToReview)
-  .then(() => console.log('Added users and venues to event'))
+  .then(() => console.log('Added users and venues to review'))
   .then(seedOrders)
   .then(orders => console.log(`Seeded ${orders.length} orders OK`))
   .then(addUserToOrder)
@@ -647,5 +647,4 @@ db.didSync
   .catch(error => console.error(error))
   .finally(() => {
 		console.log('All done!')
-		process.exit();
 	})
