@@ -15,7 +15,10 @@ export const setEventsByArtist = eventsList => ({type: SET_EVENTS_BY_ARTIST, eve
 // -------------- ASYNC ACTION CREATORS
 export const fetchAllEvents = dispatch => {
   axios.get('/api/events')
-    .then(res => dispatch(setEvents(res.data)))
+    .then(res => {
+      console.log("DATA",res.data)
+      dispatch(setEvents(res.data))
+    })
 }
 
 export const fetchEventsByQuery = query => dispatch => {
