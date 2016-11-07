@@ -5,7 +5,7 @@ const db = require('APP/db')
 const Venue = db.model('venues')
 const Review = db.model('reviews')
 const User = db.model('users')
-
+const Event = db.model('events')
 
 const customVenueRoutes = require('express').Router()
 
@@ -14,7 +14,8 @@ customVenueRoutes.get('/:id', (req, res, next) => {
   console.log(venueID)
   Venue.findOne({where: {id: venueID},
                 include: [{model: Review,
-                        include: {model: User, attributes: ['name']}}]
+                        include: {model: User, attributes: ['name']}},
+                        {model: Event}]
                 })
     .then(venue => (res.send(venue)))
     .catch(next)
