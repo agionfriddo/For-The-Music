@@ -11,54 +11,48 @@ const customTicketRoutes = require('express').Router()
 
 module.exports = customTicketRoutes
 
+  /* CUSTOM POST ROUTE THAT ALLOWS USERS TO REMOVE TICKETS FROM CART */
 
-  customTicketRoutes.put('/', (req,res,next)=>{
+  customTicketRoutes.put('/', (req, res, next) => {
       let { ticketID } = req.body;
-      console.log('body', req.body)
 
       if (ticketID) {
-        console.log('we have a ticket ID', ticketID)
         let findingTicket = Ticket.findOne({where: {id: ticketID}})
+
         findingTicket
           .then(ticket => {
-            if(ticket) {
-              console.log('ticket id to disassociate: ', ticket.id)
+            // if ticket exists, set user to null
+            if (ticket) {
+              // console.log('ticket id to disassociate: ', ticket.id)
               ticket.update({order_id: null})
                 .then(() => res.send({id: ticketID}))
             }
             else {
-              res.sendStatus(404)
+              // send that we didnt find the ticket
+              res.sendStatus(204)
             }
           })
-      } else {
-        res.sendStatus(404)
+          .catch(next)
+      }
+      else {
+        res.sendStatus(204)
       }
   })
 
 
-
-// Epilogue will automatically create standard RESTful routes
+// SEND LOTS OF INFORMATION  WITH THE TICKETS
 const tickets = epilogue.resource({
   model: db.model('tickets'),
   endpoints: ['/tickets', '/tickets/:id'],
   actions: ['list', 'read'],
   include: [{
     model: db.model('events'),
-    include: [{
-      model: db.model('artists')
-    },
-    {
-      model: db.model('venues')
-    }]
-  },
-  {
-    model: db.model('orders'),
-    include: [{
-      model: db.model('users')
-    }]
-  }]
+    include: [{model: db.model('artists')}, {model: db.model('venues')}]},
+              {model: db.model('orders'), include: [{model: db.model('users')}]
+            }]
 })
 
-const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
+// AUTH
+// const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
 
 

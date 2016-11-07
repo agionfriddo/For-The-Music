@@ -12,21 +12,23 @@ queryRouter.get('/', (req, res, next) => {
   console.log("IN ROUTE")
   let findingVenue = Venue.findOne({
     where: {
-      name: { $like: `%${req.query.name}%` }
-
+      name: { $iLike: `%${req.query.name}%` }
     }
   })
 
   let findingArtist = Artist.findOne({
     where: {
       name: {
-        $like: `%${req.query.name}%`
+        $iLike: `%${req.query.name}%`
       }
     }
   })
+
   Promise.all([findingVenue, findingArtist])
   .spread((foundVenue, foundArtist) => {
     console.log("FOUND ARTISTS FOUND EVENTS")
+    console.log("FOUNDVENUE", foundVenue)
+    console.log("FOUND ARTISTS", foundArtist)
 
     let findingEventsByVenue = Event.findAll({
       include: [Venue, Artist],
@@ -34,33 +36,28 @@ queryRouter.get('/', (req, res, next) => {
         venue_id: foundVenue ?  foundVenue.id : null
       }
     })
-
-    let findingEventsByArtists = foundArtist && foundArtist.getEvents()
-    .then(arrayOfEvents => {
-      console.log('ARR OF EVENTS', arrayOfEvents)
-      console.log('ARTIST OBJECT ON EVENT', arrayOfEvents[0].EventArtist.artist_id)
-      console.log('EVENT ID', arrayOfEvents[0].id)
-      const arrayEventPromise = arrayOfEvents.map(event => {
-        console.log('EVENT OBJ', event)
-        return Event.findAll({
-          //include: [Venue],
-          //where: { id : event.id }
+    if(foundArtist) {
+      let findingEventsByArtists = foundArtist.getEvents()
+      .then(arrayOfEvents => {
+        const arrayEventPromise = arrayOfEvents.map(event => {
+          return Event.findOne({
+            include: [Venue, Artist],
+            where: { id : event.id }
+          })
         })
-      })
-      Promise.all(arrayEventPromise)
-        .then(sendArrayOfEvents => (sendArrayOfEvents))
-    });
-
-
-
-    Promise.all([findingEventsByVenue, findingEventsByArtists])
-    .spread((foundEventsByVenue, foundEventsbyArtists) => {
-      console.log("PROMISE", foundEventsbyArtists)
-      let foundEvents = foundEventsbyArtists ? foundEventsByVenue.concat(foundEventsbyArtists) : foundEventsByVenue
-      console.log(foundEvents)
-      res.json(foundEvents)
-
-    })
+        Promise.all([...arrayEventPromise, findingEventsByVenue])
+        .then(events => {
+          console.log(events)
+          let returnedEvents = [];
+          events.forEach(event => event ? returnedEvents = returnedEvents.concat(event) : null)
+          res.send(returnedEvents)
+        });
+      });
+    }
+    else {
+      Promise.all([findingEventsByVenue])
+      .spread(foundEvents => {res.send(foundEvents)})
+    }
   })
 })
 

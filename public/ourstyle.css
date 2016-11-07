@@ -1,7 +1,72 @@
 .navbar-form input {
 	margin-right: 5px;
 }
+.navbar-form input:first-child {
+	margin-left: 5px;
+}
 
 #navbar.in > form > input {
 	margin-top: 5px;
+}
+.ticketContainer {
+	position: relative;
+}
+.ticketContainer .ticketDelete {
+	position: absolute;
+	bottom:20px;
+	right:20px;
+}
+/*Basically overwriting default bootstrap buttons so it doesnt look like default until you hover*/
+.btn-danger{
+	color: #000;
+	background: none;
+}
+.btn-danger:hover {
+	color: #fff;
+	background: #d43f3a;
+}
+/*Really nitpicky. the x looked off center.*/
+.btn-danger .glyphicon {
+	top: 3px;
+}
+
+@font-face {
+	font-family: 'autoBarcode';
+	src: url("/fonts/Code39Azalea.otf");
+	src: url("/fonts/Code39Azalea.svg");
+	src: url("/fonts/Code39Azalea.ttf");
+	src: url("/fonts/Code39Azalea.woff");
+}
+#text3416 {
+	font-family: 'autoBarcode' !important;
+}
+
+#searchBar {
+	background-image: url("http://az616578.vo.msecnd.net/files/2016/08/25/6360774233678669081662542485_concert.jpg");
+	background-size: fixed;
+}
+
+#searchBar .container {
+	padding: 10px 10vw 150px 10vw;
+}
+
+#searchBar .input-group {
+	padding: 150px 10vw 0 10vw;
+}
+
+#searchBar .col-md-4 {
+	text-align: center;
+	border-bottom: 5px solid;
+	border-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 30%, black 30%, black 60%, rgba(0, 0, 0, 0) 60%) 10;
+}
+
+#searchBar .col-md-4 a {
+	color: black;
+	font-weight: 800;
+}
+
+
+
+.navbar {
+	margin-bottom: 0px;
 }

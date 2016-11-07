@@ -37,4 +37,13 @@ User.hasMany(Review)
 
 Genre.belongsToMany(Artist, {through: 'ArtistGenre'})
 
+// updates the scope of the order to include all relevant information
+Order.addScope('defaultScope',
+               {include: [{model: Ticket,
+                  include: [{model: Event,
+                    include: [Artist, Venue]
+                  }]
+                }]
+              }, {override: true})
+
 module.exports = {Artist, Event, Genre, Order, Review, Ticket, User, Venue}

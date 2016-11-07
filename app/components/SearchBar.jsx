@@ -10,25 +10,42 @@ class SearchBarComponent extends Component {
 
   onSearchSubmit(event) {
     event.preventDefault();
-    console.log("YO")
     const { fetchEventsByQuery } = this.props;
-    console.log(event.target.search.value)
     fetchEventsByQuery(event.target.search.value)
   }
 
   render() {
     return (
+      <div id="searchBar">
         <form className="form-group" onSubmit={this.onSearchSubmit}>
-          <label>Search:</label>
           <div className="input-group" >
-            <input name="search" type="text" className="form-control" />
+            <input
+              name="search"
+              type="text"
+              className="form-control"
+              placeholder="Search by Venue or Artist"
+              />
             <span className="input-group-btn">
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn btn-default">
                 Go!
               </button>
             </span>
           </div>
+          <div className='container'>
+            <div className='row'>
+              <div className='col-md-4'>
+                <a className="searchShortcut">Artists</a>
+              </div>
+              <div className='col-md-4'>
+                <a className="searchShortcut">Venues</a>
+              </div>
+              <div className='col-md-4'>
+                <a className="searchShortcut">Events</a>
+              </div>
+            </div>
+          </div>
         </form>
+      </div>
     )
   }
 
