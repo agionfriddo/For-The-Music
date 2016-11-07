@@ -5,7 +5,7 @@ import Login from './Login';
 import { Link } from 'react-router';
 
 
-const navbar = ({user}) => (
+const navbar = ({logout, user}) => (
 
 <nav className="navbar navbar-inverse navbar-static-top">
   <div className="container">
@@ -19,12 +19,23 @@ const navbar = ({user}) => (
       <Link to="/" className="navbar-brand">For The Music</Link>
     </div>
     <div id="navbar" className="collapse navbar-collapse">
-	<Link to="/cart"><button className="btn btn-default navbar-btn navbar-right"><span className="glyphicon glyphicon-shopping-cart"></span></button></Link>
-          {user ? <WhoAmI/> : <Login/>}
-	<Link to="/signup"><div className="btn btn-default navbar-btn navbar-right"><span> Sign Up </span></div></Link>
-  <Link to="/myaccount"><div className="btn btn-default navbar-btn navbar-right"><span> My Account </span></div></Link>
+			<div className="navbar-right">
+				<Link to="/cart"><button className="btn btn-default navbar-btn "><span className="glyphicon glyphicon-shopping-cart"></span></button></Link>
+			</div>
+				{user 
+				? <div className="navbar-right">
+  				  <Link to="/myaccount">
+							<button className="btn btn-default navbar-btn "> My Account </button>
+						</Link> 
+    				<button className="btn btn-default navbar-btn logout" onClick={logout}>Logout</button>
+					</div>
+				: <div className="navbar-right">
+            <Link to="/signup"><button className="btn btn-default navbar-btn "> Sign Up </button></Link>
+          </div>
+				}
+      {user ? <WhoAmI/> : <Login/>}
+			</div>
     </div>
-  </div>
 </nav>
 )
 
