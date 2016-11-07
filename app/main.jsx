@@ -10,7 +10,7 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import Navbar from './components/Navbar'
 import AppContainer from './components/App'
-import EventList from './components/event-list'
+import Events from './components/Events'
 import CartComponent from './components/Cart'
 import { fetchAllEvents, fetchEventsByArtist } from './reducers/events'
 import ArtistList from './components/artist-list'
@@ -34,13 +34,14 @@ const onCartEnter = function() {
 const onArtistListEnter = function() {
   store.dispatch(fetchAllArtists)
 }
+const onArtistEnter = function(artist) {
+  store.dispatch(fetchAllArtists)
+	store.dispatch(fetchEventsByArtist({id: artist.params.artistId}));
+}
 const onVenueEnter = function() {
   store.dispatch(fetchAllVenues)
 }
 
-const onArtistEnter = (artist) => {
-  store.dispatch(fetchEventsByArtist({id: artist.params.artistId}))
-}
 
 render (
   <Provider store={store}>
@@ -48,7 +49,7 @@ render (
       <Route path="/" component={AppContainer}>
         <IndexRedirect to="/eventlist" />
         <Route path="/jokes" component={Jokes} />
-        <Route path="/eventlist" component={EventList} onEnter={onEventListEnter} />
+        <Route path="/eventlist" component={Events} onEnter={onEventListEnter} />
         <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistListEnter }/>
         <Route path="/artists/:artistId" component={Artist} onEnter={ onArtistEnter } />
         <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistListEnter }/>

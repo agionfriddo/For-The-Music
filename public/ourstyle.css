@@ -1,3 +1,29 @@
+#videoContainer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.5);
+	width: 100vw;
+	height: 100vh;
+	visibility: hidden;
+	z-index: 2;
+}
+	
+#thevideo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+a {
+	color: black;
+	text-decoration: underline;
+}
+
+.bio img {
+	width:100%;
+}
+
 #navbar div, #navbar input{
 	margin: 2.5px;
 }
@@ -15,6 +41,7 @@
 .ticketContainer {
 	position: relative;
 }
+
 .ticketContainer .ticketDelete {
 	position: absolute;
 	bottom:20px;
