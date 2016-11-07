@@ -3,7 +3,11 @@ import axios from 'axios'
 const reducer = (state=null, action) => {
   switch(action.type) {
   case AUTHENTICATED:
-    return action.user  
+    return action.user
+
+  case UPDATE_ORDERS:
+    const updatedState = Object.assign({}, state, {orders: action.ordersArr})
+    return updatedState
   }
   return state
 }
@@ -11,6 +15,12 @@ const reducer = (state=null, action) => {
 const AUTHENTICATED = 'AUTHENTICATED'
 export const authenticated = user => ({
   type: AUTHENTICATED, user
+})
+
+const UPDATE_ORDERS = 'UPDATE_ORDERS'
+
+export const updateOrders = ordersArr => ({
+  type: UPDATE_ORDERS, ordersArr
 })
 
 export const login = (username, password) =>
@@ -37,5 +47,23 @@ export const whoami = () =>
         dispatch(authenticated(user))
       })
       .catch(failed => dispatch(authenticated(null)))
+
+// export const fetchOrders = id =>
+//   dispatch => {
+//     console.log('success')
+//     axios.get(`/api/users/${id}/orders`)
+//       .then(response => {
+//         const ordersArr = response.data
+//         dispatch(updateOrders(ordersArr))
+//       })
+//       .catch(failed => dispatch(authenticated(null)))
+//   }
+
+export const getUserOrders = (userId) => (
+  dispatch => {
+     axios.get(`/api/users/${userId}/orders`)
+      .then(res => dispatch(updateOrders(res.data)))
+  }
+)
 
 export default reducer

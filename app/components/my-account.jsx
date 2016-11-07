@@ -1,16 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { getUserOrders } from '../reducers/auth'
 
 class MyAccount extends Component {
+
+    componentDidMount(){
+      // updateUserOrders
+      console.log(this.props.getUserOrders)
+      if(this.props.auth) {
+        this.props.getUserOrders(this.props.auth.id)
+      }
+    }
 
     render() {
       let name = ''
       let email = ''
+      let orders = null
       if (this.props.auth) {
         name = this.props.auth.name
         email = this.props.auth.email
+        orders = this.props.auth.orders
       }
-
+      if(orders) {
+        orders = orders.filter(order => {
+          console.log(order)
+          if('in-cart' !== order.status) {return true}
+        })
+      }
       return (
         <div className="container">
           <div className='row'>
@@ -22,8 +39,17 @@ class MyAccount extends Component {
           </div>
           <div className='row'>
             <div className="col-md-12">
-              <h3>See Previous Orders</h3>
-              <div className="btn btn-success" onClick={() => {console.log('nerd alert')}}>FETCH</div>
+              <h3>Previous Orders:</h3>
+              {orders && orders.map(order => {
+                return(
+                  <div className="row" key={order.id}>
+                    <div className="col-md-12">
+                    <h1>Order #{order.id}</h1>
+                    <h4>{order.tickets.length} - tickets</h4>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -33,9 +59,9 @@ class MyAccount extends Component {
 }
 
 const mapStateToProps = state => ({auth: state.auth})
+const mapDispatchToProps = { getUserOrders }
 
-
-const MyAccountContainer = connect(mapStateToProps)(MyAccount)
+const MyAccountContainer = connect(mapStateToProps, mapDispatchToProps)(MyAccount)
 
 export default MyAccountContainer
 

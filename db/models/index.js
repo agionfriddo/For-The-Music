@@ -52,4 +52,10 @@ Event.addScope('defaultScope', {
   override: true
 })
 
+User.addScope('defaultScope', {
+  include: [{model: Order}]
+}, {
+  override: true
+})
+
 module.exports = {Artist, Event, Genre, Order, Review, Ticket, User, Venue}

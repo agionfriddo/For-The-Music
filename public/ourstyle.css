@@ -15,6 +15,11 @@
 	margin-right: auto;
 }
 
+a {
+	color: black;
+	text-decoration: underline;
+}
+
 .bio img {
 	width:100%;
 }
