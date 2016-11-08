@@ -38,10 +38,10 @@ class SearchBarComponent extends Component {
                 <Link to="/artistlist" className="searchShortcut">Artists </Link>
               </div>
               <div className='col-md-4'>
-                <a className="searchShortcut">Venues</a>
+                <Link to="/venuelist" className="searchShortcut">Venues</Link>
               </div>
               <div className='col-md-4'>
-                <a className="searchShortcut">Events</a>
+                <Link to="/eventlist" className="searchShortcut">Events</Link>
               </div>
             </div>
           </div>

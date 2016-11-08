@@ -17,7 +17,7 @@ class VenueList extends Component {
               <div key={ venue.id } className="list-group-item">
                 <VenueItemComponent venue={ venue }/>
               </div>
-            )   
+            )
           )}
         </div>
       </div>

@@ -12,8 +12,8 @@ import Navbar from './components/Navbar'
 import AppContainer from './components/App'
 import Events from './components/Events'
 import CartComponent from './components/Cart'
-import { fetchAllEvents, fetchEventsByArtist } from './reducers/events'
-import ArtistList from './components/artist-list'
+import { fetchAllEvents, fetchEventsByArtist, fetchEventsByVenue } from './reducers/events'
+import Artists from './components/Artists'
 import { fetchAllArtists } from './reducers/artists'
 import SignUp from './components/sign-up'
 import MyAccount from './components/my-account'
@@ -22,7 +22,7 @@ import Venue from './components/Venue'
 
 // on enter hook for /eventlist
 
-import VenueList from './components/venue-list'
+import Venues from './components/Venues'
 import { fetchAllVenues, fetchOneVenue } from './reducers/venues'
 
 // on enter hook for /eventlist, /cart, /artistlist, and /venuelist
@@ -44,6 +44,7 @@ const onVenueListEnter = function() {
 }
 const onVenueEnter = function(venue) {
   store.dispatch(fetchOneVenue({id: venue.params.venueId}))
+  store.dispatch(fetchEventsByVenue({id: venue.params.venueId}))
 }
 
 
@@ -54,10 +55,9 @@ render (
         <IndexRedirect to="/eventlist" />
         <Route path="/jokes" component={Jokes} />
         <Route path="/eventlist" component={Events} onEnter={onEventListEnter} />
-        <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistListEnter }/>
         <Route path="/artists/:artistId" component={Artist} onEnter={ onArtistEnter } />
-        <Route path="/artistlist" component={ ArtistList } onEnter={ onArtistListEnter }/>
-        <Route path="/venuelist" component= { VenueList } onEnter={ onVenueListEnter }/>
+        <Route path="/artistlist" component={ Artists } onEnter={ onArtistListEnter }/>
+        <Route path="/venuelist" component= { Venues } onEnter={ onVenueListEnter }/>
         <Route path="/venues/:venueId" component={ Venue } onEnter={ onVenueEnter } />
         <Route path="/cart" component={CartComponent} />
         <Route path="/signup" component={SignUp} />

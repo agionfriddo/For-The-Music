@@ -8,7 +8,7 @@
 	visibility: hidden;
 	z-index: 2;
 }
-	
+
 #thevideo {
 	display: block;
 	margin-left: auto;
@@ -95,8 +95,6 @@ a {
 	color: black;
 	font-weight: 800;
 }
-
-
 
 .navbar {
 	margin-bottom: 0px;
