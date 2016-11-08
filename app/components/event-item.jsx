@@ -33,9 +33,6 @@ class EventItem extends Component {
       return (
         <div className="row" id="EventItemComponent">
           {this.renderImage()}
-          <div className="col-md-4">
-            <img width="250" src={this.props.event.venue.imageurl} />
-          </div>
           <div className="col-md-6">
             <h4>
               {
