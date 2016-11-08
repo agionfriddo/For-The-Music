@@ -14,6 +14,17 @@ export const fetchAllArtists = dispatch => {
     .then(res => dispatch(setArtists(res.data)))
 }
 
+export const addArtistOnDatabase = event => dispatch => {
+  axios.post(`/api/artists`, {
+    name: event.name,
+    bio: event.bio,
+    imageurl: event.imageurl,
+    youtube: event.youtube,
+    genreIds: [event.genreId]
+  })
+  .then(res => console.log(res.data))
+}
+
 
 // ------------- REDUCER
 

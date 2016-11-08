@@ -12,15 +12,15 @@ class ControlPanelArtistsComponent extends Component {
       youtube: '',
       genre: ''
     }
-    this.updateName = this.updateArtists.bind(this);
-    this.updateBio = this.updateVenue.bind(this);
-    this.updateImage = this.updateDate.bind(this);
-    this.updateYoutube = this.updateInitialTickets.bind(this);
-    this.updateGenre = this.updateTicketPrice.bind(this);
-    this.createArtist = this.createEvent.bind(this);
+    this.updateName = this.updateName.bind(this);
+    this.updateBio = this.updateBio.bind(this);
+    this.updateImage = this.updateImage.bind(this);
+    this.updateYoutube = this.updateYoutube.bind(this);
+    this.updateGenre = this.updateGenre.bind(this);
+    this.createArtist = this.createArtist.bind(this);
   }
   updateName(e) {
-    this.setState({name: e.target.value.split(' ')})
+    this.setState({name: e.target.value})
   }
   updateBio(e) {
     this.setState({bio: e.target.value})
@@ -45,26 +45,26 @@ class ControlPanelArtistsComponent extends Component {
           <div className='row'>
             <div className="col-md-12">
               <h3>Add an Event Below</h3>
-              <form name="editOrCreateEvent" onSubmit={this.createEvent}>
+              <form name="editOrCreateArtist" onSubmit={this.createArtist}>
                 <div className="form-group">
                   <label name="name">Name:</label>
-                  <input type="text" className="form-control" onChange={this.updateArtists} />
+                  <input type="text" className="form-control" onChange={this.updateBio} />
                 </div>
                 <div className="form-group">
                   <label name="bio">Bio:</label>
-                  <input type="text" className="form-control" onChange={this.updatebio} />
+                  <input type="text" className="form-control" onChange={this.updateImage} />
                 </div>
                 <div className="form-group">
                   <label name="imageurl">Image:</label>
-                  <input type="text" className="form-control" onChange={this.updateDate} />
+                  <input type="text" className="form-control" onChange={this.updateImage} />
                 </div>
                 <div className="form-group">
                   <label name="youtube">Youtube Embed Link:</label>
-                  <input type="text" className="form-control" onChange={this.updateInitialTickets} />
+                  <input type="text" className="form-control" onChange={this.updateYoutube} />
                 </div>
                 <div className="form-group">
                   <label name="genre">Genre:</label>
-                  <input type="text" className="form-control" onChange={this.updateTicketPrice} />
+                  <input type="text" className="form-control" onChange={this.updateGenre} />
                 </div>
                 <button type="submit" className="btn btn-default">Submit</button>
               </form>
@@ -75,6 +75,6 @@ class ControlPanelArtistsComponent extends Component {
 
 }
 const mapDispatchToProps = {  }
-const ControlPanelArtists = connect(null, mapDispatchToProps)(ControlPanelEventsComponent)
+const ControlPanelArtists = connect(null, mapDispatchToProps)(ControlPanelArtistsComponent)
 
 export default ControlPanelArtists;
