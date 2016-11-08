@@ -14,18 +14,25 @@ class EventItem extends Component {
 		let thisMoment = moment(this.props.event.date, moment.ISO_8601);
    	return thisMoment.format('LLLL');
   }
-
+  renderImage() {
+    if(!location.href.includes('venues')) {
+      return (
+        <div className="col-md-4">
+          <img width="250" src={this.props.event.venue.imageurl} />
+        </div>
+      )
+    } else return null
+  }
 
     render() {
+      console.log("THIS YO", this)
 			let thisEvent = this.props.event
 			let thisVenue = this.props.event.venue
 			let artistOne = thisEvent.artists[0];
-			let artistTwo = thisEvent.artists[1];	
+			let artistTwo = thisEvent.artists[1];
       return (
         <div className="row" id="EventItemComponent">
-          <div className="col-md-4">
-            <img width="250" src={this.props.event.venue.imageurl} />
-          </div>
+          {this.renderImage()}
           <div className="col-md-6">
             <h4><Link to={`/artists/${artistOne.id}`}> {artistOne.name}</Link> & <Link to={`/artists/${artistTwo.id}`}> {artistTwo.name} </Link> @ <Link to={`/venues/${thisVenue.id}`}>{thisVenue.name}</Link></h4>
             <p>{this.transformedDate()}</p>

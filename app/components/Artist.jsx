@@ -8,7 +8,9 @@ class Artist extends Component {
     return (
     <div>
 			<ArtistMoreInfo />
-      <EventList />
+      <div className="container">
+        <EventList />
+      </div>
     </div>
     )
   }

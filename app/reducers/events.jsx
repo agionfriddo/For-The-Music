@@ -4,13 +4,14 @@ import axios from 'axios'
 const SET_EVENTS = 'SET_EVENTS'
 const SET_EVENTS_BY_QUERY = 'SET_EVENTS_BY_QUERY'
 const SET_EVENTS_BY_ARTIST = 'SET_EVENTS_BY_ARTIST'
+const SET_EVENTS_BY_VENUE = 'SET_EVENTS_BY_VENUE'
 
 
 // -------------- SYNC ACTION CREATORS
 export const setEvents = eventsList => ({type: SET_EVENTS, eventsList})
 export const setEventsByQuery = eventsList => ({type: SET_EVENTS_BY_QUERY, eventsList})
 export const setEventsByArtist = eventsList => ({type: SET_EVENTS_BY_ARTIST, eventsList})
-
+export const setEventsByVenue = eventsList => ({type: SET_EVENTS_BY_VENUE, eventsList})
 
 // -------------- ASYNC ACTION CREATORS
 export const fetchAllEvents = dispatch => {
@@ -29,11 +30,18 @@ export const fetchEventsByQuery = query => dispatch => {
 }
 
 export const fetchEventsByArtist = artist => dispatch => {
-  console.log("ARTISTID", artist.id)
   axios.get(`/api/artists/${artist.id}/events`)
   .then(res => {
     console.log("DATA", res.data)
     dispatch(setEventsByArtist(res.data))
+  })
+}
+
+export const fetchEventsByVenue = venue => dispatch => {
+  axios.get(`/api/venues/${venue.id}/events`)
+  .then(res => {
+    console.log("DATA", res.data)
+    dispatch(setEventsByVenue(res.data))
   })
 }
 
@@ -56,6 +64,8 @@ const reducer = (state = eventListInitialState, action) => {
     case SET_EVENTS_BY_QUERY:
       return action.eventsList
     case SET_EVENTS_BY_ARTIST:
+      return action.eventsList
+    case SET_EVENTS_BY_VENUE:
       return action.eventsList
   default: return state
   }

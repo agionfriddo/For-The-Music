@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import EventList from './event-list';
 import VenueMoreInfo from './VenueMoreInfo';
-import ReviewList from './review-list'
+import ReviewList from './review-list';
+import { connect } from 'react-redux';
 
 class Venue extends Component {
   constructor() {
@@ -20,7 +21,7 @@ class Venue extends Component {
               <EventList />
             </div>
             <div className="col-md-6">
-              <ReviewList />
+              <ReviewList reviews={this.props.venuesList[0].reviews}/>
             </div>
           </div>
       </div>
@@ -28,4 +29,10 @@ class Venue extends Component {
   }
 }
 
-export default Venue
+const mapDispatchToProps = ({venuesList}) => ({
+  venuesList
+})
+
+const VenueContainer = connect(mapDispatchToProps)(Venue);
+
+export default VenueContainer

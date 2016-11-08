@@ -1,16 +1,16 @@
 import React from 'react';
-import EventList from './event-list';
+import VenueList from './venue-list';
 import SearchBar from './SearchBar'
 
-const Events = () => {
+const Venues = () => {
     return (
       <div>
         <SearchBar />
         <div className="container">
-          <EventList />
+          <VenueList />
         </div>
       </div>
     )
 }
 
-export default Events;
+export default Venues;
