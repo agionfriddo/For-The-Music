@@ -6,8 +6,17 @@ export default class ReviewItem extends Component {
     super()
   }
 
+	buildStarsBoolean(rating){
+			let booleanStars = [];
+			for(let i = 0; i < 5; i++){
+				booleanStars.push(rating > i);
+			}
+			return booleanStars;
+	}
+				
   render() {
     const reviewObj = this.props.reviewObj
+		console.log(buildStarsBoolean(reviewObj.rating));
     return (
       <div className="row">
         <div className="col-md-6">
