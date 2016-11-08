@@ -2,6 +2,7 @@ import React from 'react';
 import ArtistList from './artist-list';
 import SearchBar from './SearchBar'
 
+
 const Artists = () => {
     return (
       <div>
@@ -12,5 +13,6 @@ const Artists = () => {
       </div>
     )
 }
+
 
 export default Artists;

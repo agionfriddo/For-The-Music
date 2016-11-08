@@ -22,8 +22,16 @@ class CartItem extends Component {
 
     render() {
       const { ticket } = this.props
-
-      var appendedArtists = `${ticket.event.artists[0].name} & ${ticket.event.artists[1].name}`
+      let appendedArtists = ""
+      let appendedArtistArray = function(ticket) {
+        let artistsArray = ticket.event.artists
+        appendedArtists = artistsArray.map(artist => {
+          return artist.name 
+        }).join(' & ')
+      }(ticket)
+      
+      
+      //`${ticket.event.artists[0].name} & ${ticket.event.artists[1].name}`
 
       appendedArtists.trim();
 

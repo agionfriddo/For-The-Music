@@ -539,6 +539,17 @@ const orders = [
 
 const getRandom = (items) => items[Math.floor(Math.random() * items.length)];
 const oneThirdBoolean = () => Math.random() < 0.3333 ? true : false;
+const sometimesSecondArtist = () => Math.random() < 0.2 ? true : false;
+const runFunction = (func, arg, bool) => {
+  if (bool === true) {
+    let arr = []
+    arr.push(func(arg));
+    arr.push(func(arg));
+    return arr;
+  } else {
+    return func(arg);
+  }
+};
 const seedArtists = () => db.Promise.map(artists, artist => db.model('artists').create(artist))
 const seedGenres = () => db.Promise.map(genres, genre => db.model('genres').create(genre));
 const seedVenues = () => db.Promise.map(venues, venue => db.model('venues').create(venue));
@@ -562,7 +573,7 @@ const associateArtistsandEvents = () => {
   const findingEvents = Event.findAll({});
   Promise.all([findingArtists, findingEvents])
   .spread(function(foundArtists, foundEvents) {
-    foundEvents.forEach(event => event.addArtists([getRandom(foundArtists), getRandom(foundArtists)]))
+    foundEvents.forEach(event => event.addArtists(runFunction( getRandom, foundArtists, sometimesSecondArtist() )))
   })
   .catch(error => console.error(error))
 }

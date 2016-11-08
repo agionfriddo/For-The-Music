@@ -17,7 +17,7 @@ class EventList extends Component {
             <div className="list-group">
             {
               eventsList.length > 0
-							? eventsList.map(event => (
+							  ? eventsList.map(event => (
                		<div key={event.id} className="list-group-item">
                  		<EventItemComponent  event={event}/>
                 	</div>)

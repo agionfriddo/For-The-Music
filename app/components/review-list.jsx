@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 class ReviewList extends Component {
 
   render () {
-    console.log("PROPS IN REVIEW LIST", this.props)
+   
     const { reviews } = this.props
 
     return (
