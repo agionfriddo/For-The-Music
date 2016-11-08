@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 var moment = require('moment');
 
 
-class CartItem extends Component {
+class Ticket extends Component {
 
 	constructor(){
 		super();
@@ -22,6 +22,7 @@ class CartItem extends Component {
 
     render() {
       const { ticket } = this.props
+
       let appendedArtists = ""
       let appendedArtistArray = function(ticket) {
         let artistsArray = ticket.event.artists
@@ -310,7 +311,7 @@ const mapDispatchToProps = {deleteDBTicket}
 const mapStateToProps = (state, ownProps) => ({ticket:' ownProps.ticket'})
 
 
-let CartItemContainer = connect(null, mapDispatchToProps)(CartItem)
+let TicketContainer = connect(null, mapDispatchToProps)(Ticket)
 
-export default CartItemContainer
+export default TicketContainer; 
 
