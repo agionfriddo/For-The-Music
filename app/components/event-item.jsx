@@ -31,11 +31,11 @@ class EventItem extends Component {
               {
                 artistsArray && artistsArray.map((artist, index, arr) => {
                    return  (arr.length > 1 && index > 0 ) 
-                      ? <span> & <Link to={`/artists/${artist.id}`}>{artist.name}</Link></span>
-                      : <Link to={`/artists/${artist.id}`}>{artist.name}</Link>
+                      ? <span key={artist.id}> & <Link to={`/artists/${artist.id}`}>{artist.name}</Link></span>
+                      : <Link key={artist.id} to={`/artists/${artist.id}`}>{artist.name}</Link>
                 })
               }
-              <span> @ <Link to={`/venues/${thisVenue.id}`}>{thisVenue.name}</Link></span>
+              <span key={thisVenue.id}> @ <Link to={`/venues/${thisVenue.id}`}>{thisVenue.name}</Link></span>
             </h4>  
             <p>{this.transformedDate()}</p>
             <p>Price: ${this.props.event.ticketPrice}</p>
