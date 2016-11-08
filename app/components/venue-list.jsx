@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 class VenueList extends Component {
   render () {
     let { venuesList, filter } = this.props
-    venuesList = venuesList.filter(venue => venue.name.includes(filter))
+    venuesList = venuesList.filter(venue => venue.name.toLowerCase().includes(filter.toLowerCase()))
 
     return (
       <div>

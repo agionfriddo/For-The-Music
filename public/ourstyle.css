@@ -78,10 +78,11 @@ a {
 }
 
 #searchBar .container {
-	padding: 10px 10vw 150px 10vw;
+	padding: 10px 5vw 150px 5vw;
+	width: 100vw
 }
 
-#searchBar .input-group {
+#searchBar .form-group {
 	padding: 150px 10vw 0 10vw;
 }
 
@@ -89,6 +90,10 @@ a {
 	text-align: center;
 	border-bottom: 5px solid;
 	border-image: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 30%, black 30%, black 60%, rgba(0, 0, 0, 0) 60%) 10;
+}
+
+#searchBar .row {
+	padding-top: 10px
 }
 
 #searchBar .col-md-4 a {

@@ -17,7 +17,6 @@ export const setEventsByVenue = eventsList => ({type: SET_EVENTS_BY_VENUE, event
 export const fetchAllEvents = dispatch => {
   axios.get('/api/events')
     .then(res => {
-      console.log("DATA",res.data)
       dispatch(setEvents(res.data))
     })
 }

@@ -6,10 +6,7 @@ class EventList extends Component {
 
   render() {
     let { eventsList, filter } = this.props
-    let artistNames = []
-    eventsList.forEach(event => event.artists.forEach(artist => artistNames.push(artist.name)))
-    console.log(artistNames)
-    eventsList = eventsList.filter(event => event.artists[0].name.includes(filter) || event.artists[1].name.includes(filter) || event.venue.name.includes(filter))
+    eventsList = eventsList.filter(event => event.artists[0].name.toLowerCase().includes(filter.toLowerCase()) || event.artists[1].name.toLowerCase().includes(filter.toLowerCase()) || event.venue.name.toLowerCase().includes(filter.toLowerCase()))
 
     return (
       <div>

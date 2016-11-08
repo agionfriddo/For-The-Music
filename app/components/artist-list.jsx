@@ -6,10 +6,10 @@ class ArtistList extends Component {
 
   render () {
     let { artistsList, filter } = this.props
-    artistsList = artistsList.filter(artist => artist.name.includes(filter));
+    artistsList = artistsList.filter(artist => artist.name.toLowerCase().includes(filter.toLowerCase()));
 
     return (
-      <div className="container">
+      <div>
       <h3>Artists</h3>
         <div className="list-group">
           {

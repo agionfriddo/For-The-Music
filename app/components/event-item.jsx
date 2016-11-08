@@ -27,7 +27,7 @@ class EventItem extends Component {
 
     render() {
 			let thisEvent = this.props.event
-			let thisVenue = this.props.event.venue 
+			let thisVenue = this.props.event.venue
 			let artistsArray = thisEvent.artists;
 
       return (
@@ -37,13 +37,13 @@ class EventItem extends Component {
             <h4>
               {
                 artistsArray && artistsArray.map((artist, index, arr) => {
-                   return  (arr.length > 1 && index > 0 ) 
+                   return  (arr.length > 1 && index > 0 )
                       ? <span key={artist.id}> & <Link to={`/artists/${artist.id}`}>{artist.name}</Link></span>
                       : <Link key={artist.id} to={`/artists/${artist.id}`}>{artist.name}</Link>
                 })
               }
               <span key={thisVenue.id}> @ <Link to={`/venues/${thisVenue.id}`}>{thisVenue.name}</Link></span>
-            </h4>  
+            </h4>
             <p>{this.transformedDate()}</p>
             <p>Price: ${this.props.event.ticketPrice}</p>
           </div>
@@ -73,7 +73,7 @@ export default EventItemComponent;
 
 
   // artistsArray && artistsArray.map(function(artist, index, arr) {
-  //                     (arr.length > 1 && index > 0 ) 
+  //                     (arr.length > 1 && index > 0 )
   //                       ? <Link to={`/artists/${artist.id}`}>& {artist.name}</Link>
   //                       : <Link to={`/artists/${artist.id}`}> {artist.name}</Link>
   //                 })
@@ -82,10 +82,10 @@ export default EventItemComponent;
             //   {
             //     artistsArray.length > 0 ?
             //       artistsArray.map(artist => (
-            //         <Link to={`/artists/${artist.id}`}> {artist.name}</Link> 
+            //         <Link to={`/artists/${artist.id}`}> {artist.name}</Link>
             //       )).join(' &')
             //     : <div> Error loading Artists </div>
             //   }
             //   @
             //   <Link to={`/venues/${thisVenue.id}`}>{thisVenue.name}</Link>
-            // </h4>  
+            // </h4>

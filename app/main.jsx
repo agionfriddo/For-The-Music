@@ -22,6 +22,7 @@ import Venue from './components/Venue'
 import ControlPanel from './components/control-panel'
 import ControlPanelArtists from './components/control-panel-artists'
 import ControlPanelEvents from './components/control-panel-events'
+import { fetchFilter } from './reducers/filter'
 
 // on enter hook for /eventlist
 
@@ -30,12 +31,14 @@ import { fetchAllVenues, fetchOneVenue } from './reducers/venues'
 
 // on enter hook for /eventlist, /cart, /artistlist, and /venuelist
 const onEventListEnter = function() {
+  store.dispatch(fetchFilter(''))
   store.dispatch(fetchAllEvents)
 }
 const onCartEnter = function() {
   store.dispatch(fetchCurrentTickets)
 }
 const onArtistListEnter = function() {
+  store.dispatch(fetchFilter(''))
   store.dispatch(fetchAllArtists)
 }
 const onArtistEnter = function(artist) {
@@ -43,6 +46,7 @@ const onArtistEnter = function(artist) {
 	store.dispatch(fetchEventsByArtist({id: artist.params.artistId}));
 }
 const onVenueListEnter = function() {
+  store.dispatch(fetchFilter(''))
   store.dispatch(fetchAllVenues)
 }
 const onVenueEnter = function(venue) {
