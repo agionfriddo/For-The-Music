@@ -19,6 +19,9 @@ import SignUp from './components/sign-up'
 import MyAccount from './components/my-account'
 import Artist from './components/Artist'
 import Venue from './components/Venue'
+import ControlPanel from './components/control-panel'
+import ControlPanelArtists from './components/control-panel-artists'
+import ControlPanelEvents from './components/control-panel-events'
 
 // on enter hook for /eventlist
 
@@ -62,6 +65,11 @@ render (
         <Route path="/cart" component={CartComponent} />
         <Route path="/signup" component={SignUp} />
         <Route path="/myaccount" component={MyAccount} />
+        <Route path="/controlpanel" component={ControlPanel}>
+          <IndexRedirect to="/controlpanel/artists" />
+          <Route path="/controlpanel/artists" component={ControlPanelArtists}/>
+          <Route path="/controlpanel/events" component={ControlPanelEvents}/>
+        </Route>
       </Route>
     </Router>
   </Provider>,
