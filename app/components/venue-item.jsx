@@ -19,7 +19,7 @@ export default class VenueItem extends Component {
           <p>{ venueObj.address }</p>
         </div>
         <div className= "col-md-2">
-          <div className="btn btn-success">SEE VENUE PAGE</div>
+          <Link to={`/venues/${venueObj.id}`}><div className="btn btn-success">SEE VENUE PAGE</div></Link>
         </div>
       </div>
     )
