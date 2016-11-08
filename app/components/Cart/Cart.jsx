@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { checkCurrentOrder, completeCurrentOrder } from '../../reducers/currentOrder'
-import CartItemContainer from './cart-item'
+import TicketContainer from '../Event/ticket'
 
 class CartComponent extends Component {
   componentDidMount() {
@@ -57,7 +57,7 @@ class CartComponent extends Component {
             {
               currentOrder.tickets && currentOrder.tickets.map(ticket => (
                 <div key={ticket.id} className="list-group-item col-md-12">
-                  <CartItemContainer ticket={ticket} />
+                  <TicketContainer ticket={ticket} />
                 </div>
               ))
             }
