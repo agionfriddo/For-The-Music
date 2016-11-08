@@ -46,8 +46,14 @@ export const fetchEventsByVenue = venue => dispatch => {
   })
 }
 
-export const addEventOnDatabase = newEvent => dispatch => {
-  axios.post(`/api/events`)
+export const addEventOnDatabase = event => dispatch => {
+  axios.post(`/api/events`, {
+    artists: event.artists,
+    venue: event.venue,
+    date: event.date,
+    initialTickets: event.initialTickets,
+    ticketPrice: event.ticketPrice
+  })
   .then(res => console.log(res.data))
 }
 
