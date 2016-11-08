@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 
 class VenueList extends Component {
   render () {
-    const { venuesList } = this.props
-
-    console.log(venuesList)
+    let { venuesList, filter } = this.props
+    venuesList = venuesList.filter(venue => venue.name.includes(filter))
 
     return (
       <div>
@@ -26,6 +25,6 @@ class VenueList extends Component {
 }
 
 
-const mapStateToProps = state => ({venuesList: state.venuesList})
+const mapStateToProps = state => ({venuesList: state.venuesList, filter: state.filter})
 
 export default connect(mapStateToProps)(VenueList)

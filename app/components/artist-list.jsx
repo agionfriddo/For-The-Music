@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 class ArtistList extends Component {
 
   render () {
-    const { artistsList } = this.props
+    let { artistsList, filter } = this.props
+    artistsList = artistsList.filter(artist => artist.name.includes(filter));
 
     return (
       <div className="container">
@@ -25,6 +26,6 @@ class ArtistList extends Component {
 }
 
 
-const mapStateToProps = state => ({artistsList: state.artistsList})
+const mapStateToProps = state => ({artistsList: state.artistsList, filter: state.filter})
 
 export default connect(mapStateToProps)(ArtistList)

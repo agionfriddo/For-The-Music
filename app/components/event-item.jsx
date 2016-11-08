@@ -25,7 +25,6 @@ class EventItem extends Component {
   }
 
     render() {
-      console.log("THIS YO", this)
 			let thisEvent = this.props.event
 			let thisVenue = this.props.event.venue
 			let artistOne = thisEvent.artists[0];

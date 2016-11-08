@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchEventsByQuery } from '../reducers/events'
+import { fetchFilter } from '../reducers/filter'
 
 class SearchBarComponent extends Component {
   constructor() {
     super()
-    this.onSearchSubmit = this.onSearchSubmit.bind(this)
+    this.searchFilter = this.searchFilter.bind(this)
   }
 
-  onSearchSubmit(event) {
+  searchFilter(event) {
     event.preventDefault();
-    const { fetchEventsByQuery } = this.props;
-    fetchEventsByQuery(event.target.search.value)
+    const { fetchFilter } = this.props;
+    fetchFilter(event.target.value)
   }
 
   render() {
     return (
       <div id="searchBar">
-        <form className="form-group" onSubmit={this.onSearchSubmit}>
+        <form className="form-group" >
           <div className="input-group" >
             <input
               name="search"
               type="text"
               className="form-control"
               placeholder="Search by Venue or Artist"
+              onChange={this.searchFilter}
               />
             <span className="input-group-btn">
               <button type="submit" className="btn btn-default">
@@ -54,7 +55,7 @@ class SearchBarComponent extends Component {
 
 // Container----------------------------------------------------------
 
-const mapDispatchToProps = { fetchEventsByQuery }
+const mapDispatchToProps = { fetchFilter }
 const SearchBar = connect(null, mapDispatchToProps)(SearchBarComponent)
 
 export default SearchBar;
