@@ -12,7 +12,7 @@ export default class ReviewItem extends Component {
 				
   render() {
     const review = this.props.review
-		console.log(this.buildStarsBoolean(review.rating));
+    
     return (
       <div className="row">
         <div className="col-md-12">
