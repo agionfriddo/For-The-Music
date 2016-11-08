@@ -14,7 +14,7 @@ export default class ArtistItem extends Component {
           <div className="col-md-4">
             <img width="250" src={artistObj.imageurl} />
           </div>
-          <div className="col-md-5">
+          <div className="col-md-6">
             <Link to={`/artists/${artistObj.id}`}><h4>{ artistObj.name }</h4></Link>
             <p>
             {
@@ -26,9 +26,10 @@ export default class ArtistItem extends Component {
               }
             )}
             </p>
+            <p>{artistObj.bio}</p>
           </div>
-          <div className="col-md-3">
-            <Link to={`/artists/${artistObj.id}`}><button className="btn btn-success">SEE ARTIST PAGE</button></Link>
+          <div className="col-md-2">
+            <Link to={`/artists/${artistObj.id}`}><button className="btn btn-primary">SEE PAGE</button></Link>
           </div>
         </div>
     )

@@ -18,22 +18,16 @@ class SearchBarComponent extends Component {
   render() {
     return (
       <div id="searchBar">
-        <form className="form-group" >
-          <div className="input-group" >
-            <input
-              name="search"
-              type="text"
-              className="form-control"
-              placeholder="Search by Venue or Artist"
-              onChange={this.searchFilter}
-              />
-            <span className="input-group-btn">
-              <button type="submit" className="btn btn-default">
-                Go!
-              </button>
-            </span>
-          </div>
           <div className='container'>
+            <form className="form-group" >
+              <input
+                type="text"
+                name="search"
+                className="form-control"
+                placeholder="Search by Venue or Artist"
+                onChange={this.searchFilter}
+                autoFocus={true}
+                />
             <div className='row'>
               <div className='col-md-4'>
                 <Link to="/artistlist" className="searchShortcut">Artists</Link>
@@ -45,8 +39,8 @@ class SearchBarComponent extends Component {
                 <Link to="/eventlist" className="searchShortcut">Events</Link>
               </div>
             </div>
-          </div>
         </form>
+      </div>
       </div>
     )
   }

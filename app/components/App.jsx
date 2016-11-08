@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import Navbar from './Navbar'
+import Navbar from './Nav-SearchBar/Navbar'
 import {logout} from 'APP/app/reducers/auth'
 
 const AppComponent = function({user, children, logout}) {
