@@ -13,14 +13,16 @@ class EventList extends Component {
     eventsList = eventsList.filter(function (event) {
       let artistArray = event.artists;
       while( artistArray.length > 0) {
-        let artist = artistArray.shift()
-        if (artist.name.toLowerCase().includes(filter.toLowerCase()))
+        let artist = artistArray.shift();
+        if (artist.name.toLowerCase().includes(filter.toLowerCase())) {
           return true;
+        }
       }
-      if (event.venue.name.toLowerCase().includes(filter.toLowerCase()))
+      if (event.venue.name.toLowerCase().includes(filter.toLowerCase())) {
           return true;
-      else
+      } else {
         return false;
+      }
     })
 
     return (
