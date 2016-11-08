@@ -24,7 +24,7 @@ class EventList extends Component {
     )
   }
 }
-const mapStateToProps = state => ({eventsList: state.eventsList})
+const mapStateToProps = state => ({eventsList: state.eventsList, filter: state.filter})
 
 
 export default connect(mapStateToProps)(EventList)
