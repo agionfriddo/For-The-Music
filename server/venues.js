@@ -21,6 +21,16 @@ customVenueRoutes.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
+customVenueRoutes.get('/:venueId/events', (req, res, next) => {
+  Venue.findById(req.params.venueId)
+  .then(venue => {
+    venue.getEvents()
+    .then(events => {
+      res.json(events)
+    })
+  })
+})
+
 module.exports = customVenueRoutes
 
 const venues = epilogue.resource({

@@ -7,13 +7,13 @@ export default class ReviewItem extends Component {
   }
 
   render() {
-    const reviewObj = this.props.reviewObj
+    const review = this.props.review
     return (
       <div className="row">
-        <div className="col-md-6">
-          <h4>{ reviewObj.title } -- { reviewObj.rating } Stars</h4>
-          <p>By {reviewObj.user.name }</p>
-          <p>{ reviewObj.content }</p>
+        <div className="col-md-12">
+          <h4>{ review.title } -- { review.rating } Stars</h4>
+          <p>By {review.user.name }</p>
+          <p>{ review.content }</p>
         </div>
       </div>
     )
