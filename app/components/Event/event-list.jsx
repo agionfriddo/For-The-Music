@@ -6,15 +6,10 @@ class EventList extends Component {
 
   render() {
     let { eventsList, filter } = this.props
-    /*eventsList = eventsList.filter(event => event.artists[0].name.toLowerCase().includes(filter.toLowerCase()) ||
-                                              event.artists[1].name.toLowerCase().includes(filter.toLowerCase()) ||
-                                              event.venue.name.toLowerCase().includes(filter.toLowerCase())) */
-
+    
     eventsList = eventsList.filter(function (event) {
-      let artistArray = event.artists;
-      while( artistArray.length > 0) {
-        let artist = artistArray.shift();
-        if (artist.name.toLowerCase().includes(filter.toLowerCase())) {
+      for(var i = 0; i < event.artists.length; i++) {
+        if (event.artists[i].name.toLowerCase().includes(filter.toLowerCase())) {
           return true;
         }
       }
