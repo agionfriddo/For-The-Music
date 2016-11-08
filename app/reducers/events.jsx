@@ -5,6 +5,7 @@ const SET_EVENTS = 'SET_EVENTS'
 const SET_EVENTS_BY_QUERY = 'SET_EVENTS_BY_QUERY'
 const SET_EVENTS_BY_ARTIST = 'SET_EVENTS_BY_ARTIST'
 const SET_EVENTS_BY_VENUE = 'SET_EVENTS_BY_VENUE'
+const ADD_EVENT = 'ADD_EVENT'
 
 
 // -------------- SYNC ACTION CREATORS
@@ -12,6 +13,7 @@ export const setEvents = eventsList => ({type: SET_EVENTS, eventsList})
 export const setEventsByQuery = eventsList => ({type: SET_EVENTS_BY_QUERY, eventsList})
 export const setEventsByArtist = eventsList => ({type: SET_EVENTS_BY_ARTIST, eventsList})
 export const setEventsByVenue = eventsList => ({type: SET_EVENTS_BY_VENUE, eventsList})
+export const addEvent = event => ({type: ADD_EVENT, event})
 
 // -------------- ASYNC ACTION CREATORS
 export const fetchAllEvents = dispatch => {
@@ -42,6 +44,11 @@ export const fetchEventsByVenue = venue => dispatch => {
     console.log("DATA", res.data)
     dispatch(setEventsByVenue(res.data))
   })
+}
+
+export const addEventOnDatabase = newEvent => dispatch => {
+  axios.post(`/api/events`)
+  .then(res => console.log(res.data))
 }
 
 

@@ -104,3 +104,7 @@ a {
 .navbar {
 	margin-bottom: 0px;
 }
+
+#adminPanel h3{
+	display: inline
+}
