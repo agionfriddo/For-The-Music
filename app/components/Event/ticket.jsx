@@ -22,7 +22,7 @@ class Ticket extends Component {
 
     render() {
       const { ticket } = this.props
-
+			console.log(this.props);
       let appendedArtists = ""
       let appendedArtistArray = function(ticket) {
         let artistsArray = ticket.event.artists

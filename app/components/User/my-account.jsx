@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUserOrders } from '../../reducers/auth'
 import { Link } from 'react-router';
+import TicketContainer from '../Event/ticket.jsx';
 
 class MyAccount extends Component {
 
@@ -10,8 +11,7 @@ class MyAccount extends Component {
       // updateUserOrders
       console.log(this.props.getUserOrders)
       if(this.props.auth) {
-        this.props.getUserOrders(this.props.auth.id)
-      }
+        this.props.getUserOrders(this.props.auth.id) }
     }
 
     render() {
@@ -48,8 +48,17 @@ class MyAccount extends Component {
                 return(
                   <div className="row" key={order.id}>
                     <div className="col-md-12">
-                    <h1>Order #{order.id}</h1>
-                    <h4>{order.tickets.length} - tickets</h4>
+                    	<h1>Order #{order.id}</h1>
+                    	<h4>{order.tickets.length} - tickets</h4>
+											<div className="listOfTickets">
+												{
+													order.tickets.map(ticket => (
+														<div key={ticket.id} className="list-group-item col-md-12">
+															<TicketContainer ticket={ticket} />
+														</div>
+              						))
+												}
+											</div>		
                     </div>
                   </div>
                 )
