@@ -14,6 +14,15 @@ class EventItem extends Component {
 		let thisMoment = moment(this.props.event.date, moment.ISO_8601);
    	return thisMoment.format('LLLL');
   }
+  renderImage() {
+      if(!location.href.includes('venues')) {
+        return (
+          <div className="col-md-4">
+            <img width="250" src={this.props.event.venue.imageurl} />
+          </div>
+        )
+      } else return null
+    }
 
 
     render() {
@@ -23,9 +32,7 @@ class EventItem extends Component {
 
       return (
         <div className="row" id="EventItemComponent">
-          <div className="col-md-4">
-            <img width="250" src={this.props.event.venue.imageurl} />
-          </div>
+          {this.renderImage()}
           <div className="col-md-6">
             <h4>
               {
