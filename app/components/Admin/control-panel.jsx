@@ -11,7 +11,7 @@ class ControlPanel extends Component {
         <div className="container">
           <div className='row'>
             <div className="col-md-12">
-              <h1>Admin Page (links should be inline)</h1>
+              <h1>Admin Page</h1>
               <p>Are you an admin? {isAdmin}</p>
               <div id="adminPanel">
                 <Link to="/controlpanel/events"><h3>Events </h3></Link>

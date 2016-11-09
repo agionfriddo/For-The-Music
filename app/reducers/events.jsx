@@ -6,6 +6,7 @@ const SET_EVENTS_BY_QUERY = 'SET_EVENTS_BY_QUERY'
 const SET_EVENTS_BY_ARTIST = 'SET_EVENTS_BY_ARTIST'
 const SET_EVENTS_BY_VENUE = 'SET_EVENTS_BY_VENUE'
 const ADD_EVENT = 'ADD_EVENT'
+const EDIT_EVENT = 'EDIT_EVENT'
 
 
 // -------------- SYNC ACTION CREATORS
@@ -14,6 +15,7 @@ export const setEventsByQuery = eventsList => ({type: SET_EVENTS_BY_QUERY, event
 export const setEventsByArtist = eventsList => ({type: SET_EVENTS_BY_ARTIST, eventsList})
 export const setEventsByVenue = eventsList => ({type: SET_EVENTS_BY_VENUE, eventsList})
 export const addEvent = event => ({type: ADD_EVENT, event})
+export const editEvent = event => ({type: EDIT_EVENT, event})
 
 // -------------- ASYNC ACTION CREATORS
 export const fetchAllEvents = dispatch => {
@@ -52,10 +54,12 @@ export const addEventOnDatabase = event => dispatch => {
     venue: event.venue,
     date: event.date,
     initialTickets: event.initialTickets,
-    ticketPrice: event.ticketPrice
+    ticketPrice: event.ticketPrice,
+    eventId: event.eventId
   })
   .then(res => console.log(res.data))
 }
+
 
 
 // -------------- REDUCER

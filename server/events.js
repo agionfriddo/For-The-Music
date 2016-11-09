@@ -11,7 +11,57 @@ const customEventRoutes = require('express').Router()
   /* CUSTOM POST ROUTE THAT ALLOWS EVENTS TO BE ASSOCIATED WITH ARTISTS AND A SINGLE VENUE */
 
    customEventRoutes.post('/', (req, res, next) => {
-     console.log(req.body)
+     if(!req.body.venue || !req.body.artists || !req.body.date || !req.body.initialTickets || !req.body.ticketPrice) {
+       res.sendStatus(400).send("Please complete the entire form")
+     }
+      if(req.body.eventId > 0) {
+        let updateEvent = {
+          date: req.body.date,
+          initialTickets: req.body.initialTickets,
+          ticketPrice: req.body.ticketPrice
+        }
+        let filter = {
+          where: {
+            id: parseInt(req.body.eventId)
+          },
+          include: [
+            {model: Artist},
+            {model: Venue}
+          ]
+        };
+        console.log("YOYOYO")
+        let findingVenue = Venue.findOne({ where: { name: req.body.venue}})
+        let findingArtist = Artist.findOne({ where: { name: req.body.artists[0]}})
+
+        Promise.all([findingVenue, findingArtist])
+        .then(values => {
+          let foundVenue = values[0]
+          let foundArtist = values[1]
+          Event.findOne(filter)
+          .then(event => {
+            event.update(updateEvent)
+            .then(updatedEvent => {
+              updatedEvent.setVenue(foundVenue)
+              .then(eventWithVenue => {
+                eventWithVenue.setArtists(foundArtist)
+                .then(completeEvent => {
+                  console.log(completeEvent)
+                  res.sendStatus(200)
+                })
+                .catch(next)
+              })
+              .catch(next)
+            })
+            .catch(next)
+          })
+          .catch(next)
+        })
+        .catch(next);
+      }
+
+
+      else {
+        console.log("YO")
       let createThisEvent = req.body;
       let listOfArtists = createThisEvent.artists
       let venueName = createThisEvent.venue
@@ -41,13 +91,11 @@ const customEventRoutes = require('express').Router()
 
           })
           .then(() => {res.sendStatus(200)})
-      })
-
-
         })
+      })
         .catch(err => console.error(err))
+      }
    })
-
 module.exports = customEventRoutes
 
 const events = epilogue.resource({

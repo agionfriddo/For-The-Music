@@ -108,3 +108,8 @@ a {
 #adminPanel h3{
 	display: inline
 }
+
+#editEvent img {
+	height: 250px;
+	width: 250px;
+}
