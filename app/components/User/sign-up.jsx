@@ -22,6 +22,15 @@ class SignUp extends React.Component {
               <div className="buffer local">
                   <form onSubmit={this.onSubmit}>
                       <div className="form-group">
+                        <label>name</label>
+                        <input
+                          name="name"
+                          type="name"
+                          className="form-control"
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
                         <label>email</label>
                         <input
                           name="email"
@@ -68,6 +77,7 @@ class SignUp extends React.Component {
     event.preventDefault();
     const { signup } = this.props;
     const credentials = {
+      name: event.target.name.value,
       email: event.target.email.value,
       password: event.target.password.value
     }

@@ -31,15 +31,47 @@ customVenueRoutes.get('/:venueId/events', (req, res, next) => {
   })
 })
 
+customVenueRoutes.post('/', (req, res, next) => {
+  const dataToPost = {}
+  console.log('posted!')
+
+  for (let prop in req.body) {
+    if (req.body[prop]) {
+      dataToPost[prop] = req.body[prop]
+    }
+  }
+
+  if (Number(req.body.id)) {
+
+    Venue.findOne({where: {id: req.body.id}})
+      .then(venue => {
+        delete dataToPost.id
+        return venue.update(dataToPost)
+      })
+      .then(updatedVenue => {
+        console.log(dataToPost)
+        res.send(updatedVenue)
+      })
+      .catch(next)
+  } else {
+    delete dataToPost.id
+
+    Venue.create(dataToPost)
+      .then(createdVenue => {
+        res.send(createdVenue)
+      })
+      .catch(next)
+  }
+
+})
+
 module.exports = customVenueRoutes
 
 const venues = epilogue.resource({
   model: db.model('venues'),
   endpoints: ['/venues', '/venues/:id'],
-  actions: ['list', 'delete', 'create'],
+  actions: ['list', 'delete'],
 })
 
 // AUTH
 const {mustBeLoggedIn, selfOnly, forbidden, mustBeAdmin} = epilogue.filters
-venues.delete.auth(mustBeAdmin)
-venues.create.auth(mustBeAdmin)
