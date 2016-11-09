@@ -18,7 +18,7 @@ class VenueMoreInfo extends Component {
             <img src={currentVenue.imageurl} className="img-responsive" />
           </div>
           <div className="col-md-8">
-            <h2>{currentVenue.name}</h2>
+            <h1>{currentVenue.name}</h1>
             <h4>{currentVenue.address}</h4>
             <p>{currentVenue.description}</p>
           </div>

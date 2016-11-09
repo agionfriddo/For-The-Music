@@ -9,7 +9,7 @@ class VenueList extends Component {
 
     return (
       <div>
-        <h3>Venues</h3>
+        <h2>Venues</h2>
           <div className="list-group">
           {
             venuesList && venuesList.map(venue => (
