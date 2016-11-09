@@ -40,15 +40,17 @@ class MyAccount extends Component {
             <div className="col-md-12">
               <h1>Your Account Information</h1>
               <div>
-                <p>Name: {name}</p>
+                <span>Name: {name}  </span>
                 <span className="btn btn-warning btn-xs">Edit Name</span>
               </div>
               <div>  
-                <p>Email: {email}</p>
-                <div className="btn btn-warning btn-xs">Change Email</div>
+                <span>Email: {email}  </span>
+                <span className="btn btn-warning btn-xs">Change Email</span>
               </div>
-              <div className="btn btn-warning btn-xs">Change Password</div>
-              {isAdmin ? <Link to="/controlpanel"><div className="btn btn-success">Secret Admin Control Panel</div></Link> : <Link to="/controlpanel"><div className="btn btn-success">Secret Admin Control Panel</div></Link>}
+              <div>
+                <div className="btn btn-warning btn-xs">Change Password</div>
+              </div>
+              {isAdmin ? <Link to="/controlpanel"><div className="btn btn-success">Secret Admin Control Panel</div></Link> : null}
             </div>
           </div>
           <div className='row'>
