@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { getUserOrders } from '../../reducers/auth'
 import { Link } from 'react-router';
 import TicketContainer from '../Event/ticket.jsx';
+var moment = require('moment');
 
 class MyAccount extends Component {
 
@@ -31,6 +32,23 @@ class MyAccount extends Component {
           if('in-cart' !== order.status) {return true}
         })
       }
+
+			function tallyPrice(anOrderObj){
+	    	let price = 0;
+ 		  	anOrderObj.tickets && anOrderObj.tickets.forEach(ticket => {
+      		price += (Number(ticket.event.ticketPrice))
+    		})
+				return '$' + String(price.toFixed(2)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+			}
+			function transformedDate(UTCDateString){
+				if(UTCDateString === ""){ return "" };
+				let thisMoment = moment(UTCDateString, moment.ISO_8601);
+    		return thisMoment;
+			};
+		
+
+		
+
       return (
         <div className="container">
           <div className='row'>
@@ -46,14 +64,23 @@ class MyAccount extends Component {
               <h3>Previous Orders:</h3>
               {orders && orders.map(order => {
                 return(
-                  <div className="row" key={order.id}>
+                  <div key={order.id}>
                     <div className="col-md-12">
-                    	<h1>Order #{order.id}</h1>
-                    	<h4>{order.tickets.length} - tickets</h4>
-											<div className="listOfTickets">
+											<div className="row"> 
+												<div className="col-md-6 ">
+                    			<h1>Order #{order.id}</h1>
+													<p>Status: {order.status}</p>
+                    			<h4>{order.tickets.length} tickets:</h4>
+												</div>
+												<div className="col-md-6">
+													<h3>Total price: {tallyPrice(order)}</h3>
+													<h4>Placed on {transformedDate(order.date).format('dddd, MMMM Do YYYY, h:mm:ss a')}</h4>
+												</div>
+											</div>
+											<div className="listOfTickets row">
 												{
 													order.tickets.map(ticket => (
-														<div key={ticket.id} className="list-group-item col-md-12">
+														<div key={ticket.id} className="list-group-item col-md-6 ">
 															<TicketContainer ticket={ticket} />
 														</div>
               						))
