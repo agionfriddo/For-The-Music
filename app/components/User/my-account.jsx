@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUserOrders } from '../../reducers/auth'
 import { Link } from 'react-router';
+import ReviewList from '../Review/review-list';
 
 class MyAccount extends Component {
 
@@ -18,11 +19,13 @@ class MyAccount extends Component {
       let name = ''
       let email = ''
       let orders = null
+      let reviews = null
       let isAdmin = false
       if (this.props.auth) {
         name = this.props.auth.name
         email = this.props.auth.email
         orders = this.props.auth.orders
+        reviews = this.props.auth.reviews
         isAdmin = this.props.auth.isAdmin
       }
       if(orders) {
@@ -54,6 +57,13 @@ class MyAccount extends Component {
                   </div>
                 )
               })}
+            </div>
+          </div>
+          <div className='row'>
+            <div className="col-md-12">
+              {
+                reviews && reviews.length ? <ReviewList reviews={ reviews } /> : <h3>You haven't written any reviews</h3>
+              }
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ class ReviewList extends Component {
   render () {
    
     const { reviews } = this.props
-
+    console.log("REVIEW LIST COMPONENT", reviews)
     return (
       <div>
       <h3>Reviews</h3>
@@ -15,7 +15,7 @@ class ReviewList extends Component {
           {
             reviews && reviews.map(review => (
               <div key={ review.id } className="list-group-item">
-                <ReviewItemComponent review= { review }/>
+                <ReviewItemComponent review={ review }/>
               </div>
             )
           )}

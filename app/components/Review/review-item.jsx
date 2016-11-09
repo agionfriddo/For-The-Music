@@ -12,7 +12,7 @@ export default class ReviewItem extends Component {
 				
   render() {
     const review = this.props.review
-    
+    console.log("REVIEW ITEM", review)
     return (
       <div className="row">
         <div className="col-md-12">
@@ -24,7 +24,9 @@ export default class ReviewItem extends Component {
 				 		}
 					</h4>
 					<h4>{ review.title }</h4>
-          <p>By {review.user.name }</p>
+          {
+            review.user ? <p>By { review.user.name}</p> : null
+          }
           <p>{ review.content }</p>
         </div>
       </div>
