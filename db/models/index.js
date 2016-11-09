@@ -53,7 +53,7 @@ Event.addScope('defaultScope', {
 })
 
 User.addScope('defaultScope', {
-  include: [{model: Order}]
+  include: [{model: Order}, {model: Review}]
 }, {
   override: true
 })

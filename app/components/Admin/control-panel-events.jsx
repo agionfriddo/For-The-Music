@@ -20,7 +20,7 @@ class ControlPanelEventsComponent extends Component {
     this.createEvent = this.createEvent.bind(this);
   }
   updateArtists(e) {
-    this.setState({artists: e.target.value.split(' ')})
+    this.setState({artists: [e.target.value]})
   }
   updateVenue(e) {
     this.setState({venue: e.target.value})
@@ -36,7 +36,6 @@ class ControlPanelEventsComponent extends Component {
   }
   createEvent(e) {
     e.preventDefault()
-    console.log(this.state.artists)
     this.props.addEventOnDatabase(this.state)
   }
 
@@ -48,16 +47,28 @@ class ControlPanelEventsComponent extends Component {
               <form name="editOrCreateEvent" onSubmit={this.createEvent}>
                 <div className="form-group">
                   <label name="artists">Artists:</label>
-                  <input type="text" className="form-control" onChange={this.updateArtists} />
+                  <select className="form-control" onChange={this.updateArtists}>
+                  {
+                    this.props.artistsList && this.props.artistsList.map(artist => (
+                      <option>{artist.name}</option>
+                    )
+                  )
+                  }
+                  </select>
                 </div>
                 <div className="form-group">
-                  <label name="venue">Venue:</label>
-                  <input type="text" className="form-control" onChange={this.updateVenue} />
+                  <label name="venues">Venues:</label>
+                  <select className="form-control" onChange={this.updateVenue}>
+                  {
+                    this.props.venuesList && this.props.venuesList.map(venue => (
+                      <option>{venue.name}</option>
+                    )
+                  )
+                  }
+                  </select>
                 </div>
-                <div className="form-group">
                   <label name="date">Date:</label>
                   <input type="date" className="form-control" onChange={this.updateDate} />
-                </div>
                 <div className="form-group">
                   <label name="initialTickets">Number of Tickets:</label>
                   <input type="text" className="form-control" onChange={this.updateInitialTickets} />
@@ -75,6 +86,7 @@ class ControlPanelEventsComponent extends Component {
 
 }
 const mapDispatchToProps = { addEventOnDatabase }
-const ControlPanelEvents = connect(null, mapDispatchToProps)(ControlPanelEventsComponent)
+const mapStateToProps = ({ venuesList, artistsList }) => ({ venuesList, artistsList })
+const ControlPanelEvents = connect(mapStateToProps, mapDispatchToProps)(ControlPanelEventsComponent)
 
 export default ControlPanelEvents;

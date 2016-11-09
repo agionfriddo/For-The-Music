@@ -54,11 +54,16 @@ const onVenueEnter = function(venue) {
   store.dispatch(fetchEventsByVenue({id: venue.params.venueId}))
 }
 
+const onAppEnter = function() {
+  store.dispatch(fetchAllEvents)
+  store.dispatch(fetchAllArtists)
+  store.dispatch(fetchAllVenues)
+}
 
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={AppContainer}>
+      <Route path="/" component={AppContainer} onEnter={onAppEnter}>
         <IndexRedirect to="/eventlist" />
         <Route path="/jokes" component={Jokes} />
         <Route path="/eventlist" component={Events} onEnter={onEventListEnter} />
