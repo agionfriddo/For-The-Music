@@ -57,14 +57,17 @@ class MyAccount extends Component {
           <div className='row'>
             <div className="col-md-12">
               <h1>Your Account Information</h1>
+              <br/>
               <div>
                 <span>Name: {name}  </span>
                 <span className="btn btn-warning btn-xs">Edit Name</span>
               </div>
+              <br/>
               <div>  
                 <span>Email: {email}  </span>
                 <span className="btn btn-warning btn-xs">Change Email</span>
               </div>
+              <br/>
               <div>
                 <div className="btn btn-warning btn-xs">Change Password</div>
               </div>
@@ -73,14 +76,14 @@ class MyAccount extends Component {
           </div>
           <div className='row'>
             <div className="col-md-12">
-              <h3>Previous Orders:</h3>
+              <h2>Previous Orders</h2>
               {orders && orders.map(order => {
                 return(
                   <div key={order.id}>
                     <div className="col-md-12">
 											<div className="row"> 
 												<div className="col-md-6 ">
-                    			<h1>Order #{order.id}</h1>
+                    			<h3>Order #{order.id}</h3>
 													<p>Status: {order.status}</p>
                     			<h4>{order.tickets.length} tickets:</h4>
 												</div>

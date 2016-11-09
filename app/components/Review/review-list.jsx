@@ -10,7 +10,7 @@ class ReviewList extends Component {
     console.log("REVIEW LIST COMPONENT", reviews)
     return (
       <div>
-      <h3>Reviews</h3>
+      <h2>Reviews</h2>
         <div className="list-group">
           {
             reviews && reviews.map(review => (
