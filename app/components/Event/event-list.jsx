@@ -22,7 +22,7 @@ class EventList extends Component {
 
     return (
       <div>
-            <h3>Events</h3>
+            <h2>Events</h2>
             <div className="list-group">
             {
               eventsList.length > 0

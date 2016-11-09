@@ -43,7 +43,7 @@ class CartComponent extends Component {
         <div className='col-md-6'>
           <div className='row'>
             <div className='col-md-12'>
-              <h3>Current Cart</h3>
+              <h2>Current Cart</h2>
               <h5>Order Number {currentOrder.id}</h5>
               <p>Tickets Included Below:</p>
 

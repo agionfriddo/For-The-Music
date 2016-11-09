@@ -22,7 +22,7 @@ class Ticket extends Component {
 
     render() {
       const { ticket } = this.props
-
+			console.log(this.props);
       let appendedArtists = ""
       let appendedArtistArray = function(ticket) {
         let artistsArray = ticket.event.artists
@@ -57,9 +57,10 @@ class Ticket extends Component {
       */
       return (
 				<div className="ticketContainer">
-				<div className="btn btn-danger ticketDelete" onClick={()=>this.props.deleteDBTicket(ticket.id)}>
-					<span className="glyphicon glyphicon-remove"></span>
-				</div>
+				{	location.pathname.includes('cart') ? <div className="btn btn-danger ticketDelete" onClick={()=>this.props.deleteDBTicket(ticket.id)}>
+						<span className="glyphicon glyphicon-remove"></span>
+					</div> : null
+				}
         <svg
          xmlnsDc="http://purl.org/dc/elements/1.1/"
          xmlnsCc="http://creativecommons.org/ns#"
