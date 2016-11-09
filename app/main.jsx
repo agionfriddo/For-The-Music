@@ -22,6 +22,7 @@ import Venue from './components/Venue/Venue'
 import ControlPanel from './components/Admin/control-panel'
 import ControlPanelArtists from './components/Admin/control-panel-artists'
 import ControlPanelEvents from './components/Admin/control-panel-events'
+import ControlPanelVenues from './components/Admin/control-panel-venues'
 import { fetchFilter } from './reducers/filter'
 
 // on enter hook for /eventlist
@@ -78,6 +79,7 @@ render (
           <IndexRedirect to="/controlpanel/artists" />
           <Route path="/controlpanel/artists" component={ControlPanelArtists}/>
           <Route path="/controlpanel/events" component={ControlPanelEvents}/>
+          <Route path="/controlpanel/venues" component={ControlPanelVenues}/>
         </Route>
       </Route>
     </Router>

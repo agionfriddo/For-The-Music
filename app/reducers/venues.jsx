@@ -21,6 +21,11 @@ export const fetchOneVenue = venue => dispatch => {
   .then(res => dispatch(setOneVenue(res.data)))
 }
 
+// export const postOneVenue = venueData => dispatch => {
+//   console.log('/api/venues')
+//   .then(res => dispatch(setOneVenue(res.data)))
+// }
+
 
 // ------------- REDUCER
 

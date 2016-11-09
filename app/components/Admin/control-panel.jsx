@@ -11,12 +11,12 @@ class ControlPanel extends Component {
         <div className="container">
           <div className='row'>
             <div className="col-md-12">
-              <h1>Admin Page (links should be inline)</h1>
+              <h1>Admin Page</h1>
               <p>Are you an admin? {isAdmin}</p>
               <div id="adminPanel">
                 <Link to="/controlpanel/events"><h3>Events </h3></Link>
                 <Link to="/controlpanel/artists"><h3>Artists </h3></Link>
-                <h3>Venues </h3>
+                <Link to="/controlpanel/venues"><h3>Venues </h3></Link>
                 <h3>Users </h3>
                 <h3>Tickets </h3>
                 <h3>View/Edit Orders</h3>
